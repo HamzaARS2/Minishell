@@ -7,12 +7,6 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-typedef struct s_token {
-    char    *content
-
-
-
-} t_token;
 
 
 #endif
