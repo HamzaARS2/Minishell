@@ -16,7 +16,7 @@ t_lexer *init_lexer(char *content)
     return (lexer);
 }
 
-void    lexer_advance(t_lexer *lexer)
+void    lxr_advance(t_lexer *lexer)
 {
     if (lexer->i >= lexer->size)
         return ;
@@ -24,17 +24,29 @@ void    lexer_advance(t_lexer *lexer)
     lexer->c = lexer->content[lexer->i];
 }
 
-
-
-t_token *lexer_tokenize(t_lexer *lexer)
+t_token *lxr_tokenize(t_lexer *lexer)
 {
     t_token *token;
 
+    token = 0;
     while (lexer->c && lexer->i < lexer->size)
     {
-        if (ulex_extract_command(lexer, &token))
+        if (ulxr_extract_space(lexer, &token))
             return (token);
-    } 
-    return (token); 
+        if (ulxr_extract_word(lexer, &token))
+            return (token);
+        if (ulxr_extract_option(lexer, &token))
+            return (token);
+        if (ulxr_extract_pipe(lexer, &token))
+            return (token);
+        if (ulxr_extract_inred(lexer, &token))
+            return (token);
+        if (ulxr_extract_outred(lexer, &token))
+            return (token);
+        if (ulxr_extract_quotes(lexer, &token))
+            return (token);
+        if (ulxr_extract_variable(lexer, &token))
+            return (token);
+    }
+    return (token);
 }
-

@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:50:41 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/22 19:41:36 by helarras         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:13:29 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,31 @@
 #include "token.h"
 
 typedef struct s_lexer {
-    char            *content;
-    unsigned int    size;
-    unsigned int    i;
-    char            c;
     t_token         *tokens;
+    char            *content;
+    uint32_t        size;
+    uint32_t        i;
+    char            c;
 } t_lexer;
 
 // initializing the lexer.
 t_lexer *init_lexer(char *content);
 
 // advance to the next char in sequence.
-void    lexer_advance(t_lexer *lexer);
+void    lxr_advance(t_lexer *lexer);
 
-t_token *lexer_tokenize(t_lexer *lexer);
+// extract token from lexer content.
+t_token *lxr_tokenize(t_lexer *lexer);
 
-// utils
-bool    ulex_extract_command(t_lexer *lexer, t_token **token);
+// extract specific token types.
+bool    ulxr_extract_word(t_lexer *lexer, t_token **token);
+bool    ulxr_extract_option(t_lexer *lexer, t_token **token);
+bool    ulxr_extract_space(t_lexer *lexer, t_token **token);
+bool    ulxr_extract_pipe(t_lexer *lexer,t_token **token);
+bool    ulxr_extract_quotes(t_lexer *lexer, t_token **token);
 
-
-
+bool    ulxr_extract_inred(t_lexer *lexer, t_token **token);
+bool    ulxr_extract_outred(t_lexer *lexer, t_token **token);
+bool    ulxr_extract_variable(t_lexer *lexer, t_token **token);
 
 #endif

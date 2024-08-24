@@ -6,16 +6,16 @@
 #include <stdbool.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <stdint.h>
 #include "lexer/lexer.h"
 
 typedef void (*string_cb) (char *);
 
 
-char    *strsplit(char *str, char *charset, bool reset);
-
 // utils
 unsigned int    ft_strlen(char *str);
 char    *substr(char *str, int start, int end);
-bool    ft_isalpha(char c);
+bool    ft_isalnum(char c);
+bool    is_shell_special(char c);
 
 #endif
