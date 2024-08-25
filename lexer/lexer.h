@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:50:41 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/24 14:13:29 by helarras         ###   ########.fr       */
+/*   Updated: 2024/08/25 08:59:06 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,19 @@ void    lxr_advance(t_lexer *lexer);
 // extract token from lexer content.
 t_token *lxr_tokenize(t_lexer *lexer);
 
+// inserts new token to the lexer's list.
+void    lxr_insert_token(t_lexer *lexer, t_token *token);
+
 // extract specific token types.
 bool    ulxr_extract_word(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_option(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_space(t_lexer *lexer, t_token **token);
-bool    ulxr_extract_pipe(t_lexer *lexer,t_token **token);
-bool    ulxr_extract_quotes(t_lexer *lexer, t_token **token);
+bool    ulxr_extract_dquotes(t_lexer *lexer, t_token **token);
+bool    ulxr_extract_squotes(t_lexer *lexer, t_token **token);
 
 bool    ulxr_extract_inred(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_outred(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_variable(t_lexer *lexer, t_token **token);
+bool    ulxr_extract_pipe(t_lexer *lexer,t_token **token);
 
 #endif

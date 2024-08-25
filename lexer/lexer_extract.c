@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 19:27:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/24 14:13:29 by helarras         ###   ########.fr       */
+/*   Updated: 2024/08/25 08:58:08 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,7 @@ bool    ulxr_extract_space(t_lexer *lexer, t_token **token)
     return (true);
 }
 
-bool    ulxr_extract_pipe(t_lexer *lexer,t_token **token)
-{
-    uint32_t    start;
-    
-    if (lexer->c != '|')
-        return (false);
-    start = lexer->i;
-    lxr_advance(lexer);
-    while (lexer->c && lexer->c == '|')
-        lxr_advance(lexer);
-    *token = tkn_extract(PIPE, lexer->content, start, lexer->i);
-    if (!(*token))
-        return (false);
-    if (lexer->i - start > 1)
-        (*token)->type = OR;
-    return (true);
-}
-
-bool    ulxr_extract_quotes(t_lexer *lexer, t_token **token)
+bool    ulxr_extract_dquotes(t_lexer *lexer, t_token **token)
 {
     uint32_t    start;
     
@@ -86,6 +68,22 @@ bool    ulxr_extract_quotes(t_lexer *lexer, t_token **token)
     while (lexer->c && lexer->c == '"')
         lxr_advance(lexer);
     *token = tkn_extract(DQUOTES, lexer->content, start, lexer->i);
+    if (!(*token))
+        return (false);
+    return (true);
+}
+
+bool    ulxr_extract_squotes(t_lexer *lexer, t_token **token)
+{
+    uint32_t    start;
+    
+    if (lexer->c != '\'')
+        return (false);
+    start = lexer->i;
+    lxr_advance(lexer);
+    while (lexer->c && lexer->c == '\'')
+        lxr_advance(lexer);
+    *token = tkn_extract(SQUOTES, lexer->content, start, lexer->i);
     if (!(*token))
         return (false);
     return (true);

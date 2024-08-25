@@ -43,10 +43,17 @@ t_token *lxr_tokenize(t_lexer *lexer)
             return (token);
         if (ulxr_extract_outred(lexer, &token))
             return (token);
-        if (ulxr_extract_quotes(lexer, &token))
+        if (ulxr_extract_dquotes(lexer, &token))
             return (token);
         if (ulxr_extract_variable(lexer, &token))
             return (token);
+        if (ulxr_extract_squotes(lexer, &token))
+            return (token);
     }
     return (token);
+}
+
+void    lxr_insert_token(t_lexer *lexer, t_token *token)
+{
+    tkn_add_token(&lexer->tokens, token);
 }

@@ -59,6 +59,17 @@ void print_type_name(t_type type) {
             break;
     }
 }
+
+void    print_tokens(t_token *tokens) {
+    t_token *current;
+
+    current = tokens;
+    while (current) {
+        printf("Result: command = {%s}                || type = ", current->value);
+        print_type_name(current->type);
+        current = current->next;
+    }
+}
 void    on_new_line(char *line)
 {
     t_lexer *lexer = init_lexer(line);
@@ -66,15 +77,12 @@ void    on_new_line(char *line)
     while (true) {
         token = lxr_tokenize(lexer);
         if (token) {
-            printf("Result: command = {%s}                || type = ", token->value);
-            print_type_name(token->type);
-            free(token->value);
-            free(token);
+            lxr_insert_token(lexer, token);
         }
         else
             break;
     }
-    exit(0);
+    print_tokens(lexer->tokens);
 }
 
 void    on_destroy() {
@@ -82,7 +90,7 @@ void    on_destroy() {
 }
 
 int main(int ac, char **av, char **env) {
-    atexit(on_destroy);
+    // atexit(on_destroy);
     display_prompt(on_new_line);
    
 }
