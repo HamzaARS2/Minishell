@@ -6,11 +6,11 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 11:15:17 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/25 08:56:52 by helarras         ###   ########.fr       */
+/*   Updated: 2024/08/25 12:00:37 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../include/minishell.h"
 
 bool    ulxr_extract_inred(t_lexer *lexer, t_token **token)
 {

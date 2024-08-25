@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "include/minishell.h"
 
 void    display_prompt(string_cb newline)
 {
@@ -82,6 +82,7 @@ void    on_new_line(char *line)
         else
             break;
     }
+    // while(1);
     print_tokens(lexer->tokens);
 }
 

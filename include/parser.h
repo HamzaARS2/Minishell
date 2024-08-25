@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/22 15:08:05 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/25 12:00:59 by helarras         ###   ########.fr       */
+/*   Created: 2024/08/25 11:31:11 by helarras          #+#    #+#             */
+/*   Updated: 2024/08/25 15:14:26 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PARSER_H
+# define PARSER_H
 
-unsigned int    ft_strlen(char *str)
-{
-    unsigned int i;
-    
-    i = 0;
-    while (str && str[i])
-        i++;
-    return (i);
-}
+#include "lexer.h"
+
+
+typedef struct s_parser {
+    t_lexer     *lexer;
+    t_token     *current_tkn;
+    uint32_t    i;
+} t_parser;
+
+// initializing the parser.
+t_parser    *init_parser(t_lexer *lexer);
+
+// advance to the next token in the list.
+void        psr_advance(t_parser *parser);
+
+#endif

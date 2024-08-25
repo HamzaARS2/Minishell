@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/22 15:08:05 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/25 12:00:59 by helarras         ###   ########.fr       */
+/*   Created: 2024/08/25 12:54:55 by helarras          #+#    #+#             */
+/*   Updated: 2024/08/25 15:11:53 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/minishell.h"
 
-unsigned int    ft_strlen(char *str)
+t_ast   *ast_create_node(t_token *token, t_ast_type type)
 {
-    unsigned int i;
-    
-    i = 0;
-    while (str && str[i])
-        i++;
-    return (i);
+    t_ast   *node;
+
+    node = malloc(sizeof(t_ast));
+    if (!node)
+        return (NULL);
+    node->token = token;
+    node->type = type;
+    return (node);
 }

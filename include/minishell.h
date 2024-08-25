@@ -7,7 +7,9 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdint.h>
-#include "lexer/lexer.h"
+#include "lexer.h"
+#include "parser.h"
+#include "ast.h"
 
 typedef void (*string_cb) (char *);
 

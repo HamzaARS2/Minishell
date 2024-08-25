@@ -6,11 +6,11 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 19:27:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/25 08:58:08 by helarras         ###   ########.fr       */
+/*   Updated: 2024/08/25 12:00:28 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../include/minishell.h"
 
 bool    ulxr_extract_word(t_lexer *lexer, t_token **token)
 {

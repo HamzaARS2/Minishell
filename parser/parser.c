@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   substr.c                                           :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/22 19:15:50 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/25 12:01:16 by helarras         ###   ########.fr       */
+/*   Created: 2024/08/25 12:03:34 by helarras          #+#    #+#             */
+/*   Updated: 2024/08/25 15:15:11 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char    *substr(char *str, int start, int end)
+t_parser    *init_parser(t_lexer *lexer)
 {
-    char    *newstr;
-    int     strsize;
-    int     i;
+    t_parser    *parser;
 
-    i = 0;
-    strsize = end - start;
-    if (strsize <= 0)
+    parser = malloc(sizeof(t_parser));
+    if (!parser)
         return (NULL);
-    newstr = malloc((strsize + 1) * sizeof(char));
-    if (!newstr)
-        return (NULL);
-    while (str[start] && strsize > i)
-        newstr[i++] = str[start++];
-    newstr[i] = 0;
-    return (newstr);
+    parser->lexer = lexer;
+    parser->i = 0;
+    parser->current_tkn = lexer->tokens;
+    return (parser);
+}
+
+void    psr_advance(t_parser *parser)
+{
+    if (!parser->current_tkn || !parser->current_tkn->next)
+        return ;
+    parser->i++;
+    parser->current_tkn = parser->current_tkn->next;
 }

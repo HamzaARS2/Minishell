@@ -6,11 +6,11 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:35:46 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/22 17:41:29 by helarras         ###   ########.fr       */
+/*   Updated: 2024/08/25 12:00:50 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token.h"
+#include "../include/token.h"
 
 t_token *get_last_token(t_token *token_list)
 {
