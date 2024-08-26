@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:16:34 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/25 12:00:17 by helarras         ###   ########.fr       */
+/*   Updated: 2024/08/26 19:44:56 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_token *tkn_create_token(char *value, t_type type)
         return (NULL);
     token->value = value;
     token->type = type;
+    token->state = DEFAULT;
     return (token);
 }
 
@@ -48,3 +49,4 @@ t_token *tkn_extract(t_type type, char *str, uint32_t start, uint32_t end)
     }
     return (token);
 }
+

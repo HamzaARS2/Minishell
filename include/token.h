@@ -21,9 +21,17 @@ typedef enum s_type {
 
 } t_type;
 
+typedef enum s_state {
+    DEFAULT,       // Normal state, outside of quotes
+    IN_DQUOTES,    // Inside double quotes
+    IN_SQUOTES,    // Inside single quotes
+    AFTER_COMMAND, // After a command
+} t_state;
+
 typedef struct s_token {
     char    *value;
     t_type  type;
+    t_state state;
     struct s_token *next;
 } t_token;
 
@@ -34,7 +42,7 @@ t_token *get_last_token(t_token *token_list);
 
 
 // create token.
-t_token *tkn_create_token(char *content, t_type type);
+t_token *tkn_create_token(char *value, t_type type);
 // add token to the list.
 void    tkn_add_token(t_token **token_lst, t_token *new_token);
 // extract part of DQUOTES from a token.

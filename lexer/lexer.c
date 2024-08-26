@@ -24,12 +24,6 @@ void    lxr_advance(t_lexer *lexer)
     lexer->c = lexer->content[lexer->i];
 }
 
-void    skip_spaces(t_lexer *lexer)
-{
-    if (lexer->c && lexer->c == 32)
-        lxr_advance(lexer);
-}
-
 t_token *lxr_tokenize(t_lexer *lexer)
 {
     t_token *token;
@@ -37,7 +31,8 @@ t_token *lxr_tokenize(t_lexer *lexer)
     token = 0;
     while (lexer->c && lexer->i < lexer->size)
     {
-        skip_spaces(lexer);
+        if (ulxr_extract_space(lexer, &token))
+            return (token);
         if (ulxr_extract_word(lexer, &token))
             return (token);
         if (ulxr_extract_option(lexer, &token))
@@ -61,17 +56,34 @@ t_token *lxr_tokenize(t_lexer *lexer)
 void    lxr_generate_tokens(t_lexer *lexer)
 {
     t_token *token;
+    t_state state;
 
+    state = DEFAULT;
     if (!lexer)
         return ;
     while (true)
     {
         token = lxr_tokenize(lexer);
-        if (!token)
-            break ;
         tkn_add_token(&lexer->tokens, token);
     }
 }
 
+void    lxr_set_states(t_lexer *lexer)
+{
+    t_token *current;
+    t_state state;
+
+    state = DEFAULT;
+    current = lexer->tokens;
+    while (current)
+    {
+        current->state = state;
+        if (state == DEFAULT && current->type == DQUOTES)
+            state = IN_DQUOTES;
+        else if (state == IN_DQUOTES && current->type == DQUOTES)
+            state = DEFAULT;
+        current = current->next;
+    }
+}
 
 //ls -la | echo "hello world" > out.txt

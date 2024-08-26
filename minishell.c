@@ -86,7 +86,7 @@ void    on_destroy() {
 }
 
 int main(int ac, char **av, char **env) {
-    // atexit(on_destroy);
+    atexit(on_destroy);
     display_prompt(on_new_line);
    
 }
