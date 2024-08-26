@@ -11,7 +11,7 @@
 #include "parser.h"
 #include "ast.h"
 
-typedef void (*string_cb) (char *);
+typedef void (*DQUOTES_cb) (char *);
 
 
 // utils

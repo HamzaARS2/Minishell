@@ -24,6 +24,12 @@ void    lxr_advance(t_lexer *lexer)
     lexer->c = lexer->content[lexer->i];
 }
 
+void    skip_spaces(t_lexer *lexer)
+{
+    if (lexer->c && lexer->c == 32)
+        lxr_advance(lexer);
+}
+
 t_token *lxr_tokenize(t_lexer *lexer)
 {
     t_token *token;
@@ -31,8 +37,7 @@ t_token *lxr_tokenize(t_lexer *lexer)
     token = 0;
     while (lexer->c && lexer->i < lexer->size)
     {
-        if (ulxr_extract_space(lexer, &token))
-            return (token);
+        skip_spaces(lexer);
         if (ulxr_extract_word(lexer, &token))
             return (token);
         if (ulxr_extract_option(lexer, &token))
@@ -53,7 +58,20 @@ t_token *lxr_tokenize(t_lexer *lexer)
     return (token);
 }
 
-void    lxr_insert_token(t_lexer *lexer, t_token *token)
+void    lxr_generate_tokens(t_lexer *lexer)
 {
-    tkn_add_token(&lexer->tokens, token);
+    t_token *token;
+
+    if (!lexer)
+        return ;
+    while (true)
+    {
+        token = lxr_tokenize(lexer);
+        if (!token)
+            break ;
+        tkn_add_token(&lexer->tokens, token);
+    }
 }
+
+
+//ls -la | echo "hello world" > out.txt

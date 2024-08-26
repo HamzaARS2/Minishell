@@ -1,6 +1,6 @@
 #include "include/minishell.h"
 
-void    display_prompt(string_cb newline)
+void    display_prompt(DQUOTES_cb newline)
 {
     char    *line;
 
@@ -54,6 +54,9 @@ void print_type_name(t_type type) {
         case OR:
             printf("OR\n");
             break;
+        case ERROR:
+            printf("ERROR\n");
+            break;
         default:
             printf("Unknown type\n");
             break;
@@ -73,15 +76,7 @@ void    print_tokens(t_token *tokens) {
 void    on_new_line(char *line)
 {
     t_lexer *lexer = init_lexer(line);
-    t_token *token;
-    while (true) {
-        token = lxr_tokenize(lexer);
-        if (token) {
-            lxr_insert_token(lexer, token);
-        }
-        else
-            break;
-    }
+    lxr_generate_tokens(lexer);
     // while(1);
     print_tokens(lexer->tokens);
 }

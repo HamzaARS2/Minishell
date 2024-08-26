@@ -15,7 +15,9 @@ typedef enum s_type {
     DQUOTES = 38,
     SQUOTES = 39,
     VARIABLE = 40,
-    OR = 41
+    OR = 41,
+    AND = 42,
+    ERROR = 101
 
 } t_type;
 
@@ -35,7 +37,7 @@ t_token *get_last_token(t_token *token_list);
 t_token *tkn_create_token(char *content, t_type type);
 // add token to the list.
 void    tkn_add_token(t_token **token_lst, t_token *new_token);
-// extract part of string from a token.
+// extract part of DQUOTES from a token.
 t_token *tkn_extract(t_type type, char *str, uint32_t start, uint32_t end);
 
 #endif

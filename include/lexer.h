@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:50:41 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/25 08:59:06 by helarras         ###   ########.fr       */
+/*   Updated: 2024/08/26 10:56:20 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void    lxr_advance(t_lexer *lexer);
 // extract token from lexer content.
 t_token *lxr_tokenize(t_lexer *lexer);
 
-// inserts new token to the lexer's list.
-void    lxr_insert_token(t_lexer *lexer, t_token *token);
+// generates list of tokens.
+void    lxr_generate_tokens(t_lexer *lexer);
 
 // extract specific token types.
 bool    ulxr_extract_word(t_lexer *lexer, t_token **token);
