@@ -18,6 +18,7 @@
 typedef struct s_lexer {
     t_token         *tokens;
     char            *content;
+    t_state         state;
     uint32_t        size;
     uint32_t        i;
     char            c;
@@ -37,7 +38,6 @@ void    lxr_generate_tokens(t_lexer *lexer);
 
 // extract specific token types.
 bool    ulxr_extract_word(t_lexer *lexer, t_token **token);
-bool    ulxr_extract_option(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_space(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_dquotes(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_squotes(t_lexer *lexer, t_token **token);

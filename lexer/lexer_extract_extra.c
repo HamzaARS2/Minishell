@@ -27,6 +27,7 @@ bool    ulxr_extract_inred(t_lexer *lexer, t_token **token)
         return (false);
     if (lexer->i - start > 1)
         (*token)->type = HERE_DOC;
+    (*token)->state = lexer->state;
     return (true);
 }
 
@@ -44,7 +45,8 @@ bool    ulxr_extract_outred(t_lexer *lexer, t_token **token)
     if (!(*token))
         return (false);
     if (lexer->i - start > 1)
-        (*token)->type = APPENED;
+        (*token)->type = APPEND;
+    (*token)->state = lexer->state;
     return (true);
 }
 
@@ -63,6 +65,7 @@ bool    ulxr_extract_variable(t_lexer *lexer, t_token **token)
         return (false);
     if (lexer->i - start == 1)
         (*token)->type = WORD;
+    (*token)->state = lexer->state;
     return (true);
 }
 
@@ -81,5 +84,6 @@ bool    ulxr_extract_pipe(t_lexer *lexer,t_token **token)
         return (false);
     if (lexer->i - start > 1)
         (*token)->type = OR;
+    (*token)->state = lexer->state;
     return (true);
 }

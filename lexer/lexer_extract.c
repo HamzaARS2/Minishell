@@ -22,22 +22,7 @@ bool    ulxr_extract_word(t_lexer *lexer, t_token **token)
     *token = tkn_extract(WORD, lexer->content, start, lexer->i);
     if (!(*token))
         return (false);
-    return (true);
-}
-
-bool    ulxr_extract_option(t_lexer *lexer, t_token **token)
-{
-    unsigned int    start;
-
-    if (lexer->c != '-')
-        return (false);
-    start = lexer->i;
-    lxr_advance(lexer);
-    while (lexer->c && !is_shell_special(lexer->c))
-        lxr_advance(lexer);
-    *token = tkn_extract(OPTION, lexer->content, start, lexer->i);
-    if (!(*token))
-        return (false);
+    (*token)->state = lexer->state;
     return (true);
 }
 
@@ -51,9 +36,10 @@ bool    ulxr_extract_space(t_lexer *lexer, t_token **token)
     lxr_advance(lexer);
     while (lexer->c && lexer->c == 32)
         lxr_advance(lexer);
-    *token = tkn_extract(SPACE, lexer->content, start, lexer->i);
+    *token = tkn_extract(SSPACE, lexer->content, start, lexer->i);
     if (!(*token))
         return (false);
+    (*token)->state = lexer->state;
     return (true);
 }
 
@@ -65,18 +51,20 @@ bool    ulxr_extract_dquotes(t_lexer *lexer, t_token **token)
         return (false);
     start = lexer->i;
     lxr_advance(lexer);
-    while (lexer->c && lexer->c != '"')
+    while (lexer->c && lexer->c == '"')
         lxr_advance(lexer);
-    if (lexer->c == '"')
-    {
-        lxr_advance(lexer);
-        *token = tkn_extract(DQUOTES, lexer->content, start, lexer->i);
-        if (!(*token))
-            return (false);
-    } else
-        *token = tkn_create_token(NULL, ERROR);
+    *token = tkn_extract(DQUOTES, lexer->content, start, lexer->i);
+    if (!(*token))
+        return (false);
+    if (lexer->state == DEFAULT)
+        lexer->state = IN_DQUOTES;
+    else if (lexer->state == IN_SQUOTES)
+        (*token)->state = IN_SQUOTES;
+    else if (lexer->state == IN_DQUOTES)
+        lexer->state = DEFAULT;
     return (true);
 }
+
 
 bool    ulxr_extract_squotes(t_lexer *lexer, t_token **token)
 {
@@ -86,16 +74,17 @@ bool    ulxr_extract_squotes(t_lexer *lexer, t_token **token)
         return (false);
     start = lexer->i;
     lxr_advance(lexer);
-    while (lexer->c && lexer->c != '\'')
+    while (lexer->c && lexer->c == '\'')
         lxr_advance(lexer);
-    if (lexer->c == '\'')
-    {
-        lxr_advance(lexer);
-        *token = tkn_extract(SQUOTES, lexer->content, start, lexer->i);
-        if (!(*token))
-            return (false);
-    } else
-        *token = tkn_create_token(NULL, ERROR);
+    *token = tkn_extract(SQUOTES, lexer->content, start, lexer->i);
+    if (!(*token))
+        return (false);
+    if (lexer->state == DEFAULT)
+        lexer->state = IN_SQUOTES;
+    else if (lexer->state == IN_DQUOTES)
+        (*token)->state = IN_DQUOTES;
+    else if (lexer->state == IN_SQUOTES)
+        lexer->state = DEFAULT;
     return (true);
 }
 

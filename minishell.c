@@ -24,8 +24,8 @@ void print_type_name(t_type type) {
         case OPTION:
             printf("OPTION\n");
             break;
-        case SPACE:
-            printf("SPACE\n");
+        case SSPACE:
+            printf("SSPACE\n");
             break;
         case PIPE:
             printf("PIPE\n");
@@ -39,7 +39,7 @@ void print_type_name(t_type type) {
         case HERE_DOC:
             printf("HERE_DOC\n");
             break;
-        case APPENED:
+        case APPEND:
             printf("APPENED\n");
             break;
         case DQUOTES:
@@ -63,12 +63,23 @@ void print_type_name(t_type type) {
     }
 }
 
+void    print_state(t_state state) {
+    if (state == DEFAULT)
+        printf("DEFAULT");
+    else if (state == IN_DQUOTES)
+        printf("IN_DQUOTES");
+    else
+        printf("IN_SQUOTES");
+}
+
 void    print_tokens(t_token *tokens) {
     t_token *current;
 
     current = tokens;
     while (current) {
-        printf("Result: command = {%s}                || type = ", current->value);
+        printf("Result: command = {%s}                || state = ", current->value);
+        print_state(current->state);
+        printf(" || type = ");
         print_type_name(current->type);
         current = current->next;
     }
@@ -77,7 +88,6 @@ void    on_new_line(char *line)
 {
     t_lexer *lexer = init_lexer(line);
     lxr_generate_tokens(lexer);
-    // while(1);
     print_tokens(lexer->tokens);
 }
 

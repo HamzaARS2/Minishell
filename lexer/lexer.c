@@ -9,7 +9,9 @@ t_lexer *init_lexer(char *content)
     lexer = malloc(sizeof(t_lexer));
     if (!lexer)
         return (NULL);
+    lexer->tokens = NULL;
     lexer->content = content;
+    lexer->state = DEFAULT;
     lexer->size = ft_strlen(content);
     lexer->i = 0;
     lexer->c = content[0];
@@ -24,12 +26,6 @@ void    lxr_advance(t_lexer *lexer)
     lexer->c = lexer->content[lexer->i];
 }
 
-void    skip_spaces(t_lexer *lexer)
-{
-    if (lexer->c && lexer->c == 32)
-        lxr_advance(lexer);
-}
-
 t_token *lxr_tokenize(t_lexer *lexer)
 {
     t_token *token;
@@ -37,10 +33,9 @@ t_token *lxr_tokenize(t_lexer *lexer)
     token = 0;
     while (lexer->c && lexer->i < lexer->size)
     {
-        skip_spaces(lexer);
-        if (ulxr_extract_word(lexer, &token))
+        if (ulxr_extract_space(lexer, &token))
             return (token);
-        if (ulxr_extract_option(lexer, &token))
+        if (ulxr_extract_word(lexer, &token))
             return (token);
         if (ulxr_extract_pipe(lexer, &token))
             return (token);
@@ -73,5 +68,3 @@ void    lxr_generate_tokens(t_lexer *lexer)
     }
 }
 
-
-//ls -la | echo "hello world" > out.txt
