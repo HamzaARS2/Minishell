@@ -15,7 +15,7 @@
 bool    is_shell_special(char c)
 {
     if (c == 32 || c == '$' || c == '|' || c == '<' || c == '>' || c == '"'
-        || c == '"' || c == '\'' || c == '\'' || c == '-')
+        || c == '"' || c == '\'' || c == '\'')
         return (true);
     return (false);
 }

@@ -64,6 +64,8 @@ void    lxr_generate_tokens(t_lexer *lexer)
     while (true)
     {
         token = lxr_tokenize(lexer);
+        if (!token)
+            break ;
         tkn_add_token(&lexer->tokens, token);
     }
 }
