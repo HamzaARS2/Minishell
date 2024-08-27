@@ -6,12 +6,12 @@
 typedef enum s_type {
     WORD = 30,
     OPTION = 31,
-    SPACE = 32,
+    SSPACE = 32,
     PIPE = 33,
     IN_RED = 34,
     OUT_RED = 35,
     HERE_DOC = 36,
-    APPENED = 37,
+    APPEND = 37,
     DQUOTES = 38,
     SQUOTES = 39,
     VARIABLE = 40,
@@ -22,10 +22,9 @@ typedef enum s_type {
 } t_type;
 
 typedef enum s_state {
-    DEFAULT,       // Normal state, outside of quotes
-    IN_DQUOTES,    // Inside double quotes
-    IN_SQUOTES,    // Inside single quotes
-    AFTER_COMMAND, // After a command
+    DEFAULT,
+    IN_DQUOTES,
+    IN_SQUOTES
 } t_state;
 
 typedef struct s_token {

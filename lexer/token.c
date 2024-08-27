@@ -22,14 +22,15 @@ t_token *tkn_create_token(char *value, t_type type)
     token->value = value;
     token->type = type;
     token->state = DEFAULT;
+    token->next = NULL;
     return (token);
 }
 
 void    tkn_add_token(t_token **token_lst, t_token *new_token)
 {
-    if (!*token_lst)
+    if (!(*token_lst))
         *token_lst = new_token;
-    else
+    else 
         add_last_token(*token_lst, new_token);
 }
 

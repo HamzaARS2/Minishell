@@ -22,7 +22,7 @@ t_token *get_last_token(t_token *token_list)
 void    add_last_token(t_token *token_list, t_token *token_node)
 {
     t_token *current_last;
-
+    
     current_last = get_last_token(token_list);
     if (!current_last)
         return ;

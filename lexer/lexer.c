@@ -9,7 +9,9 @@ t_lexer *init_lexer(char *content)
     lexer = malloc(sizeof(t_lexer));
     if (!lexer)
         return (NULL);
+    lexer->tokens = NULL;
     lexer->content = content;
+    lexer->state = DEFAULT;
     lexer->size = ft_strlen(content);
     lexer->i = 0;
     lexer->c = content[0];
@@ -34,8 +36,6 @@ t_token *lxr_tokenize(t_lexer *lexer)
         if (ulxr_extract_space(lexer, &token))
             return (token);
         if (ulxr_extract_word(lexer, &token))
-            return (token);
-        if (ulxr_extract_option(lexer, &token))
             return (token);
         if (ulxr_extract_pipe(lexer, &token))
             return (token);
@@ -68,22 +68,3 @@ void    lxr_generate_tokens(t_lexer *lexer)
     }
 }
 
-void    lxr_set_states(t_lexer *lexer)
-{
-    t_token *current;
-    t_state state;
-
-    state = DEFAULT;
-    current = lexer->tokens;
-    while (current)
-    {
-        current->state = state;
-        if (state == DEFAULT && current->type == DQUOTES)
-            state = IN_DQUOTES;
-        else if (state == IN_DQUOTES && current->type == DQUOTES)
-            state = DEFAULT;
-        current = current->next;
-    }
-}
-
-//ls -la | echo "hello world" > out.txt

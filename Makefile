@@ -9,10 +9,10 @@ MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
 NAME := minishell
 
-all: $(NAME)
+all: $(NAME) clean
 
 $(NAME): $(MAIN_OBJS)
-	$(CC) $(MAIN_OBJS) -lreadline -o $(NAME)
+	$(CC) $(MAIN_OBJS) -lreadline -o $(NAME) -fsanitize=address -g
 
 clean:
 	rm -rf $(MAIN_OBJS)
