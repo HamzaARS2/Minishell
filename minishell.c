@@ -77,7 +77,7 @@ void    print_tokens(t_token *tokens) {
 
     current = tokens;
     while (current) {
-        printf("Result: command = {%s}                || state = ", current->value);
+        printf("Result: id = %i command = {%s}                || state = ", current->id, current->value);
         print_state(current->state);
         printf(" || type = ");
         print_type_name(current->type);

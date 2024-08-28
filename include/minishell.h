@@ -9,7 +9,7 @@
 #include <stdint.h>
 #include "lexer.h"
 #include "parser.h"
-#include "ast.h"
+#include "resolver.h"
 
 typedef void (*DQUOTES_cb) (char *);
 

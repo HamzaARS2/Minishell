@@ -28,10 +28,11 @@ typedef enum s_state {
 } t_state;
 
 typedef struct s_token {
-    char    *value;
-    t_type  type;
-    t_state state;
-    struct s_token *next;
+    uint32_t        id;
+    char            *value;
+    t_type          type;
+    t_state         state;
+    struct s_token  *next;
 } t_token;
 
 

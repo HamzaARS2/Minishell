@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:16:34 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/28 14:03:15 by helarras         ###   ########.fr       */
+/*   Updated: 2024/08/28 14:39:33 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 t_token *tkn_create_token(char *value, t_type type)
 {
     t_token *token;
+    static  uint32_t id;
 
     token = malloc(sizeof(t_token));
     if (!token)
         return (NULL);
+    token->id = ++id;
     token->value = value;
     token->type = type;
     token->state = DEFAULT;
