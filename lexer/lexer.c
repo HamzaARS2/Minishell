@@ -56,9 +56,7 @@ t_token *lxr_tokenize(t_lexer *lexer)
 void    lxr_generate_tokens(t_lexer *lexer)
 {
     t_token *token;
-    t_state state;
 
-    state = DEFAULT;
     if (!lexer)
         return ;
     while (true)

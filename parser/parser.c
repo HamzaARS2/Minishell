@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 12:03:34 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/25 15:15:11 by helarras         ###   ########.fr       */
+/*   Updated: 2024/08/28 13:26:59 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,21 @@ t_parser    *init_parser(t_lexer *lexer)
     return (parser);
 }
 
-void    psr_advance(t_parser *parser)
+void    prs_advance(t_parser *parser)
 {
-    if (!parser->current_tkn || !parser->current_tkn->next)
+    if (!parser->current_tkn)
         return ;
     parser->i++;
     parser->current_tkn = parser->current_tkn->next;
+}
+
+void    skip_dspace(t_parser *parser)
+{
+    t_token *token;
+
+    token = parser->current_tkn;
+    if (!token)
+        return ;
+    if (token->type == SSPACE && token->state == DEFAULT)
+        prs_advance(parser);
 }
