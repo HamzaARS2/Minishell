@@ -88,7 +88,10 @@ void    on_new_line(char *line)
 {
     t_lexer *lexer = init_lexer(line);
     lxr_generate_tokens(lexer);
+    t_resolver *resolver = init_resolver(lexer);
+    rslv_optimize(resolver);
     print_tokens(lexer->tokens);
+    // exit(0);
 }
 
 void    on_destroy() {

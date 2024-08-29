@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:51 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/28 15:44:05 by helarras         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:39:14 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,69 +21,43 @@ t_resolver  *init_resolver(t_lexer *lexer)
         return (NULL);
     resolver->tokens = lexer->tokens;
     resolver->size = lexer->size;
-    resolver->current_tkn = resolver->tokens;
-    resolver->current_id = resolver->current_tkn->id;
+    resolver->current = resolver->tokens;
+    if (resolver->current)
+        resolver->next = resolver->current->next;
+    else
+        resolver->next = NULL;
     return (resolver);
 }
 
 void    rslv_advance(t_resolver *resolver)
 {
-    if (!resolver->current_tkn)
+    if (!resolver->current || !resolver->next)
         return ;
-    resolver->current_tkn = resolver->current_tkn->next;
-    resolver->current_id = resolver->current_tkn->id;
+    resolver->current = resolver->next;
+    resolver->next = resolver->current->next;
 }
+
+void    rslv_merge(t_resolver *resolver)
+{
+    char *merged_value;
+
+    merged_value = strcombine(resolver->current->value, resolver->next->value);
+    resolver->current->value = merged_value;
+    if (resolver->next->next)
+        resolver->current->next = resolver->next->next;
+    else
+        resolver->current->next = NULL;
+    free(resolver->next);
+    resolver->next = resolver->current->next;
+}
+
 
 void    rslv_optimize(t_resolver *resolver)
 {
-    t_token *merged_tkn;
-    
-    merged_tkn = NULL;
-    while (resolver->current_tkn)
+    while (resolver->next)
     {
-        if (rslv_merge_indq(resolver, &merged_tkn))
-            return (merged_tkn);
+        while (urslv_should_merge(resolver))
+            rslv_merge(resolver);
+        rslv_advance(resolver);
     }
 }
-
-t_token *rslv_merge_indq(t_resolver *resolver, t_token **token)
-{
-    t_token *start_tkn;
-    
-    if (resolver->current_tkn->state != IN_DQUOTES)
-        return (false);
-    start_tkn = resolver->current_tkn;
-    while (resolver->current_tkn && resolver->current_tkn->state == IN_DQUOTES)
-        rslv_advance(resolver);
-        
-}
-
-t_token *merge_next(t_token *token, t_token *next_tkn)
-{
-    t_token *merged_tkn;
-    char    *value;
-    
-    if (next_tkn->type)
-    value = strcombine(token->value, next_tkn->value);
-    merged_tkn = tkn_create_token(value, WORD);
-    return (merged_tkn);
-}
-
-// minishell > ls -la | echo hi"hello world" > out.txt
-// Result: 1 command = {ls}                || state = DEFAULT || type = WORD
-// Result: 2 command = { }                || state = DEFAULT || type = SSPACE
-// Result: 3 command = {-la}                || state = DEFAULT || type = WORD
-// Result: 4 command = { }                || state = DEFAULT || type = SSPACE
-// Result: 5 command = {|}                || state = DEFAULT || type = PIPE
-// Result: 6 command = { }                || state = DEFAULT || type = SSPACE
-// Result: 7 command = {echo}                || state = DEFAULT || type = WORD
-// Result: 8 command = { }                || state = DEFAULT || type = SSPACE
-// Result: 9 command = {"}                || state = DEFAULT || type = DQUOTES
-// Result: 10 command = {hello}                || state = IN_DQUOTES || type = WORD
-// Result: 11 command = { }                || state = IN_DQUOTES || type = SSPACE
-// Result: 12 command = {world}                || state = IN_DQUOTES || type = WORD
-// Result: 13 command = {"}                || state = DEFAULT || type = DQUOTES
-// Result: 14 command = { }                || state = DEFAULT || type = SSPACE
-// Result: 15 command = {>}                || state = DEFAULT || type = OUT_RED
-// Result: 16 command = { }                || state = DEFAULT || type = SSPACE
-// Result: 17 command = {out.txt}                || state = DEFAULT || type = WORD

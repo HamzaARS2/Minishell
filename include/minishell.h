@@ -19,5 +19,6 @@ unsigned int    ft_strlen(char *str);
 char    *substr(char *str, int start, int end);
 bool    ft_isalnum(char c);
 bool    is_shell_special(char c);
+char	*strcombine(char *s1, char *s2);
 
 #endif
