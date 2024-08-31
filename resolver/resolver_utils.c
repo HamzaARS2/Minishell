@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:34:55 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/31 12:06:24 by helarras         ###   ########.fr       */
+/*   Updated: 2024/08/31 15:25:26 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ bool    urslv_should_merge(t_resolver *resolver)
     if (!resolver->current || !resolver->next)
         return (false);
     if ((resolver->current->state == IN_DQUOTES || resolver->current->state == IN_SQUOTES 
-        || resolver->current->type == WORD) && (resolver->next->state == IN_DQUOTES
-        || resolver->next->state == IN_SQUOTES || resolver->next->type == WORD
-        || resolver->next->type == VARIABLE))
+        || resolver->current->type == WORD || resolver->current->type == VARIABLE)
+        && (resolver->next->state == IN_DQUOTES || resolver->next->state == IN_SQUOTES
+        || resolver->next->type == WORD || resolver->next->type == VARIABLE))
             return (true);
     return (false);
 }
