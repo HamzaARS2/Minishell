@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 19:27:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/29 15:39:48 by helarras         ###   ########.fr       */
+/*   Updated: 2024/08/31 13:16:41 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,14 @@ bool    ulxr_extract_dquotes(t_lexer *lexer, t_token **token)
         return (false);
     start = lexer->i;
     lxr_advance(lexer);
-    if (lexer->state == DEFAULT)
-        lexer->state = IN_DQUOTES;
-    else if (lexer->state == IN_SQUOTES)
+    if (lexer->state == IN_SQUOTES)
+    {
+        *token = tkn_extract(DQUOTES, lexer->content, start, lexer->i);   
         (*token)->state = IN_SQUOTES;
+        return (true);
+    }
+    else if (lexer->state == DEFAULT)
+        lexer->state = IN_DQUOTES;
     else if (lexer->state == IN_DQUOTES)
         lexer->state = DEFAULT;
     return (false);
@@ -69,10 +73,14 @@ bool    ulxr_extract_squotes(t_lexer *lexer, t_token **token)
         return (false);
     start = lexer->i;
     lxr_advance(lexer);
-    if (lexer->state == DEFAULT)
-        lexer->state = IN_SQUOTES;
-    else if (lexer->state == IN_DQUOTES)
+    if (lexer->state == IN_DQUOTES)
+    {
+        *token = tkn_extract(SQUOTES, lexer->content, start, lexer->i);   
         (*token)->state = IN_DQUOTES;
+        return (true);
+    }
+    else if (lexer->state == DEFAULT)
+        lexer->state = IN_SQUOTES;
     else if (lexer->state == IN_SQUOTES)
         lexer->state = DEFAULT;
     return (false);

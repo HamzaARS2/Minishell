@@ -96,7 +96,7 @@ void    on_new_line(char *line, char **env)
     rslv_optimize(resolver);
     printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
     print_tokens(lexer->tokens);
-    // exit(0);
+    exit(0);
 }
 
 void    on_destroy() {
@@ -104,7 +104,7 @@ void    on_destroy() {
 }
 
 int main(int ac, char **av, char **env) {
-    // atexit(on_destroy);
+    atexit(on_destroy);
     display_prompt(on_new_line, env);
    
 }

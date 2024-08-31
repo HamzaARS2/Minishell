@@ -14,7 +14,7 @@ ADS := -fsanitize=address -g
 all: $(NAME) clean
 
 $(NAME): $(MAIN_OBJS)
-	$(CC) $(MAIN_OBJS) -lreadline -o $(NAME) $(ADS)
+	$(CC) $(MAIN_OBJS) -lreadline -o $(NAME) 
 
 clean:
 	rm -rf $(MAIN_OBJS)
