@@ -11,7 +11,7 @@
 #include "parser.h"
 #include "resolver.h"
 
-typedef void (*DQUOTES_cb) (char *);
+typedef void (*newline_cb) (char *, char **);
 
 
 // utils
@@ -20,5 +20,9 @@ char    *substr(char *str, int start, int end);
 bool    ft_isalnum(char c);
 bool    is_shell_special(char c);
 char	*strcombine(char *s1, char *s2);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strdup(char *s1);
+
+
 
 #endif

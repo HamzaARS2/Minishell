@@ -1,6 +1,6 @@
 #include "include/minishell.h"
 
-void    display_prompt(DQUOTES_cb newline)
+void    display_prompt(newline_cb newline, char **env)
 {
     char    *line;
 
@@ -10,7 +10,7 @@ void    display_prompt(DQUOTES_cb newline)
         if (line)
         {
             add_history(line);
-            newline(line);
+            newline(line, env);
         }
         else
             break;
@@ -84,12 +84,17 @@ void    print_tokens(t_token *tokens) {
         current = current->next;
     }
 }
-void    on_new_line(char *line)
+void    on_new_line(char *line, char **env)
 {
     t_lexer *lexer = init_lexer(line);
     lxr_generate_tokens(lexer);
-    t_resolver *resolver = init_resolver(lexer);
+    t_resolver *resolver = init_resolver(lexer, env);
+    print_tokens(lexer->tokens);
+    rslv_expand(resolver);
+    printf("\n################################## *AFTER EXPANDING* #####################################\n\n");
+    print_tokens(lexer->tokens);
     rslv_optimize(resolver);
+    printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
     print_tokens(lexer->tokens);
     // exit(0);
 }
@@ -99,7 +104,7 @@ void    on_destroy() {
 }
 
 int main(int ac, char **av, char **env) {
-    atexit(on_destroy);
-    display_prompt(on_new_line);
+    // atexit(on_destroy);
+    display_prompt(on_new_line, env);
    
 }

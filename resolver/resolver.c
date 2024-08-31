@@ -6,13 +6,13 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:51 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/29 15:39:14 by helarras         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:41:57 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_resolver  *init_resolver(t_lexer *lexer)
+t_resolver  *init_resolver(t_lexer *lexer, char **env)
 {
     t_resolver *resolver;
 
@@ -21,6 +21,7 @@ t_resolver  *init_resolver(t_lexer *lexer)
         return (NULL);
     resolver->tokens = lexer->tokens;
     resolver->size = lexer->size;
+    resolver->env = env;
     resolver->current = resolver->tokens;
     if (resolver->current)
         resolver->next = resolver->current->next;
@@ -31,10 +32,13 @@ t_resolver  *init_resolver(t_lexer *lexer)
 
 void    rslv_advance(t_resolver *resolver)
 {
-    if (!resolver->current || !resolver->next)
+    if (!resolver->current)
         return ;
     resolver->current = resolver->next;
-    resolver->next = resolver->current->next;
+    if (resolver->current)
+        resolver->next = resolver->current->next;
+    else
+        resolver->next = NULL;
 }
 
 void    rslv_merge(t_resolver *resolver)
@@ -51,10 +55,23 @@ void    rslv_merge(t_resolver *resolver)
     resolver->next = resolver->current->next;
 }
 
+void    rslv_expand(t_resolver *resolver)
+{    
+    if (!resolver->current)
+        return ;
+    while (resolver->current)
+    {
+        if (urslv_should_expand(resolver))
+            urslv_expand_variable(resolver);
+        rslv_advance(resolver);
+    }
+    urslv_reset(resolver);
+}
+
 
 void    rslv_optimize(t_resolver *resolver)
 {
-    while (resolver->next)
+    while (resolver->current && resolver->next)
     {
         while (urslv_should_merge(resolver))
             rslv_merge(resolver);
