@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:53 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/31 10:21:03 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/01 08:08:18 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,14 @@ typedef struct s_resolver {
 // initialize resolver.
 t_resolver  *init_resolver(t_lexer *lexer, char **env);
 
-// merge tokens.
-void    rslv_optimize(t_resolver *resolver);
+// advances to the next token.
+void    rslv_advance(t_resolver *resolver);
 
 // expand variable tokens.
 void    rslv_expand(t_resolver *resolver);
+
+// merge tokens.
+void    rslv_optimize(t_resolver *resolver);
 
 // utils
 bool    urslv_should_merge(t_resolver *resolver);

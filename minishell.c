@@ -21,9 +21,6 @@ void print_type_name(t_type type) {
         case WORD:
             printf("WORD\n");
             break;
-        case OPTION:
-            printf("OPTION\n");
-            break;
         case SSPACE:
             printf("SSPACE\n");
             break;
@@ -96,7 +93,7 @@ void    on_new_line(char *line, char **env)
     rslv_optimize(resolver);
     printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
     print_tokens(lexer->tokens);
-    exit(0);
+    // exit(0);
 }
 
 void    on_destroy() {

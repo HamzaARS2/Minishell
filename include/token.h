@@ -5,18 +5,17 @@
 
 typedef enum s_type {
     WORD = 30,
-    OPTION = 31,
+    PIPE = 31,
     SSPACE = 32,
-    PIPE = 33,
-    IN_RED = 34,
-    OUT_RED = 35,
-    HERE_DOC = 36,
-    APPEND = 37,
-    DQUOTES = 38,
-    SQUOTES = 39,
-    VARIABLE = 40,
-    OR = 41,
-    AND = 42,
+    IN_RED = 33,
+    OUT_RED = 34,
+    HERE_DOC = 35,
+    APPEND = 36,
+    DQUOTES = 37,
+    SQUOTES = 38,
+    VARIABLE = 39,
+    OR = 40,
+    AND = 41,
     ERROR = 101
 
 } t_type;
