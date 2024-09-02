@@ -22,10 +22,22 @@ void    lxr_advance(t_lexer *lexer)
 {
     if (lexer->i >= lexer->size)
         return ;
+    lxr_recognize_state(lexer);
     lexer->i++;
     lexer->c = lexer->content[lexer->i];
 }
 
+void    lxr_recognize_state(t_lexer *lexer)
+{
+    if (lexer->c == '"' && lexer->state == DEFAULT)
+        lexer->state = IN_DQUOTES;
+    else if (lexer->c == '"' && lexer->state == IN_DQUOTES)
+        lexer->state = DEFAULT;
+    else if (lexer->c == '\'' && lexer->state == DEFAULT)
+        lexer->state = IN_SQUOTES;
+    else if (lexer->c == '\'' && lexer->state == IN_SQUOTES)
+        lexer->state = DEFAULT;
+}
 t_token *lxr_tokenize(t_lexer *lexer)
 {
     t_token *token;

@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:50:41 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/26 10:56:20 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:27:05 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ t_lexer *init_lexer(char *content);
 
 // advance to the next char in sequence.
 void    lxr_advance(t_lexer *lexer);
+
+// recognize the current lexer's state and update it.
+void    lxr_recognize_state(t_lexer *lexer);
 
 // extract token from lexer content.
 t_token *lxr_tokenize(t_lexer *lexer);

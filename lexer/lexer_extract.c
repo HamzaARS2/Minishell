@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 19:27:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/31 13:16:41 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/02 14:52:57 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,38 +51,42 @@ bool    ulxr_extract_dquotes(t_lexer *lexer, t_token **token)
         return (false);
     start = lexer->i;
     lxr_advance(lexer);
-    if (lexer->state == IN_SQUOTES)
+    if (lexer->c == '"')
     {
-        *token = tkn_extract(DQUOTES, lexer->content, start, lexer->i);   
-        (*token)->state = IN_SQUOTES;
+        *token = tkn_create_token(ft_strdup(""), WORD);
+        (*token)->state = lexer->state;
         return (true);
     }
-    else if (lexer->state == DEFAULT)
-        lexer->state = IN_DQUOTES;
-    else if (lexer->state == IN_DQUOTES)
-        lexer->state = DEFAULT;
+    else if (lexer->state == IN_SQUOTES)
+    {
+        *token = tkn_extract(DQUOTES, lexer->content, start, lexer->i);   
+        (*token)->state = lexer->state;
+        return (true);
+    }
     return (false);
 }
+
 
 bool    ulxr_extract_squotes(t_lexer *lexer, t_token **token)
 {
     uint32_t    start;
-    char        *word;
     
     if (lexer->c != '\'')
         return (false);
     start = lexer->i;
     lxr_advance(lexer);
-    if (lexer->state == IN_DQUOTES)
+    if (lexer->c == '\'')
     {
-        *token = tkn_extract(SQUOTES, lexer->content, start, lexer->i);   
-        (*token)->state = IN_DQUOTES;
+        *token = tkn_create_token(ft_strdup(""), WORD);
+        (*token)->state = lexer->state;
         return (true);
     }
-    else if (lexer->state == DEFAULT)
-        lexer->state = IN_SQUOTES;
-    else if (lexer->state == IN_SQUOTES)
-        lexer->state = DEFAULT;
+    else if (lexer->state == IN_DQUOTES)
+    {
+        *token = tkn_extract(SQUOTES, lexer->content, start, lexer->i);   
+        (*token)->state = lexer->state;
+        return (true);
+    }
     return (false);
 }
 
