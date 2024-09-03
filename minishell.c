@@ -94,16 +94,18 @@ void    on_new_line(char *line, char **env)
     t_lexer *lexer = init_lexer(line);
     lxr_generate_tokens(lexer);
     t_handler *handler = init_handler(lexer, on_error);
+    print_tokens(lexer->tokens);
     if (!hdl_run_quotes_check(handler))
         return ;
-    t_resolver *resolver = init_resolver(lexer, env);
-    print_tokens(lexer->tokens);
-    rslv_expand(resolver);
-    printf("\n################################## *AFTER EXPANDING* #####################################\n\n");
-    print_tokens(lexer->tokens);
-    rslv_optimize(resolver);
-    printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
-    print_tokens(lexer->tokens);
+    if (!hdl_run_special_check(handler))
+        return ;
+    // t_resolver *resolver = init_resolver(lexer, env);
+    // rslv_expand(resolver);
+    // printf("\n################################## *AFTER EXPANDING* #####################################\n\n");
+    // print_tokens(lexer->tokens);
+    // rslv_optimize(resolver);
+    // printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
+    // print_tokens(lexer->tokens);
 }
 
 void    on_destroy() {
