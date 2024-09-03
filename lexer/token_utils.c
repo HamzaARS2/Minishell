@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:35:46 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/28 10:30:35 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/03 09:50:55 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void    add_last_token(t_token *token_list, t_token *token_node)
     if (!current_last)
         return ;
     current_last->next = token_node;
+    token_node->prev = current_last;
 }
 
