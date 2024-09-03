@@ -10,6 +10,7 @@
 #include "lexer.h"
 #include "parser.h"
 #include "resolver.h"
+#include "handler.h"
 
 typedef void (*newline_cb) (char *, char **);
 

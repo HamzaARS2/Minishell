@@ -81,10 +81,21 @@ void    print_tokens(t_token *tokens) {
         current = current->next;
     }
 }
+
+void    on_error(t_handler *handler)
+{
+    hdl_print_error(handler);
+    // TODO: run resources cleaner.
+    rl_redisplay();
+}
+
 void    on_new_line(char *line, char **env)
 {
     t_lexer *lexer = init_lexer(line);
     lxr_generate_tokens(lexer);
+    t_handler *handler = init_handler(lexer, on_error);
+    if (!hdl_run_quotes_check(handler))
+        return ;
     t_resolver *resolver = init_resolver(lexer, env);
     print_tokens(lexer->tokens);
     rslv_expand(resolver);
@@ -93,7 +104,6 @@ void    on_new_line(char *line, char **env)
     rslv_optimize(resolver);
     printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
     print_tokens(lexer->tokens);
-    // exit(0);
 }
 
 void    on_destroy() {
@@ -103,5 +113,4 @@ void    on_destroy() {
 int main(int ac, char **av, char **env) {
     atexit(on_destroy);
     display_prompt(on_new_line, env);
-   
 }
