@@ -97,15 +97,17 @@ void    on_new_line(char *line, char **env)
     print_tokens(lexer->tokens);
     if (!hdl_run_quotes_check(handler))
         return ;
-    if (!hdl_run_special_check(handler))
+    if (!hdl_run_poa_check(handler))
         return ;
-    // t_resolver *resolver = init_resolver(lexer, env);
-    // rslv_expand(resolver);
-    // printf("\n################################## *AFTER EXPANDING* #####################################\n\n");
-    // print_tokens(lexer->tokens);
-    // rslv_optimize(resolver);
-    // printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
-    // print_tokens(lexer->tokens);
+    if (!hdl_run_redirects_check(handler))
+        return ;
+    t_resolver *resolver = init_resolver(lexer, env);
+    rslv_expand(resolver);
+    printf("\n################################## *AFTER EXPANDING* #####################################\n\n");
+    print_tokens(lexer->tokens);
+    rslv_optimize(resolver);
+    printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
+    print_tokens(lexer->tokens);
 }
 
 void    on_destroy() {

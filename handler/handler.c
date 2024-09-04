@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 10:03:49 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/03 16:47:49 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:01:14 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,54 +39,31 @@ void    hdl_post_error(t_handler *handler, t_error error)
 }
 
 
-bool    uhdl_search_forward(t_token *token)
+bool    hdl_search_forward(t_token *token, validation is_valid_token)
 {
     t_token *current;
 
     current = token->next;
     while (current)
     {
-        if (current->type != SSPACE && is_special_token(current) && current->state == DEFAULT)
-            return (false);
-        if (current->type == WORD || current->state != DEFAULT)
+        if (is_valid_token(current))
             return (true);
         current = current->next;
     }
     return (false);
 }
 
-bool    uhdl_search_back(t_token *token)
+bool    hdl_search_back(t_token *token, validation is_valid_token)
 {
     t_token *current;
 
     current = token->prev;
     while (current)
     {
-        if (current->type != SSPACE && is_special_token(current) && current->state == DEFAULT)
-            return (false);
-        if (current->type == WORD || current->state != DEFAULT)
+        if (is_valid_token(current))
             return (true);
         current = current->prev;
     }
     return (false);
 }
 
-bool    hdl_run_poa_check(t_handler *handler)
-{
-    t_token *current;
-
-    current = handler->lexer->tokens;
-    while (current)
-    {
-        if (current->type != SSPACE && is_special_token(current) && current->state == DEFAULT)
-        {
-            if (!uhdl_search_forward(current) || !uhdl_search_back(current))
-            {
-                hdl_post_error(handler, SYNTAX_ERROR);
-                return (false);
-            }
-        }
-        current = current->next;
-    }
-    return (true);
-}
