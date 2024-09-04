@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 10:03:49 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/04 12:01:14 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:56:04 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,37 @@ void    hdl_post_error(t_handler *handler, t_error error)
 }
 
 
-bool    hdl_search_forward(t_token *token, validation is_valid_token)
+bool    hdl_search_forward(t_token *token, validation validate_token)
 {
     t_token *current;
+    t_hdl_state state;
 
     current = token->next;
     while (current)
     {
-        if (is_valid_token(current))
+        state = validate_token(current);
+        if (state == VALID)
             return (true);
+        else if (state == INVALID)
+            return (false);
         current = current->next;
     }
     return (false);
 }
 
-bool    hdl_search_back(t_token *token, validation is_valid_token)
+bool    hdl_search_back(t_token *token, validation validate_token)
 {
     t_token *current;
-
+    t_hdl_state state;
+    
     current = token->prev;
     while (current)
     {
-        if (is_valid_token(current))
+        state = validate_token(current);
+        if (state == VALID)
             return (true);
+        else if (state == INVALID)
+            return (false);
         current = current->prev;
     }
     return (false);

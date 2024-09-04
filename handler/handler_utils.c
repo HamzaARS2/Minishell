@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:24:30 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/04 12:19:24 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:50:08 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,23 @@ bool    uhdl_is_double_redirect(t_token *token)
         && (token->state == DEFAULT));
 }
 
-bool    uhdl_poa_validation(t_token *token)
+t_hdl_state    uhdl_poa_validation(t_token *token)
 {
     if (uhdl_is_poa(token))
-        return (false);
+        return (INVALID);
     if (token->type == WORD || token->type == VARIABLE || token->state != DEFAULT)
-        return (true);
+        return (VALID);
     if (uhdl_is_redirct(token) || uhdl_is_double_redirect(token))
-        return (true);
-    return (false);
+        return (VALID);
+    return (CONTINUE);
 }
 
-bool    uhdl_redirects_validation(t_token *token)
+t_hdl_state    uhdl_redirects_validation(t_token *token)
 {
     if (uhdl_is_poa(token))
-        return (false);
+        return (INVALID);
     if (token->type == WORD || token->type == VARIABLE || token->state != DEFAULT)
-        return (true);
-    return (false);
+        return (VALID);
+    return (CONTINUE);
 }
 
