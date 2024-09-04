@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 19:27:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/02 14:52:57 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:07:31 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,21 @@ bool    ulxr_extract_squotes(t_lexer *lexer, t_token **token)
     return (false);
 }
 
-
+bool    ulxr_extract_variable(t_lexer *lexer, t_token **token)
+{
+    uint32_t    start;
+    
+    start = lexer->i;
+    if (lexer->c != '$')
+        return (false);
+    lxr_advance(lexer);
+    while (lexer->c && ft_isalnum(lexer->c))
+        lxr_advance(lexer);
+    *token = tkn_extract(VARIABLE, lexer->content, start, lexer->i);
+    if (!(*token))
+        return (false);
+    if (lexer->i - start == 1)
+        (*token)->type = WORD;
+    (*token)->state = lexer->state;
+    return (true);
+}

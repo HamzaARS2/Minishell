@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 08:13:06 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/01 08:16:59 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:19:14 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool    is_special_token(t_token *token)
 {
     if (token->type == SSPACE || token->type == PIPE || token->type == OUT_RED
         || token->type == IN_RED || token->type == HERE_DOC || token->type == APPEND
-        || token->type == OR || token->type == AND)
+        || token->type == OR || token->type == D_AND)
         return (true);
     return (false);
 }

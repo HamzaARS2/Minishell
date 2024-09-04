@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 11:15:17 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/25 12:00:37 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:24:29 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,6 @@ bool    ulxr_extract_outred(t_lexer *lexer, t_token **token)
     return (true);
 }
 
-bool    ulxr_extract_variable(t_lexer *lexer, t_token **token)
-{
-    uint32_t    start;
-    
-    start = lexer->i;
-    if (lexer->c != '$')
-        return (false);
-    lxr_advance(lexer);
-    while (lexer->c && ft_isalnum(lexer->c))
-        lxr_advance(lexer);
-    *token = tkn_extract(VARIABLE, lexer->content, start, lexer->i);
-    if (!(*token))
-        return (false);
-    if (lexer->i - start == 1)
-        (*token)->type = WORD;
-    (*token)->state = lexer->state;
-    return (true);
-}
-
 bool    ulxr_extract_pipe(t_lexer *lexer,t_token **token)
 {
     uint32_t    start;
@@ -84,6 +65,25 @@ bool    ulxr_extract_pipe(t_lexer *lexer,t_token **token)
         return (false);
     if (lexer->i - start > 1)
         (*token)->type = OR;
+    (*token)->state = lexer->state;
+    return (true);
+}
+
+bool    ulxr_extract_and(t_lexer *lexer, t_token **token)
+{
+    uint32_t    start;
+    
+    if (lexer->c != '&')
+        return (false);
+    start = lexer->i;
+    lxr_advance(lexer);
+    while (lexer->c && lexer->c == '&' && lexer->i - start < 2)
+        lxr_advance(lexer);
+    *token = tkn_extract(S_AND, lexer->content, start, lexer->i);
+    if (!(*token))
+        return (false);
+    if (lexer->i - start > 1)
+        (*token)->type = D_AND;
     (*token)->state = lexer->state;
     return (true);
 }

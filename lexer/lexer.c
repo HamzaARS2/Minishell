@@ -51,6 +51,8 @@ t_token *lxr_tokenize(t_lexer *lexer)
             return (token);
         if (ulxr_extract_pipe(lexer, &token))
             return (token);
+        if (ulxr_extract_and(lexer, &token))
+            return (token);
         if (ulxr_extract_inred(lexer, &token))
             return (token);
         if (ulxr_extract_outred(lexer, &token))

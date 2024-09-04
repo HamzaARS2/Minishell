@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:50:41 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/02 13:27:05 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:17:31 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ bool    ulxr_extract_word(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_space(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_dquotes(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_squotes(t_lexer *lexer, t_token **token);
+bool    ulxr_extract_variable(t_lexer *lexer, t_token **token);
 
 bool    ulxr_extract_inred(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_outred(t_lexer *lexer, t_token **token);
-bool    ulxr_extract_variable(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_pipe(t_lexer *lexer,t_token **token);
+bool    ulxr_extract_and(t_lexer *lexer, t_token **token);
 
 #endif

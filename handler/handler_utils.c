@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:24:30 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/04 12:01:44 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/04 12:19:24 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool    uhdl_is_poa(t_token *token)
 {
-    return ((token->type == PIPE || token->type == OR || token->type == AND) 
+    return ((token->type == PIPE || token->type == OR || token->type == D_AND) 
         && (token->state == DEFAULT));
 }
 

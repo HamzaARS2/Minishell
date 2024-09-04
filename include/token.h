@@ -15,7 +15,8 @@ typedef enum s_type {
     SQUOTES = 38,
     VARIABLE = 39,
     OR = 40,
-    AND = 41,
+    S_AND = 41,
+    D_AND = 42,
     ERROR = 101
 
 } t_type;

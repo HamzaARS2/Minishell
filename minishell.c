@@ -51,6 +51,12 @@ void print_type_name(t_type type) {
         case OR:
             printf("OR\n");
             break;
+        case S_AND:
+            printf("S_AND\n");
+            break;
+        case D_AND:
+            printf("D_AND\n");
+            break;
         case ERROR:
             printf("ERROR\n");
             break;
