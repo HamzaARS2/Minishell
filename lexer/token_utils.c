@@ -6,11 +6,11 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:35:46 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/03 09:50:55 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/07 15:08:27 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/token.h"
+#include "../include/minishell.h"
 
 t_token *get_last_token(t_token *token_list)
 {
@@ -28,5 +28,11 @@ void    add_last_token(t_token *token_list, t_token *token_node)
         return ;
     current_last->next = token_node;
     token_node->prev = current_last;
+}
+
+void    free_token(t_token *token)
+{
+    free(token->value);
+    free(token);
 }
 

@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:51 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/29 16:41:57 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:21:44 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ t_resolver  *init_resolver(t_lexer *lexer, char **env)
     resolver = malloc(sizeof(t_resolver));
     if (!resolver)
         return (NULL);
-    resolver->tokens = lexer->tokens;
+    resolver->tokens = &(lexer->tokens);
     resolver->size = lexer->size;
     resolver->env = env;
-    resolver->current = resolver->tokens;
+    resolver->current = *(resolver->tokens);
     if (resolver->current)
         resolver->next = resolver->current->next;
     else
@@ -41,19 +41,23 @@ void    rslv_advance(t_resolver *resolver)
         resolver->next = NULL;
 }
 
-void    rslv_merge(t_resolver *resolver)
+void rslv_merge(t_resolver *resolver)
 {
     char *merged_value;
 
     merged_value = strcombine(resolver->current->value, resolver->next->value);
     resolver->current->value = merged_value;
     if (resolver->next->next)
+    {
         resolver->current->next = resolver->next->next;
+        resolver->next->next->prev = resolver->current;
+    }
     else
         resolver->current->next = NULL;
     free(resolver->next);
     resolver->next = resolver->current->next;
 }
+
 
 void    rslv_expand(t_resolver *resolver)
 {    
@@ -77,4 +81,5 @@ void    rslv_optimize(t_resolver *resolver)
             rslv_merge(resolver);
         rslv_advance(resolver);
     }
+    urslv_remove_spaces(resolver);
 }

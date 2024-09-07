@@ -37,10 +37,6 @@ typedef struct s_token {
 } t_token;
 
 
-// utils
-void    add_last_token(t_token *token_list, t_token *token_node);
-t_token *get_last_token(t_token *token_list);
-
 
 // create token.
 t_token *tkn_create_token(char *value, t_type type);
@@ -48,5 +44,11 @@ t_token *tkn_create_token(char *value, t_type type);
 void    tkn_add_token(t_token **token_lst, t_token *new_token);
 // extract part of DQUOTES from a token.
 t_token *tkn_extract(t_type type, char *str, uint32_t start, uint32_t end);
+
+// utils
+void    add_last_token(t_token *token_list, t_token *token_node);
+t_token *get_last_token(t_token *token_list);
+void    free_token(t_token *token);
+
 
 #endif

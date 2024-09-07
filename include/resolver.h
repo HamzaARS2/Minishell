@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:53 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/01 08:08:18 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/07 16:22:22 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "token.h"
 
 typedef struct s_resolver {
-    t_token *tokens;
+    t_token **tokens;
     uint32_t size;
     char    **env;
     t_token *current;
@@ -40,6 +40,7 @@ bool    urslv_should_merge(t_resolver *resolver);
 bool    urslv_should_expand(t_resolver *resolver);
 void    urslv_reset(t_resolver *resolver);
 void    urslv_expand_variable(t_resolver *resolver);
+void    urslv_remove_spaces(t_resolver *resolver);
 
 
 

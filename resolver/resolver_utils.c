@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:34:55 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/04 12:26:43 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/07 13:00:38 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void    urslv_skip_heredoc_limiter(t_resolver *resolver)
 
 void    urslv_reset(t_resolver *resolver)
 {
-    resolver->current = resolver->tokens;
+    resolver->current = *(resolver->tokens);
     if (resolver->current)
         resolver->next = resolver->current->next;
 }

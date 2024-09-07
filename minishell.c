@@ -95,12 +95,12 @@ void    on_error(t_handler *handler)
     rl_redisplay();
 }
 
+
 void    on_new_line(char *line, char **env)
 {
     t_lexer *lexer = init_lexer(line);
     lxr_generate_tokens(lexer);
     t_handler *handler = init_handler(lexer, on_error);
-    print_tokens(lexer->tokens);
     if (!hdl_run_quotes_check(handler))
         return ;
     if (!hdl_run_poa_check(handler))
@@ -109,11 +109,10 @@ void    on_new_line(char *line, char **env)
         return ;
     t_resolver *resolver = init_resolver(lexer, env);
     rslv_expand(resolver);
-    printf("\n################################## *AFTER EXPANDING* #####################################\n\n");
-    print_tokens(lexer->tokens);
     rslv_optimize(resolver);
-    printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
+    // printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
     print_tokens(lexer->tokens);
+    // exit(0);
 }
 
 void    on_destroy() {
