@@ -8,9 +8,10 @@
 #include <readline/history.h>
 #include <stdint.h>
 #include "lexer.h"
-#include "parser.h"
 #include "resolver.h"
 #include "handler.h"
+#include "ast.h"
+#include "parser.h"
 
 typedef void (*newline_cb) (char *, char **);
 

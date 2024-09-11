@@ -1,5 +1,54 @@
 #include "include/minishell.h"
 
+
+
+// Function to convert AST type to string (for printing purposes)
+const char *get_ast_type_string(t_ast_type type) {
+    switch (type) {
+        case AST_COMMAND: return "COMMAND";
+        case AST_PIPE: return "PIPE";
+        case AST_OR: return "LOGICAL OR";
+        case AST_AND: return "LOGICAL AND";
+        case AST_IN_RED: return "REDIRECTION IN";
+        case AST_OUT_RED: return "REDIRECTION OUT";
+        case AST_APPEND: return "REDIRECTION APPEND";
+        case AST_HEREDOC: return "HEREDOC";
+        default: return "UNKNOWN";
+    }
+}
+
+// Function to print an AST node
+void print_ast(t_ast *node, int depth) {
+    if (node == NULL) {
+        return;
+    }
+
+    // Print indentation based on the depth in the tree
+    for (int i = 0; i < depth; i++) {
+        printf("  ");
+    }
+
+    // Print the type of the node
+    printf("Node Type: %s\n", get_ast_type_string(node->type));
+
+    // Print the command if it's a command node
+    if (node->args != NULL) {
+        for (int i = 0; node->args[i] != NULL; i++) {
+            for (int j = 0; j < depth; j++) {
+                printf("  ");
+            }
+            printf("Command: %s\n", node->args[i]);
+        }
+    }
+    // Recursively print the left and right subtrees
+    if (node->left != NULL) {
+        print_ast(node->left, depth + 1);
+    }
+    if (node->right != NULL) {
+        print_ast(node->right, depth + 1);
+    }
+}
+
 void    display_prompt(newline_cb newline, char **env)
 {
     char    *line;
@@ -110,8 +159,11 @@ void    on_new_line(char *line, char **env)
     t_resolver *resolver = init_resolver(lexer, env);
     rslv_expand(resolver);
     rslv_optimize(resolver);
+    t_parser *parser = init_parser(lexer->tokens);
+    t_ast *tree = prsr_parse(parser);
+    print_ast(tree, 10);
     // printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
-    print_tokens(lexer->tokens);
+    // print_tokens(lexer->tokens);
     // exit(0);
 }
 
