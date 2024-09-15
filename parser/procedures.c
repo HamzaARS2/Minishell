@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 11:55:46 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/10 15:38:26 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/15 15:51:46 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_ast   *prsr_parse_logical_and(t_parser *parser)
     t_ast *left;
     t_ast *logical_and;
     
-    left = prsr_parse_outred(parser);
+    left = prsr_parse_redirect(parser);
     if (parser->current && parser->current->type == D_AND)
     {
         logical_and = ast_create_node(NULL, AST_AND);

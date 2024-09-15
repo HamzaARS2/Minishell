@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:54:58 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/09 16:55:25 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:10:16 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ uint32_t    uprsr_count_cmd(t_token *token)
     current = token;
     while (current)
     {
-        if (current->type != WORD)
+        if (current->type != WORD && current->type != VARIABLE)
             break ;
         count++;
         current = current->next;

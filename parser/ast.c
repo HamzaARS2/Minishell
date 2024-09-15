@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 11:28:46 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/10 15:39:30 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:17:57 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,5 @@ t_ast   *ast_create_node(char **cmd, t_ast_type type)
     node->type = type;
     node->left = NULL;
     node->right = NULL;
-    
     return (node);
 }
