@@ -16,7 +16,30 @@ const char *get_ast_type_string(t_ast_type type) {
         default: return "UNKNOWN";
     }
 }
+void print_redirect_list(t_redirect *head, int depth) {
+    t_redirect *current = head;
 
+    while (current != NULL) {
+        for (int i = 0; i < depth; i++) printf("  ");
+        printf("  |file: %s", current->content);
+        // for (int i = 0; i < depth - depth / 2; i++) printf("  ");
+        printf(" | Type: ");
+        switch (current->type) {
+            case AST_IN_RED:
+                printf("Input  (<) |\n");
+                break;
+            case AST_OUT_RED:
+                printf("Output  (>) |\n");
+                break;
+            case AST_APPEND:
+                printf("Append  (>>) |\n");
+                break;
+            default:
+                printf("Unknown\n");
+        }
+        current = current->next;
+    }
+}
 // Function to print an AST node
 void print_ast(t_ast *node, int depth) {
     if (node == NULL) {
@@ -40,6 +63,9 @@ void print_ast(t_ast *node, int depth) {
             printf("Command: %s\n", node->args[i]);
         }
     }
+
+    print_redirect_list(node->redirect, depth);
+
     // Recursively print the left and right subtrees
     if (node->left != NULL) {
         print_ast(node->left, depth + 1);

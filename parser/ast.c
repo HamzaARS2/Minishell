@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 11:28:46 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/11 18:17:57 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/19 11:01:24 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,28 @@ t_ast   *ast_create_node(char **cmd, t_ast_type type)
         return (NULL);
     node->args = cmd;
     node->type = type;
+    node->redirect = NULL;
     node->left = NULL;
     node->right = NULL;
     return (node);
+}
+
+t_redirect *ast_create_redirect(char *content, t_ast_type type)
+{
+    t_redirect *redirect;
+
+    redirect = malloc(sizeof(t_redirect));
+    if (!redirect)
+        return (NULL);
+    redirect->content = content;
+    redirect->type = type;
+    redirect->next = NULL;
+    return (redirect);
+}
+void    ast_add_redirect(t_redirect **redirect_list, t_redirect *redirect)
+{
+    if (!(*redirect_list))
+        *redirect_list = redirect;
+    else
+        add_last_redirect(*redirect_list, redirect);
 }
