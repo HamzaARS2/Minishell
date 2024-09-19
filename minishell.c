@@ -157,6 +157,7 @@ void    on_new_line(char *line, char **env)
     if (!hdl_run_redirects_check(handler))
         return ;
     t_resolver *resolver = init_resolver(lexer, env);
+    // print_tokens(lexer->tokens);
     rslv_expand(resolver);
     rslv_optimize(resolver);
     t_parser *parser = init_parser(lexer->tokens);
