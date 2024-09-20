@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 11:45:18 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/17 15:24:25 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:03:53 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ t_ast   *prsr_parse_heredoc(t_parser *parser);
 
 // utils
 uint32_t    uprsr_count_cmd(t_token *token);
-
+t_token     *uprsr_next_arg(t_token *token);
 #endif

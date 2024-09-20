@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 11:55:46 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/17 15:02:15 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:20:28 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 t_ast   *prsr_parse_cmd(t_parser *parser)
 {
     t_ast   *node;
+    t_token *current;
     uint32_t count;
     uint32_t i;
     
     i = 0;
+    current = parser->current;
     node = ast_create_node(NULL, AST_COMMAND);
-    count = uprsr_count_cmd(parser->current);
+    count = uprsr_count_cmd(current);
     node->args = malloc((count + 1) * sizeof(char *));
     if (!node->args)
     {
@@ -29,8 +31,9 @@ t_ast   *prsr_parse_cmd(t_parser *parser)
     }
     while (i < count)
     {
-        node->args[i] = parser->current->value;
-        prsr_advance(parser);
+        current = uprsr_next_arg(current);
+        node->args[i] = current->value;
+        current = current->next;
         i++;
     }
     node->args[i] = NULL;
