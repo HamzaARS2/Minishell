@@ -21,22 +21,24 @@ void print_redirect_list(t_redirect *head, int depth) {
 
     while (current != NULL) {
         for (int i = 0; i < depth; i++) printf("  ");
-        printf("  |file: %s", current->content);
-        // for (int i = 0; i < depth - depth / 2; i++) printf("  ");
         printf(" | Type: ");
         switch (current->type) {
             case AST_IN_RED:
-                printf("Input  (<) |\n");
+                printf("Input  (<) |");
                 break;
             case AST_OUT_RED:
-                printf("Output  (>) |\n");
+                printf("Output  (>) |");
                 break;
             case AST_APPEND:
-                printf("Append  (>>) |\n");
+                printf("Append  (>>) |");
+                break;
+            case AST_HEREDOC:
+                printf("Heredoc  (<<) |");
                 break;
             default:
-                printf("Unknown\n");
+                printf("Unknown  |");
         }
+        printf("  file: %s  |\n", current->content);
         current = current->next;
     }
 }
