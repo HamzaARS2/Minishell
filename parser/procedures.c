@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 11:55:46 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/20 11:20:28 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/20 18:57:25 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,14 @@
 t_ast   *prsr_parse_cmd(t_parser *parser)
 {
     t_ast   *node;
-    t_token *current;
-    uint32_t count;
-    uint32_t i;
     
-    i = 0;
-    current = parser->current;
     node = ast_create_node(NULL, AST_COMMAND);
-    count = uprsr_count_cmd(current);
-    node->args = malloc((count + 1) * sizeof(char *));
+    node->args = uprsr_build_cmd(parser);
     if (!node->args)
     {
         free(node);
         return (NULL);
     }
-    while (i < count)
-    {
-        current = uprsr_next_arg(current);
-        node->args[i] = current->value;
-        current = current->next;
-        i++;
-    }
-    node->args[i] = NULL;
     return (node);
 }
 
@@ -44,7 +30,7 @@ t_ast   *prsr_parse_pipe(t_parser *parser)
 {
     t_ast *left;
     t_ast *pipe;
-    
+
     left = prsr_parse_redirect(parser);
     if (parser->current && parser->current->type == PIPE)
     {
