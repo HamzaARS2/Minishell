@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:34:55 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/17 13:34:43 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/20 10:06:17 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ void    urslv_expand_variable(t_resolver *resolver)
     env = resolver->env;
     variable = resolver->current->value + 1;
     varsize = ft_strlen(variable);
+    // if (resolver->current->state == DEFAULT && varsize <= 0)
+    // {
+    //     return ;
+    // }
     while (env[i])
     {
         if (!ft_strncmp(env[i], variable, varsize))
