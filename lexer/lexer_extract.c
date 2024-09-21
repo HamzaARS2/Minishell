@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 19:27:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/20 10:11:08 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/21 12:06:33 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,14 @@ bool    ulxr_extract_variable(t_lexer *lexer, t_token **token)
     if (lexer->c != '$')
         return (false);
     lxr_advance(lexer);
-    while (lexer->c && ft_isalnum(lexer->c))
+    while (lexer->c && (ft_isalnum(lexer->c)))
         lxr_advance(lexer);
-    *token = tkn_extract(VARIABLE, lexer->content, start, lexer->i);
+    *token = tkn_extract(WORD, lexer->content, start, lexer->i);
     if (!(*token))
         return (false);
-    if (lexer->i - start == 1 && (lexer->state == IN_DQUOTES || !lexer->c))
-        (*token)->type = WORD;
+    if (lexer->i - start > 1 || ((lexer->i - start == 1 && lexer->state == DEFAULT)
+        && (lexer->c == '"' || lexer->c == '\'')))
+        (*token)->type = VARIABLE;
     (*token)->state = lexer->state;
     return (true);
 }
