@@ -12,6 +12,7 @@
 #include "handler.h"
 #include "ast.h"
 #include "parser.h"
+#include "execution.h"
 
 typedef void (*newline_cb) (char *, char **);
 
