@@ -13,6 +13,7 @@ const char *get_ast_type_string(t_ast_type type) {
         case AST_OUT_RED: return "REDIRECTION OUT";
         case AST_APPEND: return "REDIRECTION APPEND";
         case AST_HEREDOC: return "HEREDOC";
+        case AST_INQ_HEREDOC: return "INQ_HEREDOC";
         default: return "UNKNOWN";
     }
 }
@@ -34,6 +35,9 @@ void print_redirect_list(t_redirect *head, int depth) {
                 break;
             case AST_HEREDOC:
                 printf("Heredoc  (<<) |");
+                break;
+            case AST_INQ_HEREDOC:
+                printf("Inq Heredoc  (<<) |");
                 break;
             default:
                 printf("Unknown  |");

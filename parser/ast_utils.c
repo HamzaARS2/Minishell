@@ -6,11 +6,11 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 10:50:33 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/19 10:55:42 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/22 11:04:37 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/parser.h"
+#include "../include/ast.h"
 
 t_redirect *get_last_redirect(t_redirect *redirect_list)
 {
@@ -27,4 +27,11 @@ void    add_last_redirect(t_redirect *redirect_list, t_redirect *redirect_node)
     if (!current_last)
         return ;
     current_last->next = redirect_node;
+}
+
+t_ast_type  get_ast_type(t_token *token)
+{
+    if (token->type == HERE_DOC && token->next->state != DEFAULT)
+        return (AST_INQ_HEREDOC);
+    return (token->type - WORD);
 }

@@ -6,13 +6,14 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 11:45:18 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/20 18:54:00 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/22 10:20:33 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
+#include "ast.h"
 #include "minishell.h"
 
 

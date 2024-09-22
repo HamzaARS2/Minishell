@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 10:33:09 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/21 10:36:24 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/22 11:39:41 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_ast   *prsr_parse_redirect(t_parser *parser)
             prsr_advance(parser);
         else if (parser->current->type >= 33 && parser->current->type <= 36)
         {
-            prsr_parse_file(parser, left, parser->current->type - WORD);
+            prsr_parse_file(parser, left, get_ast_type(parser->current));
             prsr_advance(parser);
         }
         else
