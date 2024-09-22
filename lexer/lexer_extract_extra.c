@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 11:15:17 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/08 10:51:19 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/22 11:26:48 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool    ulxr_extract_inred(t_lexer *lexer, t_token **token)
     if (lexer->c != '<')
         return (false);
     lxr_advance(lexer);
-    while (lexer->c && lexer->c == '<')
+    while (lexer->c && lexer->c == '<' && lexer->i - start < 2)
         lxr_advance(lexer);
     *token = tkn_extract(IN_RED, lexer->content, start, lexer->i);
     if (!(*token))
