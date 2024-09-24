@@ -6,14 +6,15 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:59:26 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/04 12:56:04 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:27:32 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HANDLER_H
 # define HANDLER_H
 
-#include "minishell.h"
+#include "token.h"
+#include "lexer.h"
 
 typedef struct s_handler t_handler;
 typedef enum e_hdl_state t_hdl_state;

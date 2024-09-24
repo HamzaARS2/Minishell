@@ -1,6 +1,8 @@
 #include "include/minishell.h"
-
-
+#include "include/handler.h"
+#include "include/ast.h"
+#include "include/parser.h"
+#include "include/resolver.h"
 
 // Function to convert AST type to string (for printing purposes)
 const char *get_ast_type_string(t_ast_type type) {
@@ -81,22 +83,6 @@ void print_ast(t_ast *node, int depth) {
     }
 }
 
-void    display_prompt(newline_cb newline, char **env)
-{
-    char    *line;
-
-    while (true)
-    {
-        line = readline("minishell > ");
-        if (line)
-        {
-            add_history(line);
-            newline(line, env);
-        }
-        else
-            break;
-    }
-}
 void print_type_name(t_type type) {
     switch (type) {
         case WORD:
@@ -175,9 +161,26 @@ void    on_error(t_handler *handler)
     // TODO: run resources cleaner.
     rl_redisplay();
 }
+void    display_prompt(newline_cb newline, t_envlst *envlst)
+{
+    char    *line;
+
+    while (true)
+    {
+        line = readline("minishell > ");
+        if (line)
+        {
+            add_history(line);
+            newline(line, envlst);
+        }
+        else
+            break;
+    }
+}
 
 
-void    on_new_line(char *line, char **env)
+
+void    on_new_line(char *line, t_envlst *envlst)
 {
     t_lexer *lexer = init_lexer(line);
     lxr_generate_tokens(lexer);
@@ -188,12 +191,12 @@ void    on_new_line(char *line, char **env)
         return ;
     if (!hdl_run_redirects_check(handler))
         return ;
-    t_resolver *resolver = init_resolver(lexer, env);
+    t_resolver *resolver = init_resolver(lexer, envlst);
     print_tokens(lexer->tokens);
     rslv_expand(resolver);
     rslv_optimize(resolver);
     t_parser *parser = init_parser(lexer->tokens);
-    t_ast *tree = prsr_parse(parser);
+    t_ast *tree = prsr_parse(parser); 
     print_ast(tree, 10);
     // printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
     // print_tokens(lexer->tokens);
@@ -205,6 +208,8 @@ void    on_destroy() {
 }
 
 int main(int ac, char **av, char **env) {
-    atexit(on_destroy);
-    display_prompt(on_new_line, env);
+    // atexit(on_destroy);
+    t_envlst *head = shell_init_envlst(env);
+    display_prompt(on_new_line, head);
+
 }

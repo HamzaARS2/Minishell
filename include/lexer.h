@@ -6,13 +6,14 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:50:41 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/04 12:17:31 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:29:01 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
+#include "minishell.h"
 #include "token.h"
 
 typedef struct s_lexer {

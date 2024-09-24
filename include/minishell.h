@@ -7,14 +7,19 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdint.h>
-#include "lexer.h"
-#include "resolver.h"
-#include "handler.h"
-#include "ast.h"
-#include "parser.h"
 
-typedef void (*newline_cb) (char *, char **);
 
+
+typedef struct s_envlst {
+    char            *variable;
+    struct s_envlst *next;
+} t_envlst;
+
+typedef void (*newline_cb) (char *, t_envlst *envlst);
+
+
+
+t_envlst    *shell_init_envlst(char **env);
 
 // utils
 unsigned int    ft_strlen(char *str);
@@ -24,8 +29,8 @@ bool            is_shell_special(char c);
 char	        *strcombine(char *s1, char *s2);
 int             ft_strncmp(const char *s1, const char *s2, size_t n);
 char	        *ft_strdup(char *s1);
-bool            is_special_token(t_token *token);
-void            urslv_skip_heredoc_limiter(t_resolver *resolver);
+
+
 
 
 #endif

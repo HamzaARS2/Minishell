@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include "../include/lexer.h"
 
 t_lexer *init_lexer(char *content)
 {

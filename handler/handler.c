@@ -6,11 +6,13 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 10:03:49 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/04 12:56:04 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:26:05 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/minishell.h"
 #include "../include/handler.h"
+#include "../include/lexer.h"
 
 t_handler *init_handler(t_lexer *lexer, on_error_cb callback)
 {
@@ -37,7 +39,6 @@ void    hdl_post_error(t_handler *handler, t_error error)
     handler->error = error;
     handler->callback(handler);
 }
-
 
 bool    hdl_search_forward(t_token *token, validation validate_token)
 {
