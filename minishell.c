@@ -1,8 +1,5 @@
 #include "include/minishell.h"
-#include "include/handler.h"
-#include "include/ast.h"
-#include "include/parser.h"
-#include "include/resolver.h"
+
 
 // Function to convert AST type to string (for printing purposes)
 const char *get_ast_type_string(t_ast_type type) {
@@ -161,7 +158,15 @@ void    on_error(t_handler *handler)
     // TODO: run resources cleaner.
     rl_redisplay();
 }
-void    display_prompt(newline_cb newline, t_envlst *envlst)
+void    on_new_line(t_mshell *mshell, char *line)
+{
+    mshell_parse(mshell, line);
+    // print_ast(mshell->ast, 10);
+    printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
+    print_tokens(mshell->lexer->tokens);
+    // exit(0);
+}
+void    display_prompt(t_mshell *mshell)
 {
     char    *line;
 
@@ -171,36 +176,11 @@ void    display_prompt(newline_cb newline, t_envlst *envlst)
         if (line)
         {
             add_history(line);
-            newline(line, envlst);
+            on_new_line(mshell, line);
         }
         else
             break;
     }
-}
-
-
-
-void    on_new_line(char *line, t_envlst *envlst)
-{
-    t_lexer *lexer = init_lexer(line);
-    lxr_generate_tokens(lexer);
-    t_handler *handler = init_handler(lexer, on_error);
-    if (!hdl_run_quotes_check(handler))
-        return ;
-    if (!hdl_run_poa_check(handler))
-        return ;
-    if (!hdl_run_redirects_check(handler))
-        return ;
-    t_resolver *resolver = init_resolver(lexer, envlst);
-    print_tokens(lexer->tokens);
-    rslv_expand(resolver);
-    rslv_optimize(resolver);
-    t_parser *parser = init_parser(lexer->tokens);
-    t_ast *tree = prsr_parse(parser); 
-    print_ast(tree, 10);
-    // printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
-    // print_tokens(lexer->tokens);
-    // exit(0);
 }
 
 void    on_destroy() {
@@ -208,8 +188,10 @@ void    on_destroy() {
 }
 
 int main(int ac, char **av, char **env) {
+    t_mshell mshell;
     // atexit(on_destroy);
-    t_envlst *head = shell_init_envlst(env);
-    display_prompt(on_new_line, head);
+
+    init_mshell(&mshell, env);
+    display_prompt(&mshell);
 
 }

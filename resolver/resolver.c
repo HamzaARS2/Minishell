@@ -6,11 +6,10 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:51 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 15:22:23 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:23:38 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
 #include "../include/resolver.h"
 
 t_resolver  *init_resolver(t_lexer *lexer, t_envlst *envlst)

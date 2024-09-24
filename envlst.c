@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:37:15 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 11:56:59 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:00:41 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void    add_envlst(t_envlst **envlst_list, t_envlst *envlst)
         add_last_envlst(*envlst_list, envlst);
 }
 
-t_envlst    *shell_init_envlst(char **env)
+t_envlst    *init_envlst(char **env)
 {
     t_envlst *head;
 

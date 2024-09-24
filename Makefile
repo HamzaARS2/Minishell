@@ -6,7 +6,7 @@ utils/is_shell_special.c utils/strcombine.c utils/ft_strncmp.c utils/ft_strdup.c
 resolver/resolver_utils_extra.c handler/handler_utils.c parser/parser_utils.c parser/ast_utils.c
 
 MAIN_FILES = minishell.c lexer/lexer.c lexer/token.c resolver/resolver.c handler/handler.c handler/checker.c \
-parser/parser.c parser/procedures.c parser/procedures_extra.c parser/ast.c envlst.c $(UTILS)
+parser/parser.c parser/procedures.c parser/procedures_extra.c parser/ast.c envlst.c shell_control.c $(UTILS)
 MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
 NAME := minishell

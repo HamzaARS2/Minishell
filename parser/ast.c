@@ -6,11 +6,10 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 11:28:46 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 13:45:53 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:24:19 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
 #include "../include/ast.h"
 
 t_ast   *ast_create_node(char **cmd, t_ast_type type)

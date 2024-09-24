@@ -6,11 +6,10 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:34:55 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 15:22:45 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:23:53 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
 #include "../include/resolver.h"
 
 bool    urslv_should_merge(t_resolver *resolver)

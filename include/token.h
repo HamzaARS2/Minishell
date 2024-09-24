@@ -1,8 +1,10 @@
 #ifndef TOKEN_H
 # define TOKEN_H
 
-#include "minishell.h"
 #include <stdint.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include "utils.h"
 
 typedef enum s_type {
     WORD = 30,
