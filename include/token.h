@@ -2,6 +2,7 @@
 # define TOKEN_H
 
 #include <stdint.h>
+#include <unistd.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include "utils.h"
