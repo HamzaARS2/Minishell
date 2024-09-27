@@ -1,7 +1,6 @@
 #include "include/minishell.h"
 
 
-
 // Function to convert AST type to string (for printing purposes)
 const char *get_ast_type_string(t_ast_type type) {
     switch (type) {
@@ -81,22 +80,6 @@ void print_ast(t_ast *node, int depth) {
     }
 }
 
-void    display_prompt(newline_cb newline, char **env)
-{
-    char    *line;
-
-    while (true)
-    {
-        line = readline("minishell > ");
-        if (line)
-        {
-            add_history(line);
-            newline(line, env);
-        }
-        else
-            break;
-    }
-}
 void print_type_name(t_type type) {
     switch (type) {
         case WORD:
@@ -175,29 +158,30 @@ void    on_error(t_handler *handler)
     // TODO: run resources cleaner.
     rl_redisplay();
 }
-
-
-void    on_new_line(char *line, char **env)
+void    on_new_line(t_mshell *mshell, char *line)
 {
-    t_lexer *lexer = init_lexer(line);
-    lxr_generate_tokens(lexer);
-    t_handler *handler = init_handler(lexer, on_error);
-    if (!hdl_run_quotes_check(handler))
-        return ;
-    if (!hdl_run_poa_check(handler))
-        return ;
-    if (!hdl_run_redirects_check(handler))
-        return ;
-    t_resolver *resolver = init_resolver(lexer, env);
-    print_tokens(lexer->tokens);
-    rslv_expand(resolver);
-    rslv_optimize(resolver);
-    t_parser *parser = init_parser(lexer->tokens);
-    t_ast *tree = prsr_parse(parser);
-    print_ast(tree, 10);
+    mshell_parse(mshell, line);
+    mshell_execute(mshell);
+    // print_ast(mshell->ast, 10);
     // printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
-    // print_tokens(lexer->tokens);
+    // print_tokens(mshell->lexer->tokens);
     // exit(0);
+}
+void    display_prompt(t_mshell *mshell)
+{
+    char    *line;
+
+    while (true)
+    {
+        line = readline("minishell > ");
+        if (line)
+        {
+            add_history(line);
+            on_new_line(mshell, line);
+        }
+        else
+            break;
+    }
 }
 
 void    on_destroy() {
@@ -205,6 +189,10 @@ void    on_destroy() {
 }
 
 int main(int ac, char **av, char **env) {
-    atexit(on_destroy);
-    display_prompt(on_new_line, env);
+    t_mshell mshell;
+    // atexit(on_destroy);
+
+    init_mshell(&mshell, env);
+    display_prompt(&mshell);
+
 }

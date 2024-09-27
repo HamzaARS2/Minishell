@@ -6,11 +6,11 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:21:27 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/07 16:21:47 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:23:59 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/resolver.h"
 
 void    urslv_remove_spaces(t_resolver *resolver)
 {

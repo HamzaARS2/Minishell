@@ -6,11 +6,12 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:16:34 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/03 09:49:31 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:25:08 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include "../include/token.h"
 
 t_token *tkn_create_token(char *value, t_type type)
 {

@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_special_token.c                                 :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/01 08:13:06 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/04 12:19:14 by helarras         ###   ########.fr       */
+/*   Created: 2024/09/24 16:26:45 by helarras          #+#    #+#             */
+/*   Updated: 2024/09/24 16:27:24 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-bool    is_special_token(t_token *token)
-{
-    if (token->type == SSPACE || token->type == PIPE || token->type == OUT_RED
-        || token->type == IN_RED || token->type == HERE_DOC || token->type == APPEND
-        || token->type == OR || token->type == D_AND)
-        return (true);
-    return (false);
-}
+#include <stdlib.h>
+
+// utils
+unsigned int    ft_strlen(char *str);
+char            *substr(char *str, int start, int end);
+bool            ft_isalnum(char c);
+bool            is_shell_special(char c);
+char	        *strcombine(char *s1, char *s2);
+int             ft_strncmp(const char *s1, const char *s2, size_t n);
+char	        *ft_strdup(char *s1);
+
+
+
+
+#endif

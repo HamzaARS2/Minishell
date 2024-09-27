@@ -6,13 +6,13 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:51 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/07 16:21:44 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:23:38 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/resolver.h"
 
-t_resolver  *init_resolver(t_lexer *lexer, char **env)
+t_resolver  *init_resolver(t_lexer *lexer, t_envlst *envlst)
 {
     t_resolver *resolver;
 
@@ -21,7 +21,7 @@ t_resolver  *init_resolver(t_lexer *lexer, char **env)
         return (NULL);
     resolver->tokens = &(lexer->tokens);
     resolver->size = lexer->size;
-    resolver->env = env;
+    resolver->envlst = envlst;
     resolver->current = *(resolver->tokens);
     if (resolver->current)
         resolver->next = resolver->current->next;

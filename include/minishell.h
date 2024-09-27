@@ -1,32 +1,36 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdint.h>
+#include "token.h"
 #include "lexer.h"
-#include "resolver.h"
 #include "handler.h"
+#include "resolver.h"
 #include "ast.h"
 #include "parser.h"
-#include "execution.h"
 
-typedef void (*newline_cb) (char *, char **);
+typedef struct s_mshell {
+    t_envlst        *envlst;
+    t_ast           *ast;
+    t_lexer         *lexer;
+    t_handler       *handler;
+    t_resolver      *resolver;
+    t_parser        *parser;
+} t_mshell;
+
+void    init_mshell(t_mshell *mshell, char **env);
+
+void    mshell_parse(t_mshell *mshell, char *line);
+
+void    mshell_execute(t_mshell *mshell);
 
 
-// utils
-unsigned int    ft_strlen(char *str);
-char            *substr(char *str, int start, int end);
-bool            ft_isalnum(char c);
-bool            is_shell_special(char c);
-char	        *strcombine(char *s1, char *s2);
-int             ft_strncmp(const char *s1, const char *s2, size_t n);
-char	        *ft_strdup(char *s1);
-bool            is_special_token(t_token *token);
-void            urslv_skip_heredoc_limiter(t_resolver *resolver);
+t_envlst    *init_envlst(char **env);
+
+
+
 
 
 #endif

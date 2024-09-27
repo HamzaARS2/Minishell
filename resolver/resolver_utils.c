@@ -6,11 +6,11 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:34:55 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/20 10:14:48 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:23:53 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/resolver.h"
 
 bool    urslv_should_merge(t_resolver *resolver)
 {
@@ -40,24 +40,22 @@ bool    urslv_should_expand(t_resolver *resolver)
 
 void    urslv_expand_variable(t_resolver *resolver)
 {
-    uint32_t    i;
     uint32_t    varsize;
     char        *variable;
-    char        **env;
+    t_envlst    *current;
     
-    i = 0;
-    env = resolver->env;
+    current = resolver->envlst;
     variable = resolver->current->value + 1;
     varsize = ft_strlen(variable);
-    while (env[i])
+    while (current)
     {
-        if (!ft_strncmp(env[i], variable, varsize))
+        if (!ft_strncmp(current->variable, variable, varsize))
         {
             free(resolver->current->value);
-            resolver->current->value = ft_strdup(env[i] + varsize + 1);
+            resolver->current->value = ft_strdup(current->variable + varsize + 1);
             return ;
         }
-        i++;
+        current = current->next;
     }
     free(resolver->current->value);
     resolver->current->value = NULL;

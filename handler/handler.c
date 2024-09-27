@@ -6,13 +6,13 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 10:03:49 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/04 12:56:04 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:22:01 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/handler.h"
 
-t_handler *init_handler(t_lexer *lexer, on_error_cb callback)
+t_handler *init_handler(t_lexer *lexer)
 {
     t_handler *handler;
 
@@ -21,7 +21,6 @@ t_handler *init_handler(t_lexer *lexer, on_error_cb callback)
         return (NULL);
     handler->lexer = lexer;
     handler->error = NO_ERROR;
-    handler->callback = callback;
     return (handler);
 }
 
@@ -35,9 +34,8 @@ void    hdl_print_error(t_handler *handler)
 void    hdl_post_error(t_handler *handler, t_error error)
 {
     handler->error = error;
-    handler->callback(handler);
+    hdl_print_error(handler);
 }
-
 
 bool    hdl_search_forward(t_token *token, validation validate_token)
 {

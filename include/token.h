@@ -2,6 +2,10 @@
 # define TOKEN_H
 
 #include <stdint.h>
+#include <unistd.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include "utils.h"
 
 typedef enum s_type {
     WORD = 30,
@@ -48,6 +52,7 @@ t_token *tkn_extract(t_type type, char *str, uint32_t start, uint32_t end);
 // utils
 void    add_last_token(t_token *token_list, t_token *token_node);
 t_token *get_last_token(t_token *token_list);
+bool    is_special_token(t_token *token);
 void    free_token(t_token *token);
 
 
