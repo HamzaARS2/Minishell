@@ -16,6 +16,7 @@
 #include "../include/ast.h"
 
 #include <unistd.h>
+#include <sys/wait.h>
 
 typedef struct s_context {
     int fd[2];

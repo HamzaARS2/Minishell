@@ -11,37 +11,65 @@
 /* ************************************************************************** */
 
 #include "../include/execution.h"
-void    add_pid(t_executor *executor, pid_t pid)
-{
+
+
+// void    add_pid(t_executor *executor, pid_t pid)
+// {
     
-    t_pids  *head;
+//     t_pids  *head;
 
-    t_pids  *new_node;
+//     t_pids  *new_node;
 
-    head = executor->pids;
+//     head = executor->pids;
     
-    new_node->pid = pid;
-    printf("test\n");
+//     new_node->pid = pid;
+//     printf("test\n");
 
-    while (head)
-        head = head->next;
+//     while (head)
+//         head = head->next;
 
-    head = new_node;
-    new_node->next = NULL;
-}
+//     head = new_node;
+//     new_node->next = NULL;
+// }
+int i  = 0;
+
 void    exec_cmd(t_ast *node, t_executor *executor)
 {
     pid_t   pid;
 
     pid = fork();
+    printf("PID: %d\n", pid);
+    printf("node->args[0]:%s\n", node->args[0]);
     if (pid != 0)
     {
-        add_pid(executor, pid);
-        exit(0);
+        // add_pid(executor, pid);
+        //just testing with waitpid()
+        // waitpid(pid, &(executor->status), 0);
+        wait(&(executor->status));
+        // exit(0);
+        return;
     }
         
     //**TO DO: better protection for the execve (access());
     //
+
+    if (executor->context.fd[STDIN_FILENO] != STDIN_FILENO)
+    {
+        dup2(executor->context.fd[STDIN_FILENO], STDIN_FILENO);
+        close(executor->context.fd[STDIN_FILENO]);
+
+    }
+    if (executor->context.fd[STDOUT_FILENO] != STDOUT_FILENO)
+    {
+
+        dup2(executor->context.fd[STDOUT_FILENO], STDOUT_FILENO);
+        close(executor->context.fd[STDOUT_FILENO]);
+    }
+    if (executor->context.close_fd != -1)
+        close(executor->context.close_fd);
+    printf("i : %d\n", i++);
+    printf("TEST\n");
+
     int retur = execve(node->args[0], node->args, NULL);
     printf("return = %d\n",retur);
     exit(1);
@@ -64,13 +92,27 @@ void    exec_pipe(t_ast *ast, t_executor *executor)
     //pipe()
     pipe(p);
     
-    //asign in CONTEXT      
-
+    //asign in CONTEXT  
+    executor->context.fd[STDOUT_FILENO] = p[STDOUT_FILENO];
     //close the unneeded pipes
+    executor->context.close_fd = p[STDIN_FILENO];
     //execute LEFT  by calling EXEC_TREE()
+    exec_tree(left, executor);
+
+
+
+    //reinitializing the context
+    executor->context.fd[STDIN_FILENO] = p[STDIN_FILENO];  
+    //close the unneeded pipes
+    executor->context.close_fd = p[STDOUT_FILENO];
+
     //execute RIGHT by calling EXEC_TREE()
     //
+    exec_tree(right, executor);
 
+
+    close(p[STDIN_FILENO]);
+    close(p[STDOUT_FILENO]);
 
 }
 
