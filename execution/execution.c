@@ -6,101 +6,75 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:11:09 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/25 16:19:42 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/26 10:40:19 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/execution.h"
 
-void    init_executor(t_executor *executor, t_ast *ast, char **env)
-{
-    executor->ast = ast;
-    executor->current = ast;
-    executor->env = env;
-    executor->pids = NULL;
-    executor->status = EXIT_SUCCESS;
-}
+int count = 0;
 
-void    close_fds(t_fds fds)
-{
-    if (fds.in_fd != STDIN_FILENO)
-        close(fds.in_fd);
-    if (fds.out_fd != STDOUT_FILENO)
-        close(fds.out_fd);
-}
-void    dup_fds(t_fds *fds)
-{
-    if (fds->in_fd != STDIN_FILENO)
-        dup2(fds->in_fd, STDIN_FILENO);
-    if (fds->out_fd != STDOUT_FILENO)
-        dup2(fds->out_fd, STDOUT_FILENO);
-    close_fds(*fds);
-}
-
-
-void    execute_command(t_executor *executor, t_fds fds, int p[2]) 
+void    exec_command(t_ast *node, t_context *ctx)
 {
     pid_t pid;
-    t_ast *command;
 
-    command = executor->current;
     pid = fork();
     if (pid != 0)
     {
-        add_pid(&executor->pids, create_pid(pid));
+        count++;
         return ;
     }
-    dup_fds(&fds);
-    if (p)
-    {
-        close(p[0]);
-        close(p[1]);
-    }
-    // close_fds(executor->pipe);
-    execve(command->args[0], command->args, executor->env);
-    // TODO: need to be handled effectivly.
+    dup2(ctx->fd[STDIN_FILENO], STDIN_FILENO);
+    if (ctx->fd[STDIN_FILENO] != STDIN_FILENO)
+        close(ctx->fd[STDIN_FILENO]);
+    dup2(ctx->fd[STDOUT_FILENO], STDOUT_FILENO);
+    if (ctx->fd[STDOUT_FILENO] != STDOUT_FILENO)
+        close(ctx->fd[STDOUT_FILENO]);
+    if (ctx->fd_close >= 0)
+        close(ctx->fd_close);
+    execve(node->args[0], node->args, NULL);
     exit(1);
 }
 
-void    execute_pipe(t_executor *executor, t_fds fds)
+void    exec_pipe(t_ast *node, t_context *ctx)
 {
     int p[2];
+    t_context lctx;
+    t_context rctx;
     
     pipe(p);
-    fds.out_fd = p[1];
-    executor->current = executor->current->left;
-    execute_command(executor, fds, p);
-    if (executor->current->right)
-        executor->current = executor->current->right;
-    else 
-        executor->current = executor->ast->right;
-        
-    if (executor->current->type == AST_COMMAND)
-    {
-        fds.in_fd = p[0];
-        fds.out_fd = 1;
-        execute_command(executor, fds, p);
-    } else {
-        
-        // execute_pipe(executor, fds);
-    }
-    close(p[0]);
-    close(p[1]);
-    close_fds(fds);
+    lctx = *ctx;
+    lctx.fd[STDOUT_FILENO] = p[STDOUT_FILENO];
+    lctx.fd_close = p[STDIN_FILENO];
+    exec_node(node->left, &lctx);
+    rctx = *ctx;
+    rctx.fd[STDIN_FILENO] = p[STDIN_FILENO];
+    rctx.fd_close = p[STDOUT_FILENO];
+    exec_node(node->right, &rctx);
+    close(p[STDIN_FILENO]);
+    close(p[STDOUT_FILENO]);
 }
 
-void    execute_ast(t_executor *executor)
+void    exec_node(t_ast *node, t_context *ctx)
 {
-    t_ast *ast;
+    if (node->type == AST_COMMAND)
+        exec_command(node, ctx);
+    else
+        exec_pipe(node, ctx);
+}
 
-    ast = executor->ast;
-    if (ast->type == AST_COMMAND)
-    {
-        execute_command(executor, (t_fds) {0, 1}, NULL);
-    }
-    else if (ast->type == AST_PIPE)
-    {
-        execute_pipe(executor, (t_fds) {0, 1});
-    }
-    wait_all(executor);
+void    exec_ast(t_ast *ast)
+{
+    t_context ctx;
+    
+    ctx = (t_context) {{STDIN_FILENO, STDOUT_FILENO}, -1};
+    exec_node(ast, &ctx);
+    // printf("count: %i\n", count);
+    // while (count--)
+    // {
+    //     printf("waiting...\n");
+        wait(NULL);
+        wait(NULL);
+        wait(NULL);
+    // }
 }

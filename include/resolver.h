@@ -6,14 +6,13 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:53 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 16:23:27 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:03:36 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RESOLVER_H
 # define RESOLVER_H
 
-#include "token.h"
 #include "lexer.h"
 
 typedef struct s_envlst {

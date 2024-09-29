@@ -6,14 +6,13 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:59:26 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 16:04:53 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:03:28 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HANDLER_H
 # define HANDLER_H
 
-#include "token.h"
 #include "lexer.h"
 
 typedef struct s_handler t_handler;

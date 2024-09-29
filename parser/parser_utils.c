@@ -6,12 +6,11 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:54:58 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/20 19:16:39 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/26 10:59:30 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/parser.h"
-
 
 t_token *uprsr_next_arg(t_token *token)
 {
