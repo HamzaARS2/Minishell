@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/09/29 21:53:46 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/09/29 20:16:57 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,13 @@
 
 // int i  = 0;
 
-void    init_executor(t_executor *executor)
+void    init_context(t_context *ctx)
 {
-    executor->context.fd[0] = STDIN_FILENO;
-    executor->context.fd[1] = STDOUT_FILENO;
-    executor->context.close_fd = -1;
-    executor->pids = NULL;
-
+    ctx->fd[0] = STDIN_FILENO;
+    ctx->fd[1] = STDOUT_FILENO;
+    ctx->close_fd = -1;
 }
-int    exec_cmd(t_ast *node, t_executor *executor)
+int    exec_cmd(t_ast *node, t_context *ctx)
 {
     pid_t   pid;
 
@@ -51,15 +49,19 @@ int    exec_cmd(t_ast *node, t_executor *executor)
     //
     if (pid == 0)
     {
-        printf("CHILD executor->context.fd[0]: %d\n", executor->context.fd[STDIN_FILENO]);
-        printf("CHILD executor->context.fd[1]: %d\n", executor->context.fd[STDOUT_FILENO]);
-        printf("CHILD executor->context.close_fd : %d\n", executor->context.close_fd);
-        
-        dup2(executor->context.fd[STDIN_FILENO], STDIN_FILENO);
-        dup2(executor->context.fd[STDOUT_FILENO], STDOUT_FILENO);
-
-        if (executor->context.close_fd != -1)
-            close(executor->context.close_fd);
+        printf("ctx->fd[STDIN_FILENO]: %d\n", ctx->fd[STDIN_FILENO]);
+        printf("ctx->fd[STDOUT_FILENO]: %d\n", ctx->fd[STDOUT_FILENO]);
+        // Set up pipes
+        if (ctx->fd[STDIN_FILENO] != STDIN_FILENO) {
+            dup2(ctx->fd[STDIN_FILENO], STDIN_FILENO);
+            close(ctx->fd[STDIN_FILENO]);
+        }
+        if (ctx->fd[STDOUT_FILENO] != STDOUT_FILENO) {
+            dup2(ctx->fd[STDOUT_FILENO], STDOUT_FILENO);
+            close(ctx->fd[STDOUT_FILENO]);
+        }
+        if (ctx->close_fd >= 0)
+            close(ctx->close_fd);
         int retur = execve(node->args[0], node->args, NULL);
         printf("execve failef\n");
         return 0 ;
@@ -68,15 +70,15 @@ int    exec_cmd(t_ast *node, t_executor *executor)
     //     wait(NULL);
     return 1;
 }
-int    exec_pipe(t_ast *ast, t_executor *executor)
+int    exec_pipe(t_ast *ast, t_context *ctx)
 {
     //assigning left 
     //assigning right
     t_ast   *left;
     t_ast   *right;
 
-    t_context l_ctx = executor->context;
-    t_context r_ctx = executor->context;
+    t_context l_ctx = *ctx;
+    t_context r_ctx = *ctx;
 
     int child = 0;
     int p[2];
@@ -88,49 +90,52 @@ int    exec_pipe(t_ast *ast, t_executor *executor)
     
     //asign in CONTEXT  
     l_ctx.fd[STDOUT_FILENO] = p[STDOUT_FILENO];
-    if (l_ctx.close_fd != STDOUT_FILENO && l_ctx.close_fd != STDIN_FILENO)
+    if (l_ctx.close_fd != 0 && l_ctx.close_fd != 1)
+        close(l_ctx.close_fd);
     l_ctx.close_fd = p[STDIN_FILENO];
-    executor->context = l_ctx;
     
     //execute LEFT  by calling EXEC_TREE()
-    child += exec_tree(left, executor); 
+    child += exec_tree(left, &l_ctx); 
 
     //reinitializing the context
     r_ctx.fd[STDIN_FILENO] = p[STDIN_FILENO];
+
+    
     r_ctx.close_fd = p[STDOUT_FILENO];
-    executor->context = r_ctx;
 
     //execute RIGHT by calling EXEC_TREE()
-    child += exec_tree(right, executor);
-
-    close(p[STDIN_FILENO]);
+    child += exec_tree(right, &r_ctx);
     close(p[STDOUT_FILENO]);
+    close(p[STDIN_FILENO]);
+
     return child;
 }
 
 
-int    exec_tree(t_ast *ast, t_executor *executor)
+int    exec_tree(t_ast *ast,  t_context *ctx)
 {
     if (ast->type == AST_COMMAND)
-        return (exec_cmd(ast, executor));
+        return (exec_cmd(ast, ctx));
     if (ast->type == AST_PIPE)
-        return (exec_pipe(ast, executor));
+        return (exec_pipe(ast, ctx));
     else 
         return 0;
 
 }
 void   exec(t_ast *ast)
 {
-    t_executor  executor;
+    t_context   ctx;
 
-    init_executor(&executor);
+    init_context(&ctx);
     
-    int childs = exec_tree(ast, &executor);
-    int i = 0 ;
-    while (i++ < childs)
+    int childs = exec_tree(ast, &ctx);
+    for (int i = 0; i < childs ; ++i)
     {
-        printf("i :%d\n", i);
-        printf("childs : %d\n", childs);
+
         wait(NULL);
+        printf("childs : %d\n", childs);
     }
+
+
+
 }
