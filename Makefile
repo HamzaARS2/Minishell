@@ -7,7 +7,7 @@ resolver/resolver_utils_extra.c handler/handler_utils.c parser/parser_utils.c pa
 
 MAIN_FILES = minishell.c lexer/lexer.c lexer/token.c resolver/resolver.c handler/handler.c handler/checker.c \
 parser/parser.c parser/procedures.c parser/procedures_extra.c parser/ast.c envlst.c shell_control.c \
-execution/execution.c  $(UTILS)
+execution/execution.c execution/wait.c $(UTILS)
 MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
 NAME := minishell

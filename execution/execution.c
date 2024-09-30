@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/09/30 15:26:07 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/09/30 23:48:20 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void    exec_cmd(t_ast *node, t_executor *executor)
     pid = fork();  
     if (pid != 0)
     {
-        executor->status++;
+        add_pid(&(executor->pids), pid);
         return ;
     }
     if (executor->ctx.fd[STDIN_FILENO] != STDIN_FILENO) {
@@ -85,8 +85,12 @@ void   exec(t_ast *ast)
     init_executor(&executor);
     
     exec_tree(ast, &executor);
-    while (executor.status--)
+
+    print_pids(executor.pids, 2);
+    while (executor.pids)
     {
-        wait(NULL);
+        waitpid(executor.pids->pid, &executor.status, 0);
+        executor.pids = executor.pids->next;
     }
+
 }
