@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/09/30 13:12:11 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/09/30 15:25:09 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_pids{
 }t_pids;
 
 typedef struct s_executor {
-    t_context   context;
+    t_context   ctx;
     int         status;
     t_pids      *pids;
 
