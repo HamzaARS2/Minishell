@@ -6,36 +6,16 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/09/30 12:26:03 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/09/30 13:12:49 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/execution.h"
 
 
-// int    add_pid(t_executor *executor, pid_t pid)
-// {
-    
-//     t_pids  *head;
-
-//     t_pids  *new_node;
-
-//     head = executor->pids;
-    
-//     new_node->pid = pid;
-//     printf("test\n");
-
-//     while (head)
-//         head = head->next;
-
-//     head = new_node;
-//     new_node->next = NULL;
-// }
-
-// int i  = 0;
-
 void    init_executor(t_executor *executor)
 {
+    t_pids *pids = NULL;
     executor->context.fd[0] = STDIN_FILENO;
     executor->context.fd[1] = STDOUT_FILENO;
     executor->context.close_fd = -1;
@@ -49,6 +29,7 @@ void    exec_cmd(t_ast *node, t_executor *executor)
     pid = fork();  
     if (pid != 0)
     {
+        
         executor->status++;
         return ;
     }
