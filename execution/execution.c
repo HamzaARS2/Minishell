@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/09/29 21:53:46 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/09/30 12:26:03 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,81 +42,59 @@ void    init_executor(t_executor *executor)
     executor->pids = NULL;
 
 }
-int    exec_cmd(t_ast *node, t_executor *executor)
+void    exec_cmd(t_ast *node, t_executor *executor)
 {
     pid_t   pid;
 
     pid = fork();  
-    //**TO DO: better protection for the execve (access());
-    //
-    if (pid == 0)
+    if (pid != 0)
     {
-        printf("CHILD executor->context.fd[0]: %d\n", executor->context.fd[STDIN_FILENO]);
-        printf("CHILD executor->context.fd[1]: %d\n", executor->context.fd[STDOUT_FILENO]);
-        printf("CHILD executor->context.close_fd : %d\n", executor->context.close_fd);
-        
-        dup2(executor->context.fd[STDIN_FILENO], STDIN_FILENO);
-        dup2(executor->context.fd[STDOUT_FILENO], STDOUT_FILENO);
-
-        if (executor->context.close_fd != -1)
-            close(executor->context.close_fd);
-        int retur = execve(node->args[0], node->args, NULL);
-        printf("execve failef\n");
-        return 0 ;
+        executor->status++;
+        return ;
     }
-    // if (pid != 0)
-    //     wait(NULL);
-    return 1;
+    if (executor->context.fd[STDIN_FILENO] != STDIN_FILENO) {
+        dup2(executor->context.fd[STDIN_FILENO], STDIN_FILENO);
+        close(executor->context.fd[STDIN_FILENO]);
+    }
+    if (executor->context.fd[STDOUT_FILENO] != STDOUT_FILENO) {
+        dup2(executor->context.fd[STDOUT_FILENO], STDOUT_FILENO);
+        close(executor->context.fd[STDOUT_FILENO]);
+    }
+    if (executor->context.close_fd != -1)
+        close(executor->context.close_fd);
+    execve(node->args[0], node->args, NULL);
+    perror("execve failed\n");
 }
-int    exec_pipe(t_ast *ast, t_executor *executor)
+void    exec_pipe(t_ast *ast, t_executor *executor)
 {
-    //assigning left 
-    //assigning right
-    t_ast   *left;
-    t_ast   *right;
-
-    t_context l_ctx = executor->context;
-    t_context r_ctx = executor->context;
-
-    int child = 0;
+    t_context l_ctx;
+    t_context r_ctx;
     int p[2];
 
-    left  = ast->left;
-    right = ast->right;
-        //pipe()
+    l_ctx = executor->context;
+    r_ctx = executor->context;
     pipe(p);
-    
-    //asign in CONTEXT  
     l_ctx.fd[STDOUT_FILENO] = p[STDOUT_FILENO];
-    if (l_ctx.close_fd != STDOUT_FILENO && l_ctx.close_fd != STDIN_FILENO)
+    if (r_ctx.close_fd != -1)
+        close (r_ctx.close_fd);
     l_ctx.close_fd = p[STDIN_FILENO];
     executor->context = l_ctx;
-    
-    //execute LEFT  by calling EXEC_TREE()
-    child += exec_tree(left, executor); 
-
-    //reinitializing the context
+    exec_tree(ast->left, executor); 
     r_ctx.fd[STDIN_FILENO] = p[STDIN_FILENO];
     r_ctx.close_fd = p[STDOUT_FILENO];
     executor->context = r_ctx;
-
-    //execute RIGHT by calling EXEC_TREE()
-    child += exec_tree(right, executor);
-
+    exec_tree(ast->right, executor);
     close(p[STDIN_FILENO]);
     close(p[STDOUT_FILENO]);
-    return child;
 }
 
 
-int    exec_tree(t_ast *ast, t_executor *executor)
+void    exec_tree(t_ast *ast, t_executor *executor)
 {
     if (ast->type == AST_COMMAND)
-        return (exec_cmd(ast, executor));
+        exec_cmd(ast, executor);
     if (ast->type == AST_PIPE)
-        return (exec_pipe(ast, executor));
-    else 
-        return 0;
+        exec_pipe(ast, executor);
 
 }
 void   exec(t_ast *ast)
@@ -125,12 +103,9 @@ void   exec(t_ast *ast)
 
     init_executor(&executor);
     
-    int childs = exec_tree(ast, &executor);
-    int i = 0 ;
-    while (i++ < childs)
+    exec_tree(ast, &executor);
+    while (executor.status--)
     {
-        printf("i :%d\n", i);
-        printf("childs : %d\n", childs);
         wait(NULL);
     }
 }

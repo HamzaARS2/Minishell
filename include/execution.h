@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/09/29 20:23:59 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/09/30 12:18:18 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ typedef struct s_executor {
 
 void    exec(t_ast *ast);
 
-int    exec_tree(t_ast *ast, t_executor *executor);
+void    exec_tree(t_ast *ast, t_executor *executor);
 
-int    exec_cmd(t_ast *node, t_executor *executor);
+void    exec_cmd(t_ast *node, t_executor *executor);
 
 
 #endif
