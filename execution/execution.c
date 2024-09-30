@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 10:11:09 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/26 10:40:19 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/30 10:12:19 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 int count = 0;
 
-void    exec_command(t_ast *node, t_context *ctx)
+void    exec_command(t_ast *node, t_executor *executor)
 {
     pid_t pid;
+    t_context *ctx;
 
+    ctx = executor->ctx;
     pid = fork();
     if (pid != 0)
     {
-        count++;
+        executor->status++;
         return ;
     }
     dup2(ctx->fd[STDIN_FILENO], STDIN_FILENO);
@@ -36,45 +38,47 @@ void    exec_command(t_ast *node, t_context *ctx)
     exit(1);
 }
 
-void    exec_pipe(t_ast *node, t_context *ctx)
+void    exec_pipe(t_ast *node, t_executor *executor)
 {
     int p[2];
     t_context lctx;
     t_context rctx;
     
     pipe(p);
-    lctx = *ctx;
+    lctx = *executor->ctx;
+    rctx = *executor->ctx;
     lctx.fd[STDOUT_FILENO] = p[STDOUT_FILENO];
+    if (lctx.fd_close >= 0)
+        close(lctx.fd_close);
     lctx.fd_close = p[STDIN_FILENO];
-    exec_node(node->left, &lctx);
-    rctx = *ctx;
+    executor->ctx = &lctx;
+    exec_node(node->left, executor);
     rctx.fd[STDIN_FILENO] = p[STDIN_FILENO];
     rctx.fd_close = p[STDOUT_FILENO];
-    exec_node(node->right, &rctx);
+    executor->ctx = &rctx;
+    exec_node(node->right, executor);
     close(p[STDIN_FILENO]);
     close(p[STDOUT_FILENO]);
 }
 
-void    exec_node(t_ast *node, t_context *ctx)
+void    exec_node(t_ast *node, t_executor *executor)
 {
     if (node->type == AST_COMMAND)
-        exec_command(node, ctx);
+        exec_command(node, executor);
     else
-        exec_pipe(node, ctx);
+        exec_pipe(node, executor);
 }
 
 void    exec_ast(t_ast *ast)
 {
     t_context ctx;
+    t_executor executor;
     
     ctx = (t_context) {{STDIN_FILENO, STDOUT_FILENO}, -1};
-    exec_node(ast, &ctx);
-    // printf("count: %i\n", count);
-    // while (count--)
-    // {
-    //     printf("waiting...\n");
+    executor = (t_executor) {&ctx, 0};
+    exec_node(ast, &executor);
+
+    while (executor.status--)
         wait(NULL);
-        wait(NULL);
-        wait(NULL);
-    // }
+    
 }
