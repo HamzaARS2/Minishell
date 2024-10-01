@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/09/30 23:48:20 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/01 15:48:25 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void    exec_cmd(t_ast *node, t_executor *executor)
         close(executor->ctx.close_fd);
     execve(node->args[0], node->args, NULL);
     perror("execve failed\n");
+    exit(23);
 }
 void    exec_pipe(t_ast *ast, t_executor *executor)
 {
@@ -73,24 +74,20 @@ void    exec_pipe(t_ast *ast, t_executor *executor)
 void    exec_tree(t_ast *ast, t_executor *executor)
 {
     if (ast->type == AST_COMMAND)
+    {
         exec_cmd(ast, executor);
+    }
     if (ast->type == AST_PIPE)
         exec_pipe(ast, executor);
 
 }
-void   exec(t_ast *ast)
+void   exec(t_ast *ast, t_executor *executor)
 {
-    t_executor  executor;
 
-    init_executor(&executor);
-    
-    exec_tree(ast, &executor);
+    exec_tree(ast, executor);
 
-    print_pids(executor.pids, 2);
-    while (executor.pids)
-    {
-        waitpid(executor.pids->pid, &executor.status, 0);
-        executor.pids = executor.pids->next;
-    }
+    print_pids(executor->pids, 2);    //TESTING : printing the pids list;
+    ft_wait(executor);
 
+    printf("STATUS: %d\n", executor->status);
 }

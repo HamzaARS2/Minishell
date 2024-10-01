@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/09/30 23:31:29 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/01 13:37:48 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,17 @@ typedef struct s_executor {
 
 } t_executor;
 
-void    exec(t_ast *ast);
+void    exec(t_ast *ast, t_executor *executor);
 
 void    exec_tree(t_ast *ast, t_executor *executor);
 
 void    exec_cmd(t_ast *node, t_executor *executor);
 
 void    add_pid(t_pids **pids, pid_t pid);
+
+void    ft_wait(t_executor *executor);
+
+void    init_executor(t_executor *executor);
 
 void print_pids(t_pids *pids, int  flag);//
 
