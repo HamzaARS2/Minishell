@@ -98,7 +98,7 @@ bool    ulxr_extract_variable(t_lexer *lexer, t_token **token)
     if (lexer->c != '$')
         return (false);
     lxr_advance(lexer);
-    while (lexer->c && (ft_isalnum(lexer->c)))
+    while (lexer->c && (ft_isalnum(lexer->c) || lexer->c == '_'))
         lxr_advance(lexer);
     *token = tkn_extract(WORD, lexer->content, start, lexer->i);
     if (!(*token))
