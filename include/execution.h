@@ -59,15 +59,11 @@ void    hrdoc_search(t_redirect *redirect, t_envlst *envlst);
 
 void    hrdoc_run(t_redirect *heredoc, t_envlst *envlst);
 
-char    *hrdoc_replace_env(t_vinfo vinfo, char *line);
+bool    uhrdoc_env_exist(char *line);
 
-void    uhrdoc_envval_cpy(t_vinfo vinfo, char *line, char *newline);
+uint32_t    uhrdoc_get_size(t_token *tokens);
 
-void    uhrdoc_expand_env(t_vinfo *vinfo, t_envlst *envlst);
+char    *uhrdoc_join_tokens(t_token *tokens, uint32_t size);
 
-char    *uhrdoc_envname(char *str);
-
-void    uhrdoc_next_env(t_vinfo *vinfo, char *line);
-
-void    uhrdoc_clear(t_vinfo vinfo);
+void    uhrdoc_clear(t_lexer *lexer, t_resolver *resolver, char *line);
 #endif
