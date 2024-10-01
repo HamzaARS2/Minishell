@@ -49,7 +49,7 @@ void    urslv_expand_variable(t_resolver *resolver)
     varsize = ft_strlen(variable);
     while (current)
     {
-        if (!ft_strncmp(current->variable, variable, varsize))
+        if (varsize > 0 && !ft_strncmp(current->variable, variable, varsize))
         {
             free(resolver->current->value);
             resolver->current->value = ft_strdup(current->variable + varsize + 1);

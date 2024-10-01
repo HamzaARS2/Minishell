@@ -36,6 +36,7 @@ t_redirect *ast_create_redirect(char *content, t_ast_type type)
         return (NULL);
     redirect->content = content;
     redirect->type = type;
+    redirect->heredoc_fd = -1;
     redirect->next = NULL;
     return (redirect);
 }

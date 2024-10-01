@@ -44,8 +44,7 @@ void    mshell_parse(t_mshell *mshell, char *line)
 void    mshell_execute(t_mshell *mshell)
 {
     // TODO: execute the whole AST.
-
-
+    hrdoc_collect(mshell->ast, mshell->envlst);
     exec(mshell->ast);
 
 //* HAMZA'S PREVIOUS PROTOTYPE 
