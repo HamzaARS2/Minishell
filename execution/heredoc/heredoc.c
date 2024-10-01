@@ -3,8 +3,8 @@
 
 char    *hrdoc_expand(t_envlst *envlst, char *line)
 {
-    t_lexer *lexer;
-    t_resolver *resolver;
+    t_lexer     *lexer;
+    t_resolver  *resolver;
     char        *newline;
 
     if (!uhrdoc_env_exist(line))
@@ -12,7 +12,7 @@ char    *hrdoc_expand(t_envlst *envlst, char *line)
     lexer = init_lexer(line);
     lxr_generate_tokens(lexer);
     resolver = init_resolver(lexer, envlst);
-    rslv_expand(resolver);
+    rslv_expand(resolver, false);
     newline = uhrdoc_join_tokens(lexer->tokens, uhrdoc_get_size(lexer->tokens));
     uhrdoc_clear(lexer, resolver, line);
     return (newline);

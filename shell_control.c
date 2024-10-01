@@ -35,7 +35,7 @@ void    mshell_parse(t_mshell *mshell, char *line)
     if (!hdl_run_redirects_check(mshell->handler))
         return ;
     mshell->resolver = init_resolver(mshell->lexer, mshell->envlst);
-    rslv_expand(mshell->resolver);
+    rslv_expand(mshell->resolver, true);
     rslv_optimize(mshell->resolver);
     mshell->parser = init_parser(mshell->lexer->tokens);
     mshell->ast = prsr_parse(mshell->parser);
