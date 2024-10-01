@@ -1,6 +1,13 @@
 
 #include "../../include/execution.h"
 
+void    uhrdoc_clear(t_vinfo vinfo)
+{
+    free(vinfo.variable);
+    free(vinfo.value);
+    vinfo = (t_vinfo) {0};
+}
+
 void    uhrdoc_envval_cpy(t_vinfo vinfo, char *line, char *newline)
 {
     uint32_t    i;
@@ -12,8 +19,7 @@ void    uhrdoc_envval_cpy(t_vinfo vinfo, char *line, char *newline)
     new_i = 0;
     while (line[i] && i < vinfo.i)
         newline[new_i++] = line[i++];
-
-    while (vinfo.value[val_i])
+    while (vinfo.value && vinfo.value[val_i])
     {
         newline[new_i + val_i] = vinfo.value[val_i];
         val_i++;
@@ -22,35 +28,24 @@ void    uhrdoc_envval_cpy(t_vinfo vinfo, char *line, char *newline)
     new_i += vinfo.valsize;
     while (line[i])
         newline[new_i++] = line[i++];
+    free(line);
+    line = NULL;
     newline[new_i] = 0;
 }
 
-char    *uhrdoc_replace_env(t_vinfo vinfo, char *line)
-{
-    uint32_t    linesize;
-    char        *newline;
-    uint32_t    newsize;
-
-    linesize = ft_strlen(line);
-    newsize = linesize - vinfo.varsize + vinfo.valsize;
-    newline = malloc((newsize + 1) * sizeof(char));
-    if (!newline)
-        return (NULL);
-    uhrdoc_envval_cpy(vinfo, line, newline);
-    return (newline);
-}
 
 void    uhrdoc_expand_env(t_vinfo *vinfo, t_envlst *envlst)
 {
     t_envlst *current;
     uint32_t varsize;
+    char    *var;
 
-    vinfo->variable++;
-    varsize = ft_strlen(vinfo->variable);
+    var = vinfo->variable + 1;
+    varsize = vinfo->varsize - 1;
     current = envlst;
     while (current)
     {
-        if (varsize > 0 && !ft_strncmp(current->variable, vinfo->variable, varsize))
+        if (varsize > 0 && !ft_strncmp(current->variable, var, varsize))
         {
             vinfo->value = ft_strdup(current->variable + varsize + 1);
             vinfo->valsize = ft_strlen(vinfo->value);
@@ -80,11 +75,14 @@ void    uhrdoc_next_env(t_vinfo *vinfo, char *line)
         if (line[i] == '$' && (ft_isalnum(line[i + 1]) || line[i + 1] == '_'))
         {
             vinfo->variable = uhrdoc_envname(line + i);
+            vinfo->varsize = ft_strlen(vinfo->variable);
             vinfo->i = i;
+            i += vinfo->varsize;
             return ;
         }
         i++;
     }
+    i = 0;
     vinfo->variable = NULL;
     return ;
 }

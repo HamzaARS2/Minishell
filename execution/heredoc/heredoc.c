@@ -1,6 +1,21 @@
 
 #include "../../include/execution.h"
 
+char    *hrdoc_replace_env(t_vinfo vinfo, char *line)
+{
+    uint32_t    linesize;
+    char        *newline;
+    uint32_t    newsize;
+
+    linesize = ft_strlen(line);
+    newsize = linesize - vinfo.varsize + vinfo.valsize;
+    newline = malloc((newsize + 1) * sizeof(char));
+    if (!newline)
+        return (NULL);
+    newline[newsize] = 0;
+    uhrdoc_envval_cpy(vinfo, line, newline);
+    return (newline);
+}
 
 char    *hrdoc_expand(t_envlst *envlst, char *line)
 {
@@ -14,13 +29,12 @@ char    *hrdoc_expand(t_envlst *envlst, char *line)
         if (!vinfo.variable)
             break;
         uhrdoc_expand_env(&vinfo, envlst);
-        line = uhrdoc_replace_env(vinfo, line);
+        line = hrdoc_replace_env(vinfo, line);
     }
+    uhrdoc_clear(vinfo);
     return (line);
 }
 
-// hello $USER dwd $HOME wdad
-// hello helarras dwd $HOME wdad
 void    hrdoc_run(t_redirect *heredoc, t_envlst *envlst)
 {
     int p[2];

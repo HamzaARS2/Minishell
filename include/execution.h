@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/09/30 15:25:09 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/01 16:18:44 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void    hrdoc_search(t_redirect *redirect, t_envlst *envlst);
 
 void    hrdoc_run(t_redirect *heredoc, t_envlst *envlst);
 
-char    *uhrdoc_replace_env(t_vinfo vinfo, char *line);
+char    *hrdoc_replace_env(t_vinfo vinfo, char *line);
 
 void    uhrdoc_envval_cpy(t_vinfo vinfo, char *line, char *newline);
 
@@ -68,4 +68,6 @@ void    uhrdoc_expand_env(t_vinfo *vinfo, t_envlst *envlst);
 char    *uhrdoc_envname(char *str);
 
 void    uhrdoc_next_env(t_vinfo *vinfo, char *line);
+
+void    uhrdoc_clear(t_vinfo vinfo);
 #endif
