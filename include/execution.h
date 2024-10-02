@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/01 16:18:44 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:02:46 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "../include/resolver.h"
 #include <unistd.h>
 #include <sys/wait.h>
+#include "get_next_line.h"
 
 typedef struct s_vinfo {
     char *variable;

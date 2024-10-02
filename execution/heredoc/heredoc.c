@@ -27,10 +27,11 @@ void    hrdoc_run(t_redirect *heredoc, t_envlst *envlst)
     pipe(p);
     while (true)
     {
-        line = readline("heredoc > ");
+        write(1, "heredoc > ", 10);
+        line = get_next_line(0);
         if (!line)
             break;
-        linesize = ft_strlen(line);
+        linesize = ft_strlen(line) - 1;
         if (linesize > 0 && !ft_strncmp(line, heredoc->content, linesize))
            break;
         if (heredoc->type == AST_HEREDOC)
