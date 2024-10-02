@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/01 13:37:48 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/02 12:56:17 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 #include <unistd.h>
 #include <sys/wait.h>
+#include <fcntl.h>
 
 typedef struct s_context {
     int fd[2];
@@ -49,6 +50,9 @@ void    ft_wait(t_executor *executor);
 void    init_executor(t_executor *executor);
 
 void print_pids(t_pids *pids, int  flag);//
+
+void    hndl_redirect(t_ast *ast, t_context *ctx);
+
 
 
 #endif
