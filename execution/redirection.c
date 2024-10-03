@@ -12,7 +12,7 @@ int    open_redirect(char *path, int flag)
 
 int    update_ctx(int *ctx_fd, int fd)
 {
-    if (*ctx_fd != STDOUT_FILENO && *ctx_fd != STDIN_FILENO)
+    if (*ctx_fd != STDOUT_FILENO && *ctx_fd != STDIN_FILENO )
         close(*ctx_fd);
 
     *ctx_fd = fd;
@@ -49,7 +49,7 @@ int    hndl_redirect(t_ast *ast, t_context *ctx)
     redirect = ast->redirect;
     while (redirect)
     {
-        fd = check_redirect(ctx, ast->redirect);
+        fd = check_redirect(ctx, redirect);
         redirect = redirect->next;
     }
     return (fd);
