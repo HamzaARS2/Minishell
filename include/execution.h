@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/03 12:07:24 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/03 12:49:13 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void    ft_wait(t_executor *executor);
 
 void    init_executor(t_executor *executor);
 
-void print_pids(t_pids *pids, int  flag);//
+void    print_pids(t_pids *pids, int  flag);//delete
 
-void    hndl_redirect(t_ast *ast, t_context *ctx);
+int     hndl_redirect(t_ast *ast, t_context *ctx);
 
 
 

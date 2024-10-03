@@ -1,0 +1,14 @@
+Makefile
+envlst.c
+execution
+gnl
+handler
+include
+lexer
+minishell
+minishell.c
+out
+parser
+resolver
+shell_control.c
+utils

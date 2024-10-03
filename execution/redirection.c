@@ -1,16 +1,5 @@
 #include "../include/execution.h"
 
-void    print_redirect(t_ast *ast)
-{
-    t_redirect *redirect = ast->redirect;
-
-    while (redirect)
-    {
-        printf("%d\n", redirect->type);
-        redirect = redirect->next;
-
-    }
-}
 int    open_redirect(char *path, int flag)
 {
     int fd;
@@ -21,16 +10,18 @@ int    open_redirect(char *path, int flag)
     return (fd);
 }
 
-void    update_ctx(int *ctx_fd, int fd)
+int    update_ctx(int *ctx_fd, int fd)
 {
     if (*ctx_fd != STDOUT_FILENO && *ctx_fd != STDIN_FILENO)
         close(*ctx_fd);
 
     *ctx_fd = fd;
+    return (fd);
 }
 
-void check_redirect(t_context *ctx, int type, char *file)
+int check_redirect(t_context *ctx, t_redirect *redirect)
 {
+    int fd;
     int IN_RED;
     int OUT_RED;
     int APPEND;
@@ -39,29 +30,27 @@ void check_redirect(t_context *ctx, int type, char *file)
     OUT_RED = O_CREAT | O_TRUNC | O_RDWR;
     APPEND = O_CREAT | O_APPEND | O_RDWR;
 
-    if (type == AST_IN_RED)
-        update_ctx(&(ctx->fd[0]), open_redirect(file, IN_RED));
-    else if (type == AST_OUT_RED)
-        update_ctx(&(ctx->fd[1]), open_redirect(file, OUT_RED));
-    else if (type == AST_APPEND)
-        update_ctx(&(ctx->fd[1]), open_redirect(file, APPEND));
+    if (redirect->type == AST_IN_RED)
+        fd = update_ctx(&(ctx->fd[0]), open_redirect(redirect->content, IN_RED));
+    else if (redirect->type == AST_OUT_RED)
+        fd = update_ctx(&(ctx->fd[1]), open_redirect(redirect->content, OUT_RED));
+    else if (redirect->type == AST_APPEND)
+        fd = update_ctx(&(ctx->fd[1]), open_redirect(redirect->content, APPEND));
+    else if (redirect->type == AST_HEREDOC || redirect->type == AST_INQ_HEREDOC)
+        fd = update_ctx(&(ctx->fd[0]), redirect->heredoc_fd);
+    return (fd);
 }
 
-void    hndl_redirect(t_ast *ast, t_context *ctx)
+int    hndl_redirect(t_ast *ast, t_context *ctx)
 {
-    //CHECK REDIRECTION ; < AST ;
     t_redirect  *redirect;
+    int         fd;
 
     redirect = ast->redirect;
     while (redirect)
     {
-        check_redirect(ctx, redirect->type, redirect->content);
+        fd = check_redirect(ctx, ast->redirect);
         redirect = redirect->next;
     }
-
-    //OPEN FILES        ;
-    // SET CONTEXT      ;
-    print_redirect(ast);
-
-
+    return (fd);
 }
