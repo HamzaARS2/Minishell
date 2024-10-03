@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/02 12:04:40 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/03 11:29:36 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void    init_executor(t_executor *executor)
     executor->pids = NULL;
 
 }
+
 void    exec_cmd(t_ast *node, t_executor *executor)
 {
     pid_t   pid;
