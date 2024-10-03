@@ -26,14 +26,14 @@ bool    urslv_should_merge(t_resolver *resolver)
     return (false);
 }
 
-bool    urslv_should_expand(t_resolver *resolver)
+bool    urslv_should_expand(t_resolver *resolver, bool hd_skip)
 {
     t_token *current;
 
     current = resolver->current;
     if (!current)
         return (false);
-    if (current->type == HERE_DOC)
+    if (hd_skip && current->type == HERE_DOC)
         urslv_skip_heredoc_limiter(resolver);
     return (current->type == VARIABLE && current->state != IN_SQUOTES);
 }
@@ -49,7 +49,7 @@ void    urslv_expand_variable(t_resolver *resolver)
     varsize = ft_strlen(variable);
     while (current)
     {
-        if (!ft_strncmp(current->variable, variable, varsize))
+        if (varsize > 0 && !ft_strncmp(current->variable, variable, varsize))
         {
             free(resolver->current->value);
             resolver->current->value = ft_strdup(current->variable + varsize + 1);

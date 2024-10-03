@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:49:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/01 15:43:13 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/03 12:08:06 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void mshell_parse(t_mshell *mshell, char *line)
     if (!hdl_run_redirects_check(mshell->handler))
         return;
     mshell->resolver = init_resolver(mshell->lexer, mshell->envlst);
-    rslv_expand(mshell->resolver);
+    rslv_expand(mshell->resolver, true);
     rslv_optimize(mshell->resolver);
     mshell->parser = init_parser(mshell->lexer->tokens);
     mshell->ast = prsr_parse(mshell->parser);
@@ -46,6 +46,8 @@ void mshell_execute(t_mshell *mshell)
     init_executor(&mshell->executor);
 
     // TODO: execute the whole AST.
+    // TODO: execute the whole AST.
+    hrdoc_collect(mshell->ast, mshell->envlst);
     exec(mshell->ast, &(mshell->executor));
 
     //* HAMZA'S PREVIOUS PROTOTYPE

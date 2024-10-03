@@ -30,6 +30,7 @@ typedef enum e_ast_type {
 typedef struct s_redirect {
     char *content;
     t_ast_type type;
+    int heredoc_fd;
     struct s_redirect *next;
 } t_redirect;
 

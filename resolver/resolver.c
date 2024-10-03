@@ -59,13 +59,13 @@ void rslv_merge(t_resolver *resolver)
 }
 
 
-void    rslv_expand(t_resolver *resolver)
+void    rslv_expand(t_resolver *resolver, bool hd_skip)
 {    
     if (!resolver->current)
         return ;
     while (resolver->current)
     {
-        if (urslv_should_expand(resolver))
+        if (urslv_should_expand(resolver, hd_skip))
             urslv_expand_variable(resolver);
         rslv_advance(resolver);
     }
