@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "minishell.h": "c",
+        "token.h": "c",
+        "utils.h": "c",
+        "unistd.h": "c",
+        "execution.h": "c",
+        "ast.h": "c"
+    }
+}

@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/24 16:26:45 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 16:27:24 by helarras         ###   ########.fr       */
+/*   Created: 2024/01/19 19:12:56 by helarras          #+#    #+#             */
+/*   Updated: 2024/10/02 10:21:05 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "../include/get_next_line.h"
 
-#include <stdlib.h>
+size_t	is_exists(char *str, char c)
+{
+	size_t	i;
 
-// utils
-unsigned int    ft_strlen(char *str);
-char            *substr(char *str, int start, int end);
-bool            ft_isalnum(char c);
-bool            is_shell_special(char c);
-char	        *strcombine(char *s1, char *s2);
-int             ft_strncmp(const char *s1, const char *s2, size_t n);
-char	        *ft_strdup(char *s1);
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
-
-
-
-#endif
+char	*sclear(char **s)
+{
+	free(*s);
+	*s = 0;
+	return (*s);
+}
 

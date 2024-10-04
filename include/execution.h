@@ -1,0 +1,70 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
+/*   Updated: 2024/10/02 11:02:46 by helarras         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef EXECUTION_H
+#define EXECUTION_H
+
+#include <readline/readline.h>
+#include <readline/history.h>
+#include "../include/ast.h"
+#include "../include/resolver.h"
+#include <unistd.h>
+#include <sys/wait.h>
+#include "get_next_line.h"
+
+typedef struct s_vinfo {
+    char *variable;
+    char *value;
+    uint32_t varsize;
+    uint32_t valsize;
+    uint32_t i;
+} t_vinfo;
+
+typedef struct s_context {
+    int fd[2];
+    int close_fd;
+
+} t_context;
+
+typedef struct s_pids{
+    pid_t           pid;
+    struct s_pids   *next;
+}t_pids;
+
+typedef struct s_executor {
+    t_context   ctx;
+    int         status;
+    t_pids      *pids;
+
+} t_executor;
+
+void    exec(t_ast *ast);
+
+void    exec_tree(t_ast *ast, t_executor *executor);
+
+void    exec_cmd(t_ast *node, t_executor *executor);
+
+
+void    hrdoc_collect(t_ast *node, t_envlst *envlst);
+
+void    hrdoc_search(t_redirect *redirect, t_envlst *envlst);
+
+void    hrdoc_run(t_redirect *heredoc, t_envlst *envlst);
+
+bool    uhrdoc_env_exist(char *line);
+
+uint32_t    uhrdoc_get_size(t_token *tokens);
+
+char    *uhrdoc_join_tokens(t_token *tokens, uint32_t size);
+
+void    uhrdoc_clear(t_lexer *lexer, t_resolver *resolver, char *line);
+#endif

@@ -36,14 +36,14 @@ t_resolver  *init_resolver(t_lexer *lexer, t_envlst *envlst);
 void    rslv_advance(t_resolver *resolver);
 
 // expand variable tokens.
-void    rslv_expand(t_resolver *resolver);
+void    rslv_expand(t_resolver *resolver, bool hd_skip);
 
 // merge tokens.
 void    rslv_optimize(t_resolver *resolver);
 
 // utils
 bool    urslv_should_merge(t_resolver *resolver);
-bool    urslv_should_expand(t_resolver *resolver);
+bool    urslv_should_expand(t_resolver *resolver, bool hd_skip);
 void    urslv_reset(t_resolver *resolver);
 void    urslv_expand_variable(t_resolver *resolver);
 void    urslv_remove_spaces(t_resolver *resolver);

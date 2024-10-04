@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   shell_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:49:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 16:35:35 by helarras         ###   ########.fr       */
+/*   Updated: 2024/09/27 12:47:34 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
+#include "include/execution.h"
 
 void    init_mshell(t_mshell *mshell, char **env)
 {
@@ -34,7 +35,7 @@ void    mshell_parse(t_mshell *mshell, char *line)
     if (!hdl_run_redirects_check(mshell->handler))
         return ;
     mshell->resolver = init_resolver(mshell->lexer, mshell->envlst);
-    rslv_expand(mshell->resolver);
+    rslv_expand(mshell->resolver, true);
     rslv_optimize(mshell->resolver);
     mshell->parser = init_parser(mshell->lexer->tokens);
     mshell->ast = prsr_parse(mshell->parser);
@@ -43,5 +44,13 @@ void    mshell_parse(t_mshell *mshell, char *line)
 void    mshell_execute(t_mshell *mshell)
 {
     // TODO: execute the whole AST.
+    hrdoc_collect(mshell->ast, mshell->envlst);
+    exec(mshell->ast);
+
+//* HAMZA'S PREVIOUS PROTOTYPE 
+/*     t_executor executor;
+
+    init_executor(&executor, mshell->ast, NULL);
+    execute_ast(&executor); */
 }
 
