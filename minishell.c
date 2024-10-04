@@ -121,6 +121,9 @@ void print_type_name(t_type type) {
         case D_AND:
             printf("D_AND\n");
             break;
+        case SPLIT_VAR:
+            printf("SPLIT_VAR\n");
+            break;
         case ERROR:
             printf("ERROR\n");
             break;
@@ -161,6 +164,8 @@ void    on_error(t_handler *handler)
 void    on_new_line(t_mshell *mshell, char *line)
 {
     mshell_parse(mshell, line);
+    // print_tokens(mshell->lexer->tokens);
+    // print_ast(mshell->ast, 10);
     mshell_execute(mshell);
     // print_ast(mshell->ast, 10);
     // printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");

@@ -20,7 +20,8 @@ t_token *uprsr_next_arg(t_token *token)
     current = token;
     while (current)
     {
-        if (current->type == WORD || current->type == VARIABLE || current->state != DEFAULT)
+        if (current->type == WORD || current->type == VARIABLE
+            || current->type == SPLIT_VAR || current->state != DEFAULT)
             return (current);
         else if (current->type >= 33 && current->type <= 36)
         {
@@ -71,7 +72,7 @@ char    **uprsr_build_cmd(t_parser *parser)
             break ;
         cmd[i] = current->value;
         if (parser->current->type == WORD || parser->current->type == VARIABLE
-            || parser->current->state != DEFAULT)
+            || parser->current->type == SPLIT_VAR || parser->current->state != DEFAULT)
             prsr_advance(parser);
         current = current->next;
         i++;

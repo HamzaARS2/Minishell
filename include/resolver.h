@@ -49,6 +49,7 @@ void    urslv_expand_variable(t_resolver *resolver);
 void    urslv_remove_spaces(t_resolver *resolver);
 bool    is_special_token(t_token *token);
 void    urslv_skip_heredoc_limiter(t_resolver *resolver);
+void    urslv_handle_expanding(t_resolver *resolver, char *value);
 
 
 

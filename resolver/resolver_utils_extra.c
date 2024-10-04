@@ -40,3 +40,43 @@ void    urslv_remove_spaces(t_resolver *resolver)
         current = current->next;
     }
 }
+
+void    urslv_insert_token(t_resolver *resolver, t_token *token)
+{
+    t_token *current;
+
+    current = resolver->current;
+
+    token->prev = current;
+    token->next = current->next;
+
+    if (current->next)
+        current->next->prev = token;
+
+    current->next = token;
+
+    resolver->next = token;
+}
+
+void    urslv_handle_expanding(t_resolver *resolver, char *value)
+{
+    uint32_t    i;
+    char        **env;
+
+    i = 0;
+    env = ft_split(value, 32);
+    if (!env)
+        return ;
+    while (env[i])
+    {
+        if (i == 0)
+        {
+            free(resolver->current->value);
+            resolver->current->value = env[i++];
+            continue;    
+        }
+        urslv_insert_token(resolver, tkn_create_token(env[i], SPLIT_VAR));
+        rslv_advance(resolver);
+        i++;
+    }
+}
