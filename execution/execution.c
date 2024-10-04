@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/09/30 15:26:07 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/03 13:09:11 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void    init_executor(t_executor *executor)
     executor->pids = NULL;
 
 }
+
 void    exec_cmd(t_ast *node, t_executor *executor)
 {
     pid_t   pid;
@@ -30,7 +31,7 @@ void    exec_cmd(t_ast *node, t_executor *executor)
     pid = fork();  
     if (pid != 0)
     {
-        executor->status++;
+        add_pid(&(executor->pids), pid);
         return ;
     }
     if (executor->ctx.fd[STDIN_FILENO] != STDIN_FILENO) {
@@ -45,6 +46,7 @@ void    exec_cmd(t_ast *node, t_executor *executor)
         close(executor->ctx.close_fd);
     execve(node->args[0], node->args, NULL);
     perror("execve failed\n");
+    exit(23);
 }
 void    exec_pipe(t_ast *ast, t_executor *executor)
 {
@@ -72,21 +74,25 @@ void    exec_pipe(t_ast *ast, t_executor *executor)
 
 void    exec_tree(t_ast *ast, t_executor *executor)
 {
+    int fd;
     if (ast->type == AST_COMMAND)
+    {
+        fd = hndl_redirect(ast, &executor->ctx); //HANDLE REDIRECTIONS
         exec_cmd(ast, executor);
+        if (fd != -1)
+            close (fd);
+    }
     if (ast->type == AST_PIPE)
         exec_pipe(ast, executor);
 
 }
-void   exec(t_ast *ast)
+void   exec(t_ast *ast, t_executor *executor)
 {
-    t_executor  executor;
 
-    init_executor(&executor);
-    
-    exec_tree(ast, &executor);
-    while (executor.status--)
-    {
-        wait(NULL);
-    }
+    exec_tree(ast, executor);
+
+    // print_pids(executor->pids, 2);    //TESTING : printing the pids list;
+    ft_wait(executor);
+
+    printf("STATUS: %d\n", executor->status);
 }

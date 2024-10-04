@@ -10,6 +10,7 @@
 #include "resolver.h"
 #include "ast.h"
 #include "parser.h"
+#include "execution.h"
 
 typedef struct s_mshell {
     t_envlst        *envlst;
@@ -18,6 +19,7 @@ typedef struct s_mshell {
     t_handler       *handler;
     t_resolver      *resolver;
     t_parser        *parser;
+    t_executor      executor;
 } t_mshell;
 
 void    init_mshell(t_mshell *mshell, char **env);

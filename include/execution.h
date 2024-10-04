@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/02 11:02:46 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/03 12:49:13 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "../include/resolver.h"
 #include <unistd.h>
 #include <sys/wait.h>
+#include <fcntl.h>
 #include "get_next_line.h"
 
 typedef struct s_vinfo {
@@ -47,11 +48,22 @@ typedef struct s_executor {
 
 } t_executor;
 
-void    exec(t_ast *ast);
+void    exec(t_ast *ast, t_executor *executor);
 
 void    exec_tree(t_ast *ast, t_executor *executor);
 
 void    exec_cmd(t_ast *node, t_executor *executor);
+
+void    add_pid(t_pids **pids, pid_t pid);
+
+void    ft_wait(t_executor *executor);
+
+void    init_executor(t_executor *executor);
+
+void    print_pids(t_pids *pids, int  flag);//delete
+
+int     hndl_redirect(t_ast *ast, t_context *ctx);
+
 
 
 void    hrdoc_collect(t_ast *node, t_envlst *envlst);

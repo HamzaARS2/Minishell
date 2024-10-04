@@ -9,7 +9,8 @@ GNL = gnl/get_next_line.c gnl/get_next_line_utils.c
 
 MAIN_FILES = minishell.c lexer/lexer.c lexer/token.c resolver/resolver.c handler/handler.c handler/checker.c \
 parser/parser.c parser/procedures.c parser/procedures_extra.c parser/ast.c envlst.c shell_control.c \
-execution/execution.c execution/heredoc.c execution/heredoc_utils.c $(GNL) $(UTILS)
+execution/execution.c execution/wait.c execution/redirection.c execution/heredoc.c execution/heredoc_utils.c \
+$(GNL) $(UTILS)
 
 MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
