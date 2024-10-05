@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/03 12:49:13 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/05 13:20:28 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <fcntl.h>
-#include "get_next_line.h"
 
 typedef struct s_vinfo {
     char *variable;
