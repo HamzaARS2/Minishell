@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:21:27 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 16:23:59 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/05 10:53:30 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ void    urslv_handle_expanding(t_resolver *resolver, char *value)
     char        **env;
 
     i = 0;
-    env = ft_split(value, 32);
+    if (resolver->current->state == DEFAULT)
+        env = ft_split(value, 32);
+    else
+        env = ft_split(value, 0);
     if (!env)
         return ;
     while (env[i])
@@ -79,4 +82,6 @@ void    urslv_handle_expanding(t_resolver *resolver, char *value)
         rslv_advance(resolver);
         i++;
     }
+    free(env);
+    env = 0;
 }
