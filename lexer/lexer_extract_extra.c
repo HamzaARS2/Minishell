@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 11:15:17 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 16:21:21 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/05 11:07:45 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,18 @@ bool    ulxr_extract_pipe(t_lexer *lexer,t_token **token)
     return (true);
 }
 
-bool    ulxr_extract_and(t_lexer *lexer, t_token **token)
+bool    ulxr_extract_status(t_lexer *lexer, t_token **token)
 {
     uint32_t    start;
     
-    if (lexer->c != '&')
+    if (lexer->c != '$' || lexer->content[lexer->i + 1] != '?')
         return (false);
     start = lexer->i;
     lxr_advance(lexer);
-    while (lexer->c && lexer->c == '&' && lexer->i - start < 2)
-        lxr_advance(lexer);
-    *token = tkn_extract(S_AND, lexer->content, start, lexer->i);
+    lxr_advance(lexer);
+    *token = tkn_extract(STATUS, lexer->content, start, lexer->i);
     if (!(*token))
         return (false);
-    if (lexer->i - start > 1)
-        (*token)->type = D_AND;
     (*token)->state = lexer->state;
     return (true);
 }

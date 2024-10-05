@@ -124,6 +124,9 @@ void print_type_name(t_type type) {
         case SPLIT_VAR:
             printf("SPLIT_VAR\n");
             break;
+        case STATUS:
+            printf("STATUS\n");
+            break;
         case ERROR:
             printf("ERROR\n");
             break;

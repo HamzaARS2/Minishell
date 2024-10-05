@@ -22,6 +22,7 @@ typedef enum s_type {
     OR = 41,
     S_AND = 42,
     D_AND = 43,
+    STATUS = 44,
     ERROR = 101
 
 } t_type;

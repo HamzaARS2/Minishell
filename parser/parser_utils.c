@@ -6,12 +6,17 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:54:58 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/20 19:16:39 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/05 11:28:04 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/parser.h"
 
+bool    uprsr_should_advance(t_token *token)
+{
+    return ((token->type == WORD || token->type == VARIABLE || token->type == STATUS
+            || token->type == SPLIT_VAR || token->state != DEFAULT));
+}
 
 t_token *uprsr_next_arg(t_token *token)
 {
@@ -20,8 +25,7 @@ t_token *uprsr_next_arg(t_token *token)
     current = token;
     while (current)
     {
-        if (current->type == WORD || current->type == VARIABLE
-            || current->type == SPLIT_VAR || current->state != DEFAULT)
+        if (uprsr_should_advance(current))
             return (current);
         else if (current->type >= 33 && current->type <= 36)
         {
@@ -71,8 +75,7 @@ char    **uprsr_build_cmd(t_parser *parser)
         if (!current)
             break ;
         cmd[i] = current->value;
-        if (parser->current->type == WORD || parser->current->type == VARIABLE
-            || parser->current->type == SPLIT_VAR || parser->current->state != DEFAULT)
+        if (uprsr_should_advance(current))
             prsr_advance(parser);
         current = current->next;
         i++;

@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:50:41 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 16:24:34 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/05 11:08:47 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ bool    ulxr_extract_variable(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_inred(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_outred(t_lexer *lexer, t_token **token);
 bool    ulxr_extract_pipe(t_lexer *lexer,t_token **token);
-bool    ulxr_extract_and(t_lexer *lexer, t_token **token);
+bool    ulxr_extract_status(t_lexer *lexer, t_token **token);
 
 #endif
