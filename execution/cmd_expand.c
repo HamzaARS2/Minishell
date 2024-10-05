@@ -45,12 +45,13 @@ void    ast_advance(t_ast **ast)
 }
 void    join_cmd(char ***dirs, t_ast *ast)
 {
-    
-    while(dirs && *dirs)
+    int i = 0;
+
+    while((*dirs)[i])
     {
-        **dirs = strcombine(cmd_strcombine(**dirs, "/"), ast->args[0]);
-        printf("**dirs: %s\n", **dirs);
-        (*dirs)++;
+        (*dirs)[i] = strcombine(cmd_strcombine(((*dirs)[i]), "/"), ast->args[0]);
+        printf("**dirs: %s\n", (*dirs)[i]);
+        i++;
     }
 }
 void    expand_cmd(t_ast **ast, t_envlst *envlst)
