@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:49:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/03 12:08:06 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/05 19:57:25 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ void mshell_parse(t_mshell *mshell, char *line)
 
 void mshell_execute(t_mshell *mshell)
 {
+    
     init_executor(&mshell->executor);
 
     // TODO: execute the whole AST.
-    // TODO: execute the whole AST.
     hrdoc_collect(mshell->ast, mshell->envlst);
+    expand_cmd(&mshell->ast, mshell->envlst);
     exec(mshell->ast, &(mshell->executor));
 
     //* HAMZA'S PREVIOUS PROTOTYPE

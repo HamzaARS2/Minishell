@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:26:45 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 16:27:24 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:17:43 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define UTILS_H
 
 #include <stdlib.h>
+#include <stdbool.h>
+
 
 // utils
 unsigned int    ft_strlen(char *str);
@@ -23,6 +25,9 @@ bool            is_shell_special(char c);
 char	        *strcombine(char *s1, char *s2);
 int             ft_strncmp(const char *s1, const char *s2, size_t n);
 char	        *ft_strdup(char *s1);
+char	        *ft_strnstr(char *haystack, char *needle, size_t len);
+char            **ft_split(char  *s, char c);
+char	*cmd_strcombine(char *s1, char *s2);
 
 
 

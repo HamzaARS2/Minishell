@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/03 12:49:13 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/05 08:36:45 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,9 @@ uint32_t    uhrdoc_get_size(t_token *tokens);
 char    *uhrdoc_join_tokens(t_token *tokens, uint32_t size);
 
 void    uhrdoc_clear(t_lexer *lexer, t_resolver *resolver, char *line);
+
+void    expand_cmd(t_ast **ast, t_envlst *envlst);
+
+
+
 #endif

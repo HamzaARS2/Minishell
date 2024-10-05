@@ -165,7 +165,6 @@ void    on_new_line(t_mshell *mshell, char *line)
     // print_ast(mshell->ast, 10);
     // printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
     // print_tokens(mshell->lexer->tokens);
-    // exit(0);
 }
 void    display_prompt(t_mshell *mshell)
 {
@@ -190,8 +189,8 @@ void    on_destroy() {
 
 int main(int ac, char **av, char **env) {
     t_mshell mshell;
-    // atexit(on_destroy);
 
+    // atexit(on_destroy);
     init_mshell(&mshell, env);
     display_prompt(&mshell);
 

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strcombine.c                                       :+:      :+:    :+:   */
+/*   cmd_strcombine.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:04:42 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/05 15:15:09 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/05 19:17:10 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*strcombine(char *s1, char *s2)
+char	*cmd_strcombine(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	s1_len;

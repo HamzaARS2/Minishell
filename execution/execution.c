@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/03 13:09:11 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/03 15:53:18 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void    exec_cmd(t_ast *node, t_executor *executor)
     if (executor->ctx.close_fd != -1)
         close(executor->ctx.close_fd);
     execve(node->args[0], node->args, NULL);
-    perror("execve failed\n");
+    perror("EXECVE FAILED");
     exit(23);
 }
 void    exec_pipe(t_ast *ast, t_executor *executor)
