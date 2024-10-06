@@ -6,14 +6,14 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/03 13:09:11 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/06 13:23:13 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/execution.h"
 
 
-void    init_executor(t_executor *executor)
+void    init_executor(t_executor *executor, t_envlst *envlst)
 {
     t_context ctx;
 
@@ -21,6 +21,7 @@ void    init_executor(t_executor *executor)
     executor->ctx = ctx;
     executor->status = 0;
     executor->pids = NULL;
+    executor->paths = get_paths(envlst);
 
 }
 
@@ -93,6 +94,8 @@ void   exec(t_ast *ast, t_executor *executor)
 
     // print_pids(executor->pids, 2);    //TESTING : printing the pids list;
     ft_wait(executor);
+    
+    print_dpointer(executor->paths);
 
     printf("STATUS: %d\n", executor->status);
 }

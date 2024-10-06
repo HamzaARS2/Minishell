@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/05 13:20:28 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/06 13:23:04 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_executor {
     t_context   ctx;
     int         status;
     t_pids      *pids;
+    char        **paths;
 
 } t_executor;
 
@@ -57,7 +58,7 @@ void    add_pid(t_pids **pids, pid_t pid);
 
 void    ft_wait(t_executor *executor);
 
-void    init_executor(t_executor *executor);
+void    init_executor(t_executor *executor, t_envlst *envlst);
 
 void    print_pids(t_pids *pids, int  flag);//delete
 
@@ -78,4 +79,11 @@ uint32_t    uhrdoc_get_size(t_token *tokens);
 char    *uhrdoc_join_tokens(t_token *tokens, uint32_t size);
 
 void    uhrdoc_clear(t_lexer *lexer, t_resolver *resolver, char *line);
+
+
+char    **get_paths(t_envlst *envlst);
+
+void print_dpointer(char **dirs);  //tmp
+
+
 #endif

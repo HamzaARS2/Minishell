@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:49:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/03 12:08:06 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/06 13:29:33 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void mshell_parse(t_mshell *mshell, char *line)
 
 void mshell_execute(t_mshell *mshell)
 {
-    init_executor(&mshell->executor);
+    init_executor(&mshell->executor, mshell->envlst);
 
     // TODO: execute the whole AST.
     // TODO: execute the whole AST.
