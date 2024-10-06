@@ -86,4 +86,7 @@ char    **get_paths(t_envlst *envlst);
 void print_dpointer(char **dirs);  //tmp
 
 
+// utils
+void    dup_fds(t_context ctx);
+
 #endif

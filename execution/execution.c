@@ -35,16 +35,7 @@ void    exec_cmd(t_ast *node, t_executor *executor)
         add_pid(&(executor->pids), pid);
         return ;
     }
-    if (executor->ctx.fd[STDIN_FILENO] != STDIN_FILENO) {
-        dup2(executor->ctx.fd[STDIN_FILENO], STDIN_FILENO);
-        close(executor->ctx.fd[STDIN_FILENO]);
-    }
-    if (executor->ctx.fd[STDOUT_FILENO] != STDOUT_FILENO) {
-        dup2(executor->ctx.fd[STDOUT_FILENO], STDOUT_FILENO);
-        close(executor->ctx.fd[STDOUT_FILENO]);
-    }
-    if (executor->ctx.close_fd != -1)
-        close(executor->ctx.close_fd);
+    dup_fds(executor->ctx);
     execve(node->args[0], node->args, NULL);
     perror("execve failed\n");
     exit(23);
@@ -95,7 +86,7 @@ void   exec(t_ast *ast, t_executor *executor)
     // print_pids(executor->pids, 2);    //TESTING : printing the pids list;
     ft_wait(executor);
     
-    print_dpointer(executor->paths);
+    // print_dpointer(executor->paths);
 
     printf("STATUS: %d\n", executor->status);
 }
