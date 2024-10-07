@@ -28,7 +28,7 @@ void    hrdoc_run(t_redirect *heredoc, t_envlst *envlst)
     while (true)
     {
         line = readline("heredoc > ");
-        if (!line)
+        if (!line || !(*line))
             break;
         line = strcombine(line, ft_strdup("\n"));
         if (!line)
