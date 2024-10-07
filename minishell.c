@@ -6,8 +6,6 @@ const char *get_ast_type_string(t_ast_type type) {
     switch (type) {
         case AST_COMMAND: return "COMMAND";
         case AST_PIPE: return "PIPE";
-        case AST_OR: return "LOGICAL OR";
-        case AST_AND: return "LOGICAL AND";
         case AST_IN_RED: return "REDIRECTION IN";
         case AST_OUT_RED: return "REDIRECTION OUT";
         case AST_APPEND: return "REDIRECTION APPEND";
@@ -112,23 +110,11 @@ void print_type_name(t_type type) {
         case VARIABLE:
             printf("VARIABLE\n");
             break;
-        case OR:
-            printf("OR\n");
-            break;
-        case S_AND:
-            printf("S_AND\n");
-            break;
-        case D_AND:
-            printf("D_AND\n");
-            break;
         case SPLIT_VAR:
             printf("SPLIT_VAR\n");
             break;
         case STATUS:
             printf("STATUS\n");
-            break;
-        case ERROR:
-            printf("ERROR\n");
             break;
         default:
             printf("Unknown type\n");
@@ -167,9 +153,9 @@ void    on_error(t_handler *handler)
 void    on_new_line(t_mshell *mshell, char *line)
 {
     mshell_parse(mshell, line);
-    // print_tokens(mshell->lexer->tokens);
-    // print_ast(mshell->ast, 10);
-    mshell_execute(mshell);
+    print_tokens(mshell->lexer->tokens);
+    print_ast(mshell->ast, 10);
+    // mshell_execute(mshell);
     // print_ast(mshell->ast, 10);
     // printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
     // print_tokens(mshell->lexer->tokens);

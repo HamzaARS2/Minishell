@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 11:15:17 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/05 11:07:45 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/07 09:54:40 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,9 @@ bool    ulxr_extract_pipe(t_lexer *lexer,t_token **token)
         return (false);
     start = lexer->i;
     lxr_advance(lexer);
-    while (lexer->c && lexer->c == '|' && lexer->i - start < 2)
-        lxr_advance(lexer);
     *token = tkn_extract(PIPE, lexer->content, start, lexer->i);
     if (!(*token))
         return (false);
-    if (lexer->i - start > 1)
-        (*token)->type = OR;
     (*token)->state = lexer->state;
     return (true);
 }

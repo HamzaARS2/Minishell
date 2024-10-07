@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:24:30 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/08 10:49:59 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/07 09:38:26 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 bool    uhdl_is_poa(t_token *token)
 {
-    return ((token->type == PIPE || token->type == OR || token->type == D_AND
-        || token->type == S_AND) && (token->state == DEFAULT));
+    return (token->type == PIPE && token->state == DEFAULT);
 }
 
 bool    uhdl_is_redirct(t_token *token)

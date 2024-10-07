@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include "utils.h"
 
+
 typedef enum s_type {
     WORD = 30,
     PIPE = 31,
@@ -19,12 +20,7 @@ typedef enum s_type {
     SQUOTES = 38,
     VARIABLE = 39,
     SPLIT_VAR = 40,
-    OR = 41,
-    S_AND = 42,
-    D_AND = 43,
-    STATUS = 44,
-    ERROR = 101
-
+    STATUS = 44
 } t_type;
 
 typedef enum s_state {

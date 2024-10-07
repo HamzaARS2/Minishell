@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 11:23:50 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/30 15:31:23 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/07 09:40:20 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@
 typedef enum e_ast_type {
     AST_COMMAND,
     AST_PIPE,
-    AST_OR,
     AST_IN_RED,
     AST_OUT_RED,
     AST_APPEND,
     AST_HEREDOC,
-    AST_INQ_HEREDOC,
-    AST_AND
+    AST_INQ_HEREDOC
 } t_ast_type;
 
 typedef struct s_redirect {

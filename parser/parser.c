@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 11:46:03 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/20 11:13:41 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/07 09:35:57 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ void    prsr_advance(t_parser *parser)
 
 t_ast   *prsr_parse(t_parser *parser)
 {
-    return (prsr_parse_logical_or(parser));
+    return (prsr_parse_pipe(parser));
 }
