@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:59:26 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 16:04:53 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/07 09:57:58 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ bool    hdl_search_back(t_token *token, validation validate_token);
 bool    hdl_run_quotes_check(t_handler *handler);
 
 // runs pipe/or/and error checker.
-bool    hdl_run_poa_check(t_handler *handler);
+bool    hdl_run_pipe_check(t_handler *handler);
 
 // runs single/double redirects error checker.
 bool    hdl_run_redirects_check(t_handler *handler);
 
 // utils.
-bool    uhdl_is_poa(t_token *token);
+bool    uhdl_is_pipe(t_token *token);
 bool    uhdl_is_redirct(t_token *token);
 bool    uhdl_is_double_redirect(t_token *token);
 t_hdl_state    uhdl_poa_validation(t_token *token);

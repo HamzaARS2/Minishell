@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:23:00 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/04 12:01:14 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/07 09:57:58 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ bool    hdl_run_quotes_check(t_handler *handler)
     return (false);
 }
 
-bool    hdl_run_poa_check(t_handler *handler)
+bool    hdl_run_pipe_check(t_handler *handler)
 {
     t_token *current;
 
     current = handler->lexer->tokens;
     while (current)
     {
-        if (uhdl_is_poa(current))
+        if (uhdl_is_pipe(current))
         {
             if (!hdl_search_forward(current, uhdl_poa_validation) 
                 || !hdl_search_back(current, uhdl_poa_validation))

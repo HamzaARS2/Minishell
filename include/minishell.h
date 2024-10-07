@@ -24,10 +24,9 @@ typedef struct s_mshell {
 
 void    init_mshell(t_mshell *mshell, char **env);
 
-void    mshell_parse(t_mshell *mshell, char *line);
+bool    mshell_parse(t_mshell *mshell, char *line);
 
 void    mshell_execute(t_mshell *mshell);
-
 
 t_envlst    *init_envlst(char **env);
 

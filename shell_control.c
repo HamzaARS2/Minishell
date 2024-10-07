@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:49:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/07 09:45:47 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/07 09:58:40 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,23 @@ void init_mshell(t_mshell *mshell, char **env)
     mshell->parser = NULL;
 }
 
-void mshell_parse(t_mshell *mshell, char *line)
+bool    mshell_parse(t_mshell *mshell, char *line)
 {
     mshell->lexer = init_lexer(line);
     lxr_generate_tokens(mshell->lexer);
     mshell->handler = init_handler(mshell->lexer);
     if (!hdl_run_quotes_check(mshell->handler))
-        return;
-    if (!hdl_run_poa_check(mshell->handler))
-        return;
+        return (false);
+    if (!hdl_run_pipe_check(mshell->handler))
+        return (false);
     if (!hdl_run_redirects_check(mshell->handler))
-        return;
+        return (false);
     mshell->resolver = init_resolver(mshell->lexer, mshell->envlst);
     rslv_expand(mshell->resolver, true);
     rslv_optimize(mshell->resolver);
     mshell->parser = init_parser(mshell->lexer->tokens);
     mshell->ast = prsr_parse(mshell->parser);
+    return (true);
 }
 
 void mshell_execute(t_mshell *mshell)

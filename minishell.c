@@ -152,14 +152,11 @@ void    on_error(t_handler *handler)
 }
 void    on_new_line(t_mshell *mshell, char *line)
 {
-    mshell_parse(mshell, line);
+    if (!mshell_parse(mshell, line))
+        return ;
     print_tokens(mshell->lexer->tokens);
     print_ast(mshell->ast, 10);
-    // mshell_execute(mshell);
-    // print_ast(mshell->ast, 10);
-    // printf("\n################################## *AFTER OPTIMIZATION* #####################################\n\n");
-    // print_tokens(mshell->lexer->tokens);
-    // exit(0);
+    mshell_execute(mshell);
 }
 void    display_prompt(t_mshell *mshell)
 {

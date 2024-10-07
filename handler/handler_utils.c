@@ -6,13 +6,13 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 13:24:30 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/07 09:38:26 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/07 09:57:40 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/handler.h"
 
-bool    uhdl_is_poa(t_token *token)
+bool    uhdl_is_pipe(t_token *token)
 {
     return (token->type == PIPE && token->state == DEFAULT);
 }
@@ -31,7 +31,7 @@ bool    uhdl_is_double_redirect(t_token *token)
 
 t_hdl_state    uhdl_poa_validation(t_token *token)
 {
-    if (uhdl_is_poa(token))
+    if (uhdl_is_pipe(token))
         return (INVALID);
     if (token->type == WORD || token->type == VARIABLE || token->state != DEFAULT)
         return (VALID);
@@ -42,7 +42,7 @@ t_hdl_state    uhdl_poa_validation(t_token *token)
 
 t_hdl_state    uhdl_redirects_validation(t_token *token)
 {
-    if (uhdl_is_poa(token))
+    if (uhdl_is_pipe(token))
         return (INVALID);
     if (uhdl_is_redirct(token) || uhdl_is_double_redirect(token))
         return (INVALID);
