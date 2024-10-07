@@ -43,7 +43,7 @@ char    *get_path(t_envlst *envlst)
             return (path + 5);
         current = current->next;
     }
-    perror("$PATH not found\n");
+    perror("$PATH not found");
     return (NULL);
 }
 
@@ -57,6 +57,9 @@ char    **get_paths(t_envlst *envlst)
 
 
     path = get_path(envlst);
+    if (!path)
+        return(NULL);
+
     printf("path:%s\n", path);
     
     //split with ":";

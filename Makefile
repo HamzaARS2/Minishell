@@ -17,7 +17,7 @@ MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
 NAME := minishell
 
-# ADS := -fsanitize=address -g
+ADS := -fsanitize=address -g
 
 all: $(NAME) clean
 

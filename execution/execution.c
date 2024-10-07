@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/06 13:23:13 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/07 14:40:44 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void    init_executor(t_executor *executor, t_envlst *envlst)
 void    exec_cmd(t_ast *node, t_executor *executor)
 {
     pid_t   pid;
+    char    *path;
 
     pid = fork();  
     if (pid != 0)
@@ -36,7 +37,9 @@ void    exec_cmd(t_ast *node, t_executor *executor)
         return ;
     }
     dup_fds(executor->ctx);
-    execve(node->args[0], node->args, NULL);
+    path = cmd_expand(node->args[0], executor->paths);
+    printf("execve path:%s\n", path);
+    execve(path, node->args, NULL);
     perror("execve failed\n");
     exit(23);
 }

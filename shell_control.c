@@ -6,7 +6,11 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:49:02 by helarras          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2024/10/07 09:58:40 by helarras         ###   ########.fr       */
+=======
+/*   Updated: 2024/10/07 10:10:34 by ajbari           ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +54,8 @@ void mshell_execute(t_mshell *mshell)
     // TODO: execute the whole AST.
     hrdoc_collect(mshell->ast, mshell->envlst);
     exec(mshell->ast, &(mshell->executor));
+    //TODO: FREE THE PATHS;
+    
 
     //* HAMZA'S PREVIOUS PROTOTYPE
     /*     t_executor executor;

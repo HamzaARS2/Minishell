@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/06 13:23:04 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/07 07:54:27 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ void    uhrdoc_clear(t_lexer *lexer, t_resolver *resolver, char *line);
 
 char    **get_paths(t_envlst *envlst);
 
-void print_dpointer(char **dirs);  //tmp
+void print_dpointer(char **dirs);  //TMP TEST
 
+char    *cmd_expand(char *cmd, char **paths);
 
 // utils
 void    dup_fds(t_context ctx);

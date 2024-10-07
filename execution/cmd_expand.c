@@ -1,52 +1,68 @@
 #include "../include/execution.h"
 
+int i = 0;
 
-
-void    join_cmd(char ***dirs, t_ast *ast)
+int check_access(char *path, char *cmd)
 {
-    int i = 0;
+    int status;
 
-    while((*dirs)[i])
+    status = 0;
+    printf("%d\n", i++);
+    if (access(path, F_OK) == 0)
     {
-        (*dirs)[i] = strcombine(strcombine(((*dirs)[i]), ft_strdup("/")), ast->args[0]);
-        //access_check ----
-        printf("**dirs: %s\n", (*dirs)[i]);
-        i++;
+        if (access(path, X_OK) == 0)
+            return (status);
+        else
+        {
+            status = 1;
+            return (status);
+        }
+    }
+    else
+    {
+        status = 2;
+        return (status);
     }
 }
-// void    rplace_tree_args(char **dirs, t_ast **ast)
-// {
-//     if ((*ast)->left->type == AST_PIPE)
-//         rplace_tree_args(dirs, )
+
+char    *check_cmd(char **paths, char *cmd)
+{
+    int     i = 0;
+    int     status = 0;
+    char    *cmd_tmp = ft_strdup(cmd);
+
+    while(paths && (paths)[i])
+    {
+        (paths)[i] = strcombine(strcombine((paths)[i], ft_strdup("/")), cmd_tmp);
+        printf("*paths: %s\n", (paths)[i]);
+        cmd_tmp = ft_strdup(cmd); //TODO : NEEDS OPTIMISATION
+        //access_check ----
+        status = check_access((paths)[i], cmd);
+        if (!status)
+        {
+            free(cmd_tmp);
+            return (paths[i]);
+        }
+        i++;
+    }
+    free(cmd_tmp);
+    if (status == 1)
+        perror("bash: ");
+    else if (status == 2)
+        perror("bash1:");
+    // system("leaks -q minishell"); //**LEAKS TEST**//
+    return(NULL);
+}
+
+char    *cmd_expand(char *cmd, char **paths)
+{
+    char    *check_return = 0;
+
+    if (!paths)
+        return (NULL);
 
 
-// }
-
-// char    **get_paths(t_envlst *envlst)
-// {
-//     char    *path;
-//     char    **dirs;
-
-//     // print_envlst(envlst);
-
-
-//     path = get_path(envlst);
-//     printf("path:%s\n", path);
-    
-//     //split with ":";
-//     dirs = ft_split(path, ':');
-//     if (dirs == NULL) {
-//         fprintf(stderr, "Error: Failed to split path.\n");
-//         return NULL;
-//     }
-//     return (dirs);
-//     // printf("before join\n");
-//     // join_cmd(&dirs, *ast);  //add "/"  //add CMD
-//     // print_dpointer(dirs); //TEST
-//     //check cmd access
-
-
-//     //replace the tree args;
-//     // rplace_tree_args(dirs, ast);
-
-// }
+    check_return = check_cmd(paths, cmd);
+    // system("leaks -q minishell"); //**LEAKS TEST**//=
+    return(check_return);  //add "/"  //add CMD
+}
