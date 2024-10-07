@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:35:46 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 16:19:50 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/07 08:10:24 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void    add_last_token(t_token *token_list, t_token *token_node)
 
 bool    is_special_token(t_token *token)
 {
-    if (token->type == SSPACE || token->type == PIPE || token->type == OUT_RED
+    if ((token->type == SSPACE || token->type == PIPE || token->type == OUT_RED
         || token->type == IN_RED || token->type == HERE_DOC || token->type == APPEND
-        || token->type == OR || token->type == D_AND)
+        || token->type == OR || token->type == D_AND) && token->state == DEFAULT)
         return (true);
     return (false);
 }
