@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:49:02 by helarras          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2024/10/07 09:58:40 by helarras         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/07 10:10:34 by ajbari           ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2024/10/07 14:49:30 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

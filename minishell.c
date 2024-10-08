@@ -154,8 +154,8 @@ void    on_new_line(t_mshell *mshell, char *line)
 {
     if (!mshell_parse(mshell, line))
         return ;
-    print_tokens(mshell->lexer->tokens);
-    print_ast(mshell->ast, 10);
+    // print_tokens(mshell->lexer->tokens);
+    // print_ast(mshell->ast, 10);
     mshell_execute(mshell);
 }
 void    display_prompt(t_mshell *mshell)
