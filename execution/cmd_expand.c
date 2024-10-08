@@ -33,8 +33,9 @@ char    *check_cmd(char **paths, char *cmd)
 
     while(paths && (paths)[i])
     {
-        (paths)[i] = strcombine(strcombine((paths)[i], ft_strdup("/")), cmd_tmp);
+        (paths)[i] = strcombine(strcombine((paths)[i], "/", false), cmd_tmp, true);
         cmd_tmp = ft_strdup(cmd); //TODO : NEEDS OPTIMISATION
+        
 
         printf("*paths: %s\n", (paths)[i]);
 

@@ -30,7 +30,7 @@ void    hrdoc_run(t_redirect *heredoc, t_envlst *envlst)
         line = readline("heredoc > ");
         if (!line || !(*line))
             break;
-        line = strcombine(line, ft_strdup("\n"));
+        line = strcombine(line, ft_strdup("\n"), true);
         if (!line)
             break;
         linesize = ft_strlen(line) - 1;

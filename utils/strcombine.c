@@ -3,16 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   strcombine.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 13:04:42 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/29 13:12:17 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:25:29 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*strcombine(char *s1, char *s2)
+void	combine_free(char *s1, char *s2)
+{
+	free(s1);
+	free(s2);
+}
+
+char	*strcombine(char *s1, char *s2, bool should_free)
 {
 	size_t	i;
 	size_t	s1_len;
@@ -34,7 +40,7 @@ char	*strcombine(char *s1, char *s2)
 			newstr[s1_len + (i - 1)] = s2[i - 1];
 		newstr[newstrlen] = 0;
 	}
-    free(s1);
-    free(s2);
+	if (should_free)
+		combine_free(s1, s2);
 	return (newstr);
 }

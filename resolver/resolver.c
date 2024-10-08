@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resolver.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:51 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 16:23:38 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/08 10:25:47 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void rslv_merge(t_resolver *resolver)
 {
     char *merged_value;
 
-    merged_value = strcombine(resolver->current->value, resolver->next->value);
+    merged_value = strcombine(resolver->current->value, resolver->next->value, true);
     resolver->current->value = merged_value;
     if (resolver->next->next)
     {
