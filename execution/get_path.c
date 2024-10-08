@@ -60,7 +60,7 @@ char    **get_paths(t_envlst *envlst)
     if (!path)
         return(NULL);
 
-    printf("path:%s\n", path);
+    // printf("path:%s\n", path);
     
     //split with ":";
     dirs = ft_split(path, ':');

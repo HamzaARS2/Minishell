@@ -20,6 +20,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include "builtins.h"
 
 typedef struct s_vinfo {
     char *variable;
@@ -87,7 +88,10 @@ void print_dpointer(char **dirs);  //TMP TEST
 
 char    *cmd_expand(char *cmd, char **paths);
 
+void    run_command(t_ast *node, t_executor *executor);
+
 // utils
 void    dup_fds(t_context ctx);
+bool    exec_builtin(t_ast *node, t_builtins_type type);
 
 #endif
