@@ -6,7 +6,10 @@ int    open_redirect(char *path, int flag)
 
     fd = open(path, flag, 0644);
     if (fd == -1)
+    {
+        perror ("open: ");
         return (-1);
+    }
     return (fd);
 }
 
@@ -46,6 +49,7 @@ int    hndl_redirect(t_ast *ast, t_context *ctx)
     t_redirect  *redirect;
     int         fd;
 
+    fd = -2;
     redirect = ast->redirect;
     while (redirect)
     {

@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/09 08:39:00 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/09 13:57:50 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,13 @@ void    exec_tree(t_ast *ast, t_executor *executor)
     if (ast->type == AST_COMMAND)
     {
         fd = hndl_redirect(ast, &executor->ctx); //HANDLE REDIRECTIONS
+        if (fd == -1)
+        {
+            executor->status = 1;
+            return ;
+        }
         exec_cmd(ast, executor);
-        if (fd != -1)
+        if (fd != -2)
             close (fd);
     }
     if (ast->type == AST_PIPE)
