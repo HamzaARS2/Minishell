@@ -46,6 +46,7 @@ int    hndl_redirect(t_ast *ast, t_context *ctx)
     t_redirect  *redirect;
     int         fd;
 
+    fd = -1;
     redirect = ast->redirect;
     while (redirect)
     {

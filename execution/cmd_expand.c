@@ -7,7 +7,6 @@ int check_access(char *path)
     int status;
 
     status = 0;
-    printf("%d\n", i++);
     if (access(path, F_OK) == 0)
     {
         if (access(path, X_OK) == 0)
@@ -37,13 +36,13 @@ char    *check_cmd(char **paths, char *cmd)
         cmd_tmp = ft_strdup(cmd); //TODO : NEEDS OPTIMISATION
         
 
-        printf("*paths: %s\n", (paths)[i]);
+        // printf("*paths: %s\n", (paths)[i]);
 
 
 
         //access_check ----
         status = check_access((paths)[i]);
-        printf("status :%d\n", status);
+        // printf("status :%d\n", status);
         if (!status)
         {
             free(cmd_tmp);

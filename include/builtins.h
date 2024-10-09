@@ -3,7 +3,7 @@
 
 
 #include "ast.h"
-#include "resolver.h"
+#include "envlst.h"
 
 typedef enum e_builtins {
     ECHO,
@@ -16,7 +16,7 @@ typedef enum e_builtins {
     NONE
 } t_builtins_type;
 
-bool    cd(char **args);
+bool    cd(char **args, t_envlst *envlst);
 t_builtins_type    builtin_check(char *cmd);
 
 #endif

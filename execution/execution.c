@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/09 10:01:50 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:42:46 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void    init_executor(t_executor *executor, t_envlst *envlst)
     executor->status = 0;
     executor->pids = NULL;
     executor->paths = get_paths(envlst);
+    executor->envlst = envlst;
 
 }
 
@@ -37,8 +38,7 @@ void    exec_cmd(t_ast *node, t_executor *executor)
         return ;
     }
     dup_fds(executor->ctx);
-    path = cmd_expand(node->args[0], executor->paths);
-    execve(path, node->args, NULL);
+    run_command(node, executor);
 }
 void    exec_pipe(t_ast *ast, t_executor *executor)
 {
@@ -86,7 +86,7 @@ void   exec(t_ast *ast, t_executor *executor)
     if (ast->type == AST_COMMAND)
         type = builtin_check(ast->args[0]);
     if (type != NONE)
-        exec_builtin(ast, type);
+        exec_builtin(executor, ast, type);
     else
         exec_tree(ast, executor);
 

@@ -14,10 +14,10 @@ void    dup_fds(t_context ctx)
         close(ctx.close_fd);
 }
 
-bool    exec_builtin(t_ast *node, t_builtins_type type)
+bool    exec_builtin(t_executor *executor, t_ast *node, t_builtins_type type)
 {
     if (type == CD)
-        return (cd(node->args));
+        return (cd(node->args, executor->envlst));
     return (false);
 }
 
@@ -31,11 +31,11 @@ void    run_command(t_ast *node, t_executor *executor)
     {
         path = cmd_expand(node->args[0], executor->paths);
         execve(path, node->args, NULL);
-        // exit(23);
+        exit(23);
     }
     else
     {
-        if (!exec_builtin(node, type))    
+        if (!exec_builtin(executor, node, type))    
             exit(EXIT_FAILURE);
         exit(EXIT_SUCCESS);
     }
