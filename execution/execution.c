@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/09 13:57:50 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/09 12:42:46 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void    init_executor(t_executor *executor, t_envlst *envlst)
     executor->status = 0;
     executor->pids = NULL;
     executor->paths = get_paths(envlst);
+    executor->envlst = envlst;
 
 }
 
@@ -37,15 +38,7 @@ void    exec_cmd(t_ast *node, t_executor *executor)
         return ;
     }
     dup_fds(executor->ctx);
-    if (!node->args[0])
-        return ;    
-    path = cmd_expand(node->args[0], executor->paths);
-
-    printf("execve path:%s\n", path);
-    execve(path, node->args, NULL);
-    free(path);
-    perror("minishell:execve failed :");
-    exit(23);
+    run_command(node, executor);
 }
 void    exec_pipe(t_ast *ast, t_executor *executor)
 {
@@ -92,8 +85,15 @@ void    exec_tree(t_ast *ast, t_executor *executor)
 }
 void   exec(t_ast *ast, t_executor *executor)
 {
+    t_builtins_type type;
 
-    exec_tree(ast, executor);
+    type = NONE;
+    if (ast->type == AST_COMMAND)
+        type = builtin_check(ast->args[0]);
+    if (type != NONE)
+        exec_builtin(executor, ast, type);
+    else
+        exec_tree(ast, executor);
 
     // print_pids(executor->pids, 2);    //TESTING : printing the pids list;
     ft_wait(executor);

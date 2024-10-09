@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/07 07:54:27 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/09 12:41:04 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include "builtins.h"
 
 typedef struct s_vinfo {
     char *variable;
@@ -45,7 +46,7 @@ typedef struct s_executor {
     int         status;
     t_pids      *pids;
     char        **paths;
-
+    t_envlst    *envlst;
 } t_executor;
 
 void    exec(t_ast *ast, t_executor *executor);
@@ -87,7 +88,10 @@ void print_dpointer(char **dirs);  //TMP TEST
 
 char    *cmd_expand(char *cmd, char **paths);
 
+void    run_command(t_ast *node, t_executor *executor);
+
 // utils
 void    dup_fds(t_context ctx);
+bool    exec_builtin(t_executor *executor, t_ast *node, t_builtins_type type);
 
 #endif

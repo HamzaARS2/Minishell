@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:26:45 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/08 13:55:15 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/09 09:50:00 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
+#include <unistd.h>
 // utils
 unsigned int    ft_strlen(char *str);
 char            *substr(char *str, int start, int end);
@@ -27,6 +28,7 @@ char			**ft_split(char *str, char c);
 char            *ft_strchr(const char *s, int c);
 
 
+void	        ft_putstr_fd(char *s, int fd);
 
 
 #endif

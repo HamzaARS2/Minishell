@@ -42,7 +42,6 @@ int check_access(char *path)
     int status;
 
     status = 0;
-    //check dir :return 3;
     if (access(path, F_OK) == 0)
     {
         if (is_directory(path))
