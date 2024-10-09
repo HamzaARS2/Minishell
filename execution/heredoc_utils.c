@@ -26,6 +26,7 @@ bool    uhrdoc_env_exist(char *line)
 {
     int i;
 
+    i = 0;
     while (line[i])
     {
         if (line[i] == '$' && (ft_isalnum(line[i + 1]) || line[i + 1] == '_'))
