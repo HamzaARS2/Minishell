@@ -4,6 +4,7 @@
         "token.h": "c",
         "utils.h": "c",
         "unistd.h": "c",
-        "execution.h": "c"
+        "execution.h": "c",
+        "stat.h": "c"
     }
 }

@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/07 14:40:44 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/09 08:39:00 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,14 @@ void    exec_cmd(t_ast *node, t_executor *executor)
         return ;
     }
     dup_fds(executor->ctx);
+    if (!node->args[0])
+        return ;    
     path = cmd_expand(node->args[0], executor->paths);
+
     printf("execve path:%s\n", path);
     execve(path, node->args, NULL);
-    perror("execve failed\n");
+    free(path);
+    perror("minishell:execve failed :");
     exit(23);
 }
 void    exec_pipe(t_ast *ast, t_executor *executor)
@@ -88,6 +92,7 @@ void   exec(t_ast *ast, t_executor *executor)
 
     // print_pids(executor->pids, 2);    //TESTING : printing the pids list;
     ft_wait(executor);
+    // system("leaks -q minishell"); //**LEAKS TEST**//
     
     // print_dpointer(executor->paths);
 

@@ -4,7 +4,7 @@ CC := cc
 UTILS = lexer/lexer_extract.c lexer/lexer_extract_extra.c lexer/token_utils.c utils/ft_strlen.c utils/substr.c utils/ft_isalnum.c \
 utils/is_shell_special.c utils/strcombine.c utils/ft_strncmp.c utils/ft_strdup.c resolver/resolver_utils.c \
 resolver/resolver_utils_extra.c handler/handler_utils.c parser/parser_utils.c parser/ast_utils.c \
-utils/ft_split.c
+utils/ft_split.c utils/ft_strchr.c
 
 
 MAIN_FILES = minishell.c lexer/lexer.c lexer/token.c resolver/resolver.c handler/handler.c handler/checker.c \
@@ -17,7 +17,7 @@ MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
 NAME := minishell
 
-ADS := -fsanitize=address -g
+# ADS := -fsanitize=address -g
 
 all: $(NAME) clean
 
