@@ -17,7 +17,7 @@
 
 t_envlst    *init_envlst(char **env);
 char        *get_env_value(t_envlst *envlst, char *variable);
-
-
+t_envlst    *create_envlst(char *content);
+void    add_envlst(t_envlst **envlst_list, t_envlst *envlst);
 
 #endif

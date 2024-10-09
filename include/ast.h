@@ -16,12 +16,12 @@
 #include "token.h"
 
 typedef enum e_ast_type {
-    AST_COMMAND,
+    AST_COMMAND = 1,
     AST_PIPE,
     AST_IN_RED,
     AST_OUT_RED,
     AST_APPEND,
-    AST_HEREDOC = 6,
+    AST_HEREDOC,
     AST_INQ_HEREDOC
 } t_ast_type;
 

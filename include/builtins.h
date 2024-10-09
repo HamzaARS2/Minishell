@@ -16,7 +16,7 @@ typedef enum e_builtins {
     NONE
 } t_builtins_type;
 
-bool    cd(char **args, t_envlst *envlst);
 t_builtins_type    builtin_check(char *cmd);
-
+bool    cd(char **args, t_envlst *envlst);
+bool    mshell_export(t_envlst **envlst, t_ast *node);
 #endif

@@ -10,17 +10,17 @@
 
 typedef enum s_type {
     WORD = 30,
-    PIPE = 31,
-    SSPACE = 32,
-    IN_RED = 33,
-    OUT_RED = 34,
-    APPEND = 35,
-    HERE_DOC = 36,
-    DQUOTES = 37,
-    SQUOTES = 38,
-    VARIABLE = 39,
-    SPLIT_VAR = 40,
-    STATUS = 44
+    PIPE,
+    SSPACE,
+    IN_RED,
+    OUT_RED,
+    APPEND,
+    HERE_DOC,
+    DQUOTES,
+    SQUOTES,
+    VARIABLE,
+    SPLIT_VAR,
+    STATUS
 } t_type;
 
 typedef enum s_state {
