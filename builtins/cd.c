@@ -6,12 +6,14 @@ bool    cd(char **args)
 {
     if (args[2])
     {
-        printf("minishell: cd: too many arguments\n");
+        ft_putstr_fd("minishell: cd: too many arguments\n", 2);
         return (false);
     }
     if (chdir(args[1]) != 0)
     {
-        perror("minishell: ");
+        ft_putstr_fd("minishell: ", 2);
+        ft_putstr_fd(args[1], 2);
+        perror("");
         return (false);
     }
     char *cwd = getcwd(NULL, 0);

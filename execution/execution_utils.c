@@ -18,6 +18,7 @@ bool    exec_builtin(t_ast *node, t_builtins_type type)
 {
     if (type == CD)
         return (cd(node->args));
+    return (false);
 }
 
 void    run_command(t_ast *node, t_executor *executor)
@@ -30,7 +31,7 @@ void    run_command(t_ast *node, t_executor *executor)
     {
         path = cmd_expand(node->args[0], executor->paths);
         execve(path, node->args, NULL);
-        exit(23);
+        // exit(23);
     }
     else
     {
