@@ -40,7 +40,7 @@ char    *get_path(t_envlst *envlst)
     {
         path = is_path(current);
         if (path)
-            return (path + 5);
+            return (path);
         current = current->next;
     }
     perror("$PATH not found");//

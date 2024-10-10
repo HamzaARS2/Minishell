@@ -18,9 +18,9 @@ MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
 NAME := minishell
 
-# ADS := -fsanitize=address -g
+ADS := -fsanitize=address -g
 
-all: $(NAME)
+all: $(NAME) clean
 
 $(NAME): $(MAIN_OBJS)
 	$(CC) $(MAIN_OBJS) -lreadline -o $(NAME) $(ADS)

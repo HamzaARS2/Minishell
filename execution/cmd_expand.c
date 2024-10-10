@@ -7,22 +7,33 @@
 // Checking commands without a path or when PATH is empty.
 
 
+
+
+//************************************************************************************************
+//************************************************************************************************
+//************************************************************************************************
+//************************************************************************************************
+
+
+
+
 #include "../include/execution.h"
 #include <sys/stat.h>
-
-
 
 
 
 int i = 0;
 
 
-void    err_write(char *bash, char *cmd, char *err, int status)
+void    err_write(char *minishell, char *cmd, char *err, int status)
 {
-    // ft_write(bash);
-    write(2, bash, ft_strlen(bash));
-    write(2, cmd, ft_strlen(cmd));
-    write(2, err, ft_strlen(err));
+    // ft_write(minishell);
+    // write(2, minishell, ft_strlen(minishell));
+    ft_putstr_fd(minishell, 2);
+    // write(2, cmd, ft_strlen(cmd));
+    ft_putstr_fd(cmd, 2);
+    // write(2, err, ft_strlen(err));
+    ft_putstr_fd(err, 2);
     exit(status);
 
 }
@@ -67,28 +78,17 @@ char    *expnd_cmd_path(char *path, char *cmd)
 
 
     if (is_directory(cmd) && ft_strchr(cmd, '/'))
-        err_write("bash: ", cmd, ": is a directory\n", 126);
+        err_write("minishell: ", cmd, ": is a directory\n", 126);
     if (ft_strchr(cmd, '/'))
     {
         if (check_access(cmd) == 2)
-            err_write("bash: ", cmd, ": No such file or directory\n", 127);
-        if (check_access(cmd) == 1)
-            err_write("bash: ", cmd, ": Permission denied\n", 126);
+            err_write("minishell: ", cmd, ": No such file or directory\n", 127);
         return cmd;
     }
-    
     cmd_slash = strcombine(path, "/", false); // (|) *FREE CMD_SLASH ////****// *FREE() (1) FREE_PATH  (2) FREE_CMD(AST->ARG)
-    // printf("cmd_slash :%s\n", cmd_slash);
-    
     rtrn_path = strcombine(cmd_slash, cmd, false);
-    
     free(cmd_slash);
-
-    //  return the CMD_PATH(to check it with ACCESS())
-
     return(rtrn_path);
-
-
 }
 
 
@@ -102,24 +102,19 @@ char    *check_cmd(char **paths, char *cmd)
     while(paths && (paths)[i])
     {
         cmd_path = expnd_cmd_path(paths[i], cmd);
-        
-        // printf("cmd_path :%s\n", cmd_path);                               //DELETE;
-
+        // printf("cmd_path :%s\n", cmd_path);                                                  //DELETE;
         status = check_access(cmd_path);
-
-        // printf("ACCESS_status :%d\n", status);                                     // DELETE
-
+        // printf("ACCESS_status :%d\n", status);                                               // DELETE
         if (!status)
             return (cmd_path);
         else if(status == 1)
-            err_write("bash: ", cmd_path, ": Permission denied\n", 126);
+            err_write("minishell: ", cmd_path, ": Permission denied\n", 126);
         i++;
     }
     if (status == 0)
-        err_write("bash: ", cmd, ": No such file or directory\n", 127);
-    // printf("TEST\n");
+        err_write("minishell: ", cmd, ": No such file or directory\n", 127);
     if (status == 2)
-        err_write("bash: ", cmd, ": command not found\n", 127);
+        err_write("minishell: ", cmd, ": command not found\n", 127);
     
     return(NULL);
 }
