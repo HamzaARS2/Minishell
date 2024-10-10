@@ -44,8 +44,7 @@ int check_access(char *path)
     status = 0;
     if (access(path, F_OK) == 0)
     {
-        if (is_directory(path))
-            err_write("bash: ", path, ": is a directory\n", 126);
+
         if (access(path, X_OK) == 0)
             return (status);
         else
@@ -66,10 +65,18 @@ char    *expnd_cmd_path(char *path, char *cmd)
     char    *cmd_slash;
     char    *rtrn_path;
 
+
+    if (is_directory(cmd) && ft_strchr(cmd, '/'))
+        err_write("bash: ", cmd, ": is a directory\n", 126);
     if (ft_strchr(cmd, '/'))
+    {
+        if (check_access(cmd) == 2)
+            err_write("bash: ", cmd, ": No such file or directory\n", 127);
+        if (check_access(cmd) == 1)
+            err_write("bash: ", cmd, ": Permission denied\n", 126);
         return cmd;
-    else if (is_directory(cmd))
-        exit(1);
+    }
+    
     cmd_slash = strcombine(path, "/", false); // (|) *FREE CMD_SLASH ////****// *FREE() (1) FREE_PATH  (2) FREE_CMD(AST->ARG)
     // printf("cmd_slash :%s\n", cmd_slash);
     
@@ -95,11 +102,12 @@ char    *check_cmd(char **paths, char *cmd)
     while(paths && (paths)[i])
     {
         cmd_path = expnd_cmd_path(paths[i], cmd);
+        
         // printf("cmd_path :%s\n", cmd_path);                               //DELETE;
 
         status = check_access(cmd_path);
 
-        printf("ACCESS_status :%d\n", status);                                     // DELETE
+        // printf("ACCESS_status :%d\n", status);                                     // DELETE
 
         if (!status)
             return (cmd_path);
@@ -107,7 +115,7 @@ char    *check_cmd(char **paths, char *cmd)
             err_write("bash: ", cmd_path, ": Permission denied\n", 126);
         i++;
     }
-    if (status == 4)
+    if (status == 0)
         err_write("bash: ", cmd, ": No such file or directory\n", 127);
     // printf("TEST\n");
     if (status == 2)
@@ -120,6 +128,8 @@ char    *cmd_expand(char *cmd, char **paths)
 {
     char    *check_return = 0;
 
+    if (!cmd)
+        exit(0);
     check_return = check_cmd(paths, cmd);
     // system("leaks -q minishell"); //**LEAKS TEST**//=
     return(check_return);  //add "/"  //add CMD
