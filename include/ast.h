@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 11:23:50 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/08 10:48:05 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/10 11:14:20 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 #include "token.h"
 
 typedef enum e_ast_type {
-    AST_COMMAND,
+    AST_COMMAND = 1,
     AST_PIPE,
     AST_IN_RED,
     AST_OUT_RED,
     AST_APPEND,
-    AST_HEREDOC = 6,
+    AST_HEREDOC,
     AST_INQ_HEREDOC
 } t_ast_type;
 
