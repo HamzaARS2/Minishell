@@ -46,7 +46,7 @@ typedef struct s_executor {
     int         status;
     t_pids      *pids;
     char        **paths;
-    t_envlst    *envlst;
+    t_envlst    **envlst;
 } t_executor;
 
 void    exec(t_ast *ast, t_executor *executor);
@@ -59,7 +59,7 @@ void    add_pid(t_pids **pids, pid_t pid);
 
 void    ft_wait(t_executor *executor);
 
-void    init_executor(t_executor *executor, t_envlst *envlst);
+void    init_executor(t_executor *executor, t_envlst **envlst);
 
 void    print_pids(t_pids *pids, int  flag);//delete
 

@@ -13,7 +13,7 @@
 #include "../include/execution.h"
 
 
-void    init_executor(t_executor *executor, t_envlst *envlst)
+void    init_executor(t_executor *executor, t_envlst **envlst)
 {
     t_context ctx;
 
@@ -21,7 +21,7 @@ void    init_executor(t_executor *executor, t_envlst *envlst)
     executor->ctx = ctx;
     executor->status = 0;
     executor->pids = NULL;
-    executor->paths = get_paths(envlst);
+    executor->paths = get_paths(*envlst);
     executor->envlst = envlst;
 
 }

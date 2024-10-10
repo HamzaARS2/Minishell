@@ -44,7 +44,7 @@ bool    mshell_parse(t_mshell *mshell, char *line)
 
 void mshell_execute(t_mshell *mshell)
 {
-    init_executor(&mshell->executor, mshell->envlst);
+    init_executor(&mshell->executor, &mshell->envlst);
 
     // TODO: execute the whole AST.
     // TODO: execute the whole AST.

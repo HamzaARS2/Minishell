@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envlst_utils.c                                     :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 12:32:45 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/10 10:28:31 by helarras         ###   ########.fr       */
+/*   Created: 2024/10/10 10:21:55 by helarras          #+#    #+#             */
+/*   Updated: 2024/10/10 10:21:58 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minishell.h"
-
-char    *get_env_value(t_envlst *envlst, char *key)
+int	ft_strcmp(char *s1, char *s2)
 {
-    t_envlst *current;
+	int	i;
 
-    current = envlst;
-    while (current)
-    {
-        if (!ft_strcmp(current->key, key))
-            return (current->value + 1);
-        current = current->next;
-    }
-    return (NULL);
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] == s2[i])
+			i++;
+		else
+			break ;
+	}
+	return (s1[i] - s2[i]);
 }

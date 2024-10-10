@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:53 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 16:23:27 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/10 10:13:39 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 #include "lexer.h"
 
 typedef struct s_envlst {
-    char            *variable;
+    char            *key;
+    char            *value;
     struct s_envlst *next;
 } t_envlst;
 

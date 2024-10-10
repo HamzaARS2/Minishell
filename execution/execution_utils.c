@@ -17,7 +17,9 @@ void    dup_fds(t_context ctx)
 bool    exec_builtin(t_executor *executor, t_ast *node, t_builtins_type type)
 {
     if (type == CD)
-        return (cd(node->args, executor->envlst));
+        return (cd(node->args, *executor->envlst));
+    else if (type == EXPORT)
+        return (mshell_export(executor->envlst, node));
     return (false);
 }
 

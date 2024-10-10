@@ -15,18 +15,18 @@ void print_envlst(t_envlst *envlst)
     int i  = 0;
     while (current)
     {
-        printf("envlst%d: %s\n", i++, current->variable);
+        printf("envlst%d: %s\n", i++, current->value);
         current = current->next;
     }
 }
 
 //***** ^TOOLS ******************************************
 //*******************************************************
-char    *is_path(char *envvar)
+char    *is_path(t_envlst *env)
 {
-    if (ft_strncmp(envvar, "PATH=", 5))
+    if (ft_strcmp(env->key, "PATH"))
         return (NULL);
-    return (envvar);
+    return (env->value + 1);
 }
 
 
@@ -38,7 +38,7 @@ char    *get_path(t_envlst *envlst)
     current = envlst;
     while (current)
     {
-        path = is_path(current->variable);
+        path = is_path(current);
         if (path)
             return (path + 5);
         current = current->next;
