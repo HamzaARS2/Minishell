@@ -27,7 +27,7 @@ char	        *ft_strdup(char *s1);
 char			**ft_split(char *str, char c);
 char            *ft_strchr(const char *s, int c);
 int	            ft_strcmp(char *s1, char *s2);
-
+int	            ft_isdigit(int c);
 void	        ft_putstr_fd(char *s, int fd);
 
 

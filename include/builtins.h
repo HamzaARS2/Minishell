@@ -19,4 +19,6 @@ typedef enum e_builtins {
 t_builtins_type    builtin_check(char *cmd);
 bool    cd(char **args, t_envlst *envlst);
 bool    mshell_export(t_envlst **envlst, t_ast *node);
+
+void    display_error(char *intro, char *body, char *conclusion);
 #endif

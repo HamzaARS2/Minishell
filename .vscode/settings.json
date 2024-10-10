@@ -7,6 +7,7 @@
         "execution.h": "c",
         "stat.h": "c",
         "resolver.h": "c",
-        "lexer.h": "c"
+        "lexer.h": "c",
+        "builtins.h": "c"
     }
 }
