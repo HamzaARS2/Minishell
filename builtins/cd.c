@@ -22,7 +22,7 @@ char    *get_home_path(t_envlst *envlst)
 {
     char *home_path;
 
-    home_path = get_env_value(envlst, "HOME=");
+    home_path = get_env_value(envlst, "HOME");
     if (!home_path)
         print_errors('H', NULL);
     return (home_path);

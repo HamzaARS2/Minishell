@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:34:55 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/07 09:39:30 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/10 10:23:55 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,16 @@ bool    urslv_should_expand(t_resolver *resolver, bool hd_skip)
 
 void    urslv_expand_variable(t_resolver *resolver)
 {
-    uint32_t    varsize;
     char        *variable;
     t_envlst    *current;
     
     current = resolver->envlst;
     variable = resolver->current->value + 1;
-    varsize = ft_strlen(variable);
     while (current)
     {
-        if (varsize > 0 && !ft_strncmp(current->variable, variable, varsize))
+        if (!ft_strcmp(current->key, variable))
         {
-            urslv_handle_expanding(resolver, current->variable + varsize + 1);
+            urslv_handle_expanding(resolver, current->value + 1);
             return ;
         }
         current = current->next;

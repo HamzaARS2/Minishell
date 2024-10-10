@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:37:15 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 16:00:41 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/10 10:46:49 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,17 @@ void    add_last_envlst(t_envlst *envlst, t_envlst *envlst_node)
 
 t_envlst *create_envlst(char *content)
 {
-    t_envlst *envlst;
-
+    char        *value;
+    int         keysize;
+    t_envlst    *envlst;
+    
     envlst = malloc(sizeof(t_envlst));
     if (!envlst)
         return (NULL);
-    envlst->variable = content;
+    value = ft_strchr(content, '=');
+    keysize = value - content;
+    envlst->key = substr(content, 0, keysize);
+    envlst->value = ft_strdup(value);
     envlst->next = NULL;
     return (envlst);
 }
@@ -55,11 +60,11 @@ t_envlst    *init_envlst(char **env)
 
     if (!env || !*env)
         return (NULL);
-    head = create_envlst(ft_strdup((*env)));
+    head = create_envlst((*env));
     env++;
     while (*env)
     {
-        add_envlst(&head, create_envlst(ft_strdup(*env)));
+        add_envlst(&head, create_envlst(*env));
         env++;
     }
     return (head);

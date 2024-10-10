@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:26:45 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/09 09:50:00 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/10 10:22:52 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int             ft_strncmp(const char *s1, const char *s2, size_t n);
 char	        *ft_strdup(char *s1);
 char			**ft_split(char *str, char c);
 char            *ft_strchr(const char *s, int c);
-
+int	            ft_strcmp(char *s1, char *s2);
 
 void	        ft_putstr_fd(char *s, int fd);
 
