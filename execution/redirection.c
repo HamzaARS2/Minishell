@@ -7,7 +7,10 @@ int    open_redirect(char *path, int flag)
     fd = open(path, flag, 0644);
     if (fd == -1)
     {
-        perror ("open: ");
+        ft_putstr_fd("minishell: ", 2);
+        ft_putstr_fd(path, 2);
+        ft_putstr_fd(": ", 2);
+        perror ("");
         return (-1);
     }
     return (fd);

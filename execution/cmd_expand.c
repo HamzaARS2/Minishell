@@ -2,40 +2,20 @@
 
 // (1) *fix the structure with the strcombine thing : (√)
 // (2) *Using relative paths.                       : (√)
-// (3) *xecuting directories.                       : ()                    
+// (3) *xecuting directories.                       : (√)                    
 // (4) *check LEAKS(),                              : ()
 // Checking commands without a path or when PATH is empty.
-
-
-
-
-//************************************************************************************************
-//************************************************************************************************
-//************************************************************************************************
-//************************************************************************************************
-
-
 
 
 #include "../include/execution.h"
 #include <sys/stat.h>
 
-
-
-int i = 0;
-
-
 void    err_write(char *minishell, char *cmd, char *err, int status)
 {
-    // ft_write(minishell);
-    // write(2, minishell, ft_strlen(minishell));
     ft_putstr_fd(minishell, 2);
-    // write(2, cmd, ft_strlen(cmd));
     ft_putstr_fd(cmd, 2);
-    // write(2, err, ft_strlen(err));
     ft_putstr_fd(err, 2);
     exit(status);
-
 }
 
 int is_directory(char *path)
@@ -46,7 +26,6 @@ int is_directory(char *path)
     if (S_ISDIR(p_stat.st_mode))
         return (1);
     return (0);
-
 }
 int check_access(char *path)
 {
@@ -75,7 +54,6 @@ char    *expnd_cmd_path(char *path, char *cmd)
 {
     char    *cmd_slash;
     char    *rtrn_path;
-
 
     if (is_directory(cmd) && ft_strchr(cmd, '/'))
         err_write("minishell: ", cmd, ": is a directory\n", 126);
@@ -121,8 +99,9 @@ char    *check_cmd(char **paths, char *cmd)
 
 char    *cmd_expand(char *cmd, char **paths)
 {
-    char    *check_return = 0;
+    char    *check_return;
 
+    check_return = 0;
     if (!cmd)
         exit(0);
     check_return = check_cmd(paths, cmd);
