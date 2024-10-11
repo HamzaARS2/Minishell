@@ -67,10 +67,12 @@ bool    env_update(t_envlst *env, char *new_env)
 
 bool    mshell_export(t_envlst **envlst, t_ast *node)
 {
-    t_envlst    *new_env = NULL;
+    t_envlst    *new_env;
     int         i;
 
     i = 0;
+    if (!node->args[1])
+        print_env(*envlst, false);
     while (node->args[++i])
     {
         if (!validate_arg(node->args[i]))

@@ -53,3 +53,18 @@ char    **get_env(t_envlst *envlst)
     env[i] = NULL;
     return (env);
 }
+
+void    print_env(t_envlst *envlst, bool flag)
+{
+    t_envlst *current;
+
+    current = envlst;
+    while (current)
+    {
+        if (flag)
+            printf("%s\n", current->content);
+        else
+            printf("declare -x %s=\"%s\"\n", current->key, current->value + 1);
+        current = current->next;
+    }
+}

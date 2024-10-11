@@ -20,4 +20,5 @@ char        *get_env_value(t_envlst *envlst, char *value);
 t_envlst    *create_envlst(char *content);
 void        add_envlst(t_envlst **envlst_list, t_envlst *envlst);
 char        **get_env(t_envlst *envlst);
+void        print_env(t_envlst *envlst, bool flag);
 #endif
