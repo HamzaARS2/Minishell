@@ -59,5 +59,6 @@ int    hndl_redirect(t_ast *ast, t_context *ctx)
         fd = check_redirect(ctx, redirect);
         redirect = redirect->next;
     }
+    printf("fd = %i\n", fd);
     return (fd);
 }

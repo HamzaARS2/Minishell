@@ -32,7 +32,7 @@ void    run_command(t_ast *node, t_executor *executor)
     if (type == NONE)
     {
         path = cmd_expand(node->args[0], executor->paths);
-        execve(path, node->args, NULL);
+        execve(path, node->args, get_env(*executor->envlst));
         exit(23);
     }
     else

@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:53 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/10 10:13:39 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:44:52 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 typedef struct s_envlst {
     char            *key;
     char            *value;
+    char            *content;
     struct s_envlst *next;
 } t_envlst;
 

@@ -82,14 +82,5 @@ bool    mshell_export(t_envlst **envlst, t_ast *node)
             return (false);
         add_envlst(envlst, new_env);
     }
-
-    t_envlst *current;
-
-    current = *envlst;
-    while (current)
-    {
-        printf("%s%s\n", current->key, current->value);
-        current = current->next;
-    }
     return (true);
 }
