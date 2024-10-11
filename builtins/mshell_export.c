@@ -79,6 +79,8 @@ bool    mshell_export(t_envlst **envlst, t_ast *node)
             continue;
         if (env_update(env_is_exist(*envlst, node->args[i]), node->args[i]))
             continue;
+        if (find_equal(node->args[i]) < 0)
+            continue;
         new_env = create_envlst(node->args[i]);
         if (!new_env)
             return (false);

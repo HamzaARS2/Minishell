@@ -39,11 +39,16 @@ t_envlst *create_envlst(char *content)
     if (!envlst)
         return (NULL);
     value = ft_strchr(content, '=');
+    envlst->next = NULL;
+    if (!value)
+    {
+        envlst->key = ft_strdup(content);
+        envlst->value = NULL;
+        return (envlst);
+    }
     keysize = value - content;
     envlst->key = substr(content, 0, keysize);
     envlst->value = ft_strdup(value);
-    envlst->content = content;
-    envlst->next = NULL;
     return (envlst);
 }
 

@@ -47,7 +47,7 @@ char    **get_env(t_envlst *envlst)
     current = envlst;
     while (current)
     {
-        env[i++] = current->content;
+        env[i++] = strcombine(current->key, current->value, false);
         current = current->next;
     }
     env[i] = NULL;
@@ -62,9 +62,17 @@ void    print_env(t_envlst *envlst, bool flag)
     while (current)
     {
         if (flag)
-            printf("%s\n", current->content);
+            if (current->value)
+                printf("%s%s\n", current->key, current->value);
+            else
+                printf("%s=\n", current->key);
         else
-            printf("declare -x %s=\"%s\"\n", current->key, current->value + 1);
+        {
+            if (current->value)
+                printf("declare -x %s=\"%s\"\n", current->key, current->value + 1);
+            else
+                printf("declare -x %s\n", current->key);
+        }
         current = current->next;
     }
 }

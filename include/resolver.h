@@ -19,7 +19,6 @@
 typedef struct s_envlst {
     char            *key;
     char            *value;
-    char            *content;
     struct s_envlst *next;
 } t_envlst;
 
