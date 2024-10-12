@@ -47,8 +47,9 @@ int	ft_atoi(char *str)
 
 bool    mshell_exit(char **arg)
 {
-    int i;
-    int E_status;
+    int     i;
+    char    *trim_arg;
+    int     E_status;
 
     i = 0;
     while (arg[i])
@@ -59,7 +60,12 @@ bool    mshell_exit(char **arg)
         printf("exit\n");
         exit(24); //*EXIT WITH EXIT_STATUS
     }
-    E_status = ft_atoi(ft_strtrim(arg[1], " "));
+    if ( i == 2 )
+    {
+        if (!arg[1])
+            atoi_perror(arg[1]);
+        E_status = ft_atoi(ft_strtrim(arg[1], " "));
+    }
     if (i > 2)
     {
         ft_putstr_fd("bash: exit: too many arguments\n", 2);
