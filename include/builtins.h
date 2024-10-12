@@ -4,6 +4,8 @@
 
 #include "ast.h"
 #include "envlst.h"
+#include <limits.h>
+
 
 typedef enum e_builtins {
     ECHO,
@@ -19,4 +21,8 @@ typedef enum e_builtins {
 t_builtins_type    builtin_check(char *cmd);
 bool    cd(char **args, t_envlst *envlst);
 bool    mshell_export(t_envlst **envlst, t_ast *node);
+bool    mshell_env(t_envlst *envlst);
+bool    mshell_exit(char **arg);
+
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/09 12:42:46 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/12 08:02:32 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void   exec(t_ast *ast, t_executor *executor)
     type = NONE;
     if (ast->type == AST_COMMAND)
         type = builtin_check(ast->args[0]);
+
     if (type != NONE)
         exec_builtin(executor, ast, type);
     else

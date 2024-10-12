@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:26:45 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/10 10:22:52 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/12 11:55:22 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char            *ft_strchr(const char *s, int c);
 int	            ft_strcmp(char *s1, char *s2);
 
 void	        ft_putstr_fd(char *s, int fd);
+char            *ft_strtrim(char *s1, char *set);
 
 
 #endif
