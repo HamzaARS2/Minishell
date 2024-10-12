@@ -24,7 +24,7 @@ bool    validate_arg(char *arg)
         display_error("minishell: export: `", arg, "': not a valid identifier\n");
         return (false);
     }
-    while (arg[i] && arg[i] != '=')
+    while (arg[i] != '=')
     {
         if (!ft_isalnum(arg[i]) && arg[i] != '_')
         {
@@ -39,11 +39,15 @@ bool    validate_arg(char *arg)
 t_envlst    *env_is_exist(t_envlst *envlst, char *new_env)
 {
     t_envlst *current;
+    int         keylen;
+    int         newlen;
 
     current = envlst;
     while (current)
     {
-        if (!ft_strncmp(current->key, new_env, find_equal(new_env)))
+        keylen = ft_strlen(current->key);
+        newlen = find_equal(new_env);
+        if (keylen == newlen && !ft_strncmp(current->key, new_env, newlen))
             return (current);
         current = current->next;
     }
