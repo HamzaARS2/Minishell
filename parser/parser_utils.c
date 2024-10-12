@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:54:58 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/11 11:57:22 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/12 15:20:46 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ uint32_t    uprsr_count_args(t_token *token)
         current = uprsr_next_arg(current);
         if (!current)
             break ;
-        count++;
+        if (current->value)
+            count++;
         current = current->next;
     }
     return (count);
@@ -71,14 +72,12 @@ char    **uprsr_build_cmd(t_parser *parser)
         return (NULL);
     while (current && i < count)
     {
-        // if (uprsr_should_advance(current))
-        //     prsr_advance(parser);
         current = uprsr_next_arg(current);
         if (!current)
             break ;
-        cmd[i] = current->value;
+        if (current->value)
+            cmd[i++] = current->value;
         current = current->next;
-        i++;
     }
     cmd[i] = NULL;
     return (cmd);
