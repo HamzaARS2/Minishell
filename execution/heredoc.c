@@ -20,22 +20,20 @@ char    *hrdoc_expand(t_envlst *envlst, char *line)
 
 void    hrdoc_run(t_redirect *heredoc, t_envlst *envlst)
 {
-    int p[2];
-    char *line;
-    uint32_t linesize;
+    int     p[2];
+    char    *line;
 
     pipe(p);
     while (true)
     {
         line = readline("heredoc > ");
-        if (!line || !(*line))
+        if (!line)
             break;
+        if (!ft_strcmp(line, heredoc->content))
+           break;
         line = strcombine(line, ft_strdup("\n"), true);
         if (!line)
             break;
-        linesize = ft_strlen(line) - 1;
-        if (linesize > 0 && !ft_strncmp(line, heredoc->content, linesize))
-           break;
         if (heredoc->type == AST_HEREDOC)
             line = hrdoc_expand(envlst, line);
         write(p[1], line, ft_strlen(line));
