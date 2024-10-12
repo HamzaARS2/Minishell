@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:37:15 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/10 10:46:49 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:44:22 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,16 @@ t_envlst *create_envlst(char *content)
     if (!envlst)
         return (NULL);
     value = ft_strchr(content, '=');
+    envlst->next = NULL;
+    if (!value)
+    {
+        envlst->key = ft_strdup(content);
+        envlst->value = NULL;
+        return (envlst);
+    }
     keysize = value - content;
     envlst->key = substr(content, 0, keysize);
     envlst->value = ft_strdup(value);
-    envlst->next = NULL;
     return (envlst);
 }
 

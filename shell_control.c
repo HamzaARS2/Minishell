@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:49:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/11 08:50:35 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/11 11:36:25 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ bool    mshell_parse(t_mshell *mshell, char *line)
 void mshell_execute(t_mshell *mshell)
 {
     init_executor(&mshell->executor, &mshell->envlst);
-
     // TODO: execute the whole AST.
     // TODO: execute the whole AST.
     hrdoc_collect(mshell->ast, mshell->envlst);

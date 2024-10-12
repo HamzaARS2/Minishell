@@ -9,6 +9,7 @@
         "resolver.h": "c",
         "lexer.h": "c",
         "handler.h": "c",
-        "builtins.h": "c"
+        "builtins.h": "c",
+        "readline.h": "c"
     }
 }

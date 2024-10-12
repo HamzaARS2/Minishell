@@ -2,3 +2,5 @@
 TODO;
 
     // (1) *heredoc should expand '$USER' : ()
+    // (2) heredoc close when entering '\0'
+    // (3) redirection not getting listed when the come before command.

@@ -9,7 +9,31 @@ int find_equal(char *str)
     i = 0;
     while (str && str[i] && str[i] != '=')
         i++;
+    if (str && str[i] != '=')
+        return (-1);
     return (i);
+}
+
+bool    validate_arg(char *arg)
+{
+    int i;
+
+    i = 0;
+    if (arg[0] == '=' || ft_isdigit(arg[0]))
+    {
+        display_error("minishell: export: `", arg, "': not a valid identifier\n");
+        return (false);
+    }
+    while (arg[i] && arg[i] != '=')
+    {
+        if (!ft_isalnum(arg[i]) && arg[i] != '_')
+        {
+            display_error("minishell: export: `", arg, "': not a valid identifier\n");
+            return (false);
+        }
+        i++;
+    }
+    return (true);
 }
 
 t_envlst    *env_is_exist(t_envlst *envlst, char *new_env)
@@ -47,22 +71,20 @@ bool    mshell_export(t_envlst **envlst, t_ast *node)
     int         i;
 
     i = 0;
+    if (!node->args[1])
+        print_env(*envlst, false);
     while (node->args[++i])
     {
+        if (!validate_arg(node->args[i]))
+            continue;
         if (env_update(env_is_exist(*envlst, node->args[i]), node->args[i]))
+            continue;
+        if (find_equal(node->args[i]) < 0)
             continue;
         new_env = create_envlst(node->args[i]);
         if (!new_env)
             return (false);
         add_envlst(envlst, new_env);
-    }
-    t_envlst *current;
-
-    current = *envlst;
-    while (current)
-    {
-        printf("%s%s\n", current->key, current->value);
-        current = current->next;
     }
     return (true);
 }

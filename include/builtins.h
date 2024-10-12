@@ -25,4 +25,5 @@ bool    mshell_env(t_envlst *envlst);
 bool    mshell_exit(char **arg);
 
 
+void    display_error(char *intro, char *body, char *conclusion);
 #endif

@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:37:43 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/10 10:14:18 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/11 10:45:38 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 t_envlst    *init_envlst(char **env);
 char        *get_env_value(t_envlst *envlst, char *value);
 t_envlst    *create_envlst(char *content);
-void    add_envlst(t_envlst **envlst_list, t_envlst *envlst);
-
+void        add_envlst(t_envlst **envlst_list, t_envlst *envlst);
+char        **get_env(t_envlst *envlst);
+void        print_env(t_envlst *envlst, bool flag);
 #endif
