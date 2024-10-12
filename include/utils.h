@@ -30,7 +30,7 @@ int	            ft_strcmp(char *s1, char *s2);
 int	            ft_isdigit(int c);
 void	        ft_putstr_fd(char *s, int fd);
 char            *ft_strtrim(char *s1, char *set);
-
+char	        *ft_itoa(int n);
 
 #endif
 

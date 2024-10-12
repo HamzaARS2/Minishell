@@ -12,6 +12,8 @@
 
 #include "../include/resolver.h"
 
+extern int g_xstatus;
+
 void    urslv_remove_spaces(t_resolver *resolver)
 {
     t_token **head;
@@ -84,4 +86,10 @@ void    urslv_handle_expanding(t_resolver *resolver, char *value)
     }
     free(env);
     env = 0;
+}
+
+void    urslv_expand_exstatus(t_resolver *resolver)
+{
+    free(resolver->current->value);
+    resolver->current->value = ft_itoa(g_xstatus);
 }
