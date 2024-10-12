@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resolver.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:53 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/12 13:51:12 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/12 15:53:52 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_envlst {
     char            *key;
     char            *value;
     struct s_envlst *next;
+    struct s_envlst *prev;
 } t_envlst;
 
 typedef struct s_resolver {

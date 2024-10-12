@@ -23,7 +23,7 @@ bool    cd(char **args, t_envlst *envlst);
 bool    mshell_export(t_envlst **envlst, t_ast *node);
 bool    mshell_env(t_envlst *envlst);
 bool    mshell_exit(char **arg);
-
+bool    mshell_unset(t_envlst **envlst, t_ast *node);
 
 void    display_error(char *intro, char *body, char *conclusion);
 #endif

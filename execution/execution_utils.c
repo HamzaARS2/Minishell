@@ -24,6 +24,8 @@ bool    exec_builtin(t_executor *executor, t_ast *node, t_builtins_type type)
         return (mshell_env(*executor->envlst));
     else if (type == EXIT)
         return(mshell_exit(node->args));
+    else if (type == UNSET)
+        return(mshell_unset(executor->envlst, node));
     return (false);
 }
 

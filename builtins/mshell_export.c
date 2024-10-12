@@ -88,3 +88,6 @@ bool    mshell_export(t_envlst **envlst, t_ast *node)
     }
     return (true);
 }
+
+// 1 - export ""
+// 2 - ft_strcncmp incorrect.

@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:37:15 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/11 10:44:22 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/12 15:56:41 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void    add_last_envlst(t_envlst *envlst, t_envlst *envlst_node)
     if (!current_last)
         return ;
     current_last->next = envlst_node;
+    envlst_node->prev = current_last;
 }
 
 t_envlst *create_envlst(char *content)
@@ -40,6 +41,7 @@ t_envlst *create_envlst(char *content)
         return (NULL);
     value = ft_strchr(content, '=');
     envlst->next = NULL;
+    envlst->prev = NULL;
     if (!value)
     {
         envlst->key = ft_strdup(content);
