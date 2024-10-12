@@ -9,7 +9,7 @@ char    *hrdoc_expand(t_envlst *envlst, char *line)
 
     if (!uhrdoc_env_exist(line))
         return (line);
-    lexer = init_lexer(line);
+    lexer = init_lexer(line, false);
     lxr_generate_tokens(lexer);
     resolver = init_resolver(lexer, envlst);
     rslv_expand(resolver, false);
