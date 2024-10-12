@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 14:50:41 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/05 11:08:47 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/12 11:29:41 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ typedef struct s_lexer {
     t_token         *tokens;
     char            *content;
     t_state         state;
+    bool            dynamic_state;
     uint32_t        size;
     uint32_t        i;
     char            c;
 } t_lexer;
 
 // initializing the lexer.
-t_lexer *init_lexer(char *content);
+t_lexer *init_lexer(char *content, bool dynamic_state);
 
 // advance to the next char in sequence.
 void    lxr_advance(t_lexer *lexer);

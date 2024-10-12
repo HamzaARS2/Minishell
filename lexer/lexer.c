@@ -1,6 +1,6 @@
 #include "../include/lexer.h"
 
-t_lexer *init_lexer(char *content)
+t_lexer *init_lexer(char *content, bool dynamic_state)
 {
     t_lexer *lexer;
 
@@ -12,6 +12,7 @@ t_lexer *init_lexer(char *content)
     lexer->tokens = NULL;
     lexer->content = content;
     lexer->state = DEFAULT;
+    lexer->dynamic_state = dynamic_state;
     lexer->size = ft_strlen(content);
     lexer->i = 0;
     lexer->c = content[0];
@@ -29,6 +30,8 @@ void    lxr_advance(t_lexer *lexer)
 
 void    lxr_recognize_state(t_lexer *lexer)
 {
+    if (!lexer->dynamic_state)
+        return ;
     if (lexer->c == '"' && lexer->state == DEFAULT)
         lexer->state = IN_DQUOTES;
     else if (lexer->c == '"' && lexer->state == IN_DQUOTES)

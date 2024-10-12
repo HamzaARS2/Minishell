@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 19:27:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/09/24 16:21:13 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/12 11:32:40 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ bool    ulxr_extract_dquotes(t_lexer *lexer, t_token **token)
         return (false);
     start = lexer->i;
     lxr_advance(lexer);
-    if (lexer->state == IN_SQUOTES)
+    if (lexer->state == IN_SQUOTES || !lexer->dynamic_state)
     {
         *token = tkn_extract(DQUOTES, lexer->content, start, lexer->i);   
         (*token)->state = lexer->state;
@@ -75,7 +75,7 @@ bool    ulxr_extract_squotes(t_lexer *lexer, t_token **token)
         return (false);
     start = lexer->i;
     lxr_advance(lexer);
-    if (lexer->state == IN_DQUOTES)
+    if (lexer->state == IN_DQUOTES || !lexer->dynamic_state)
     {
         *token = tkn_extract(SQUOTES, lexer->content, start, lexer->i);   
         (*token)->state = lexer->state;

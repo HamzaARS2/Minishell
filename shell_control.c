@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:49:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/11 11:36:25 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/12 11:30:21 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void init_mshell(t_mshell *mshell, char **env)
 
 bool    mshell_parse(t_mshell *mshell, char *line)
 {
-    mshell->lexer = init_lexer(line);
+    mshell->lexer = init_lexer(line, true);
     lxr_generate_tokens(mshell->lexer);
     mshell->handler = init_handler(mshell->lexer);
     if (!hdl_run_quotes_check(mshell->handler))
