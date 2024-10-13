@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:32:45 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/11 10:48:59 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/13 16:19:10 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ void    print_env(t_envlst *envlst, bool flag)
     while (current)
     {
         if (flag)
+        {
             if (current->value)
                 printf("%s%s\n", current->key, current->value);
-            else
-                printf("%s=\n", current->key);
+        }
         else
         {
             if (current->value)
