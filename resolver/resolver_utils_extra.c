@@ -6,13 +6,12 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:21:27 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/05 10:53:30 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:31:10 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/resolver.h"
 
-extern int g_xstatus;
 
 void    urslv_remove_spaces(t_resolver *resolver)
 {
@@ -91,5 +90,5 @@ void    urslv_handle_expanding(t_resolver *resolver, char *value)
 void    urslv_expand_exstatus(t_resolver *resolver)
 {
     free(resolver->current->value);
-    resolver->current->value = ft_itoa(g_xstatus);
+    resolver->current->value = ft_itoa(*resolver->ex_status);
 }

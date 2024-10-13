@@ -21,6 +21,7 @@ typedef struct s_mshell {
     t_resolver      *resolver;
     t_parser        *parser;
     t_executor      executor;
+    int             ex_status;
 } t_mshell;
 
 void    init_mshell(t_mshell *mshell, char **env);

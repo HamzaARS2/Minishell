@@ -29,7 +29,7 @@ bool    uhrdoc_env_exist(char *line)
     i = 0;
     while (line[i])
     {
-        if (line[i] == '$' && (ft_isalnum(line[i + 1]) || line[i + 1] == '_'))
+        if (line[i] == '$' && (ft_isalnum(line[i + 1]) || line[i + 1] == '_' || line[i + 1] == '?'))
             return (true);
         i++;
     }

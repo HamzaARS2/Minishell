@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/09 12:41:04 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:30:35 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_pids{
 
 typedef struct s_executor {
     t_context   ctx;
-    int         status;
+    int         *ex_status;
     t_pids      *pids;
     char        **paths;
     t_envlst    **envlst;
@@ -59,7 +59,7 @@ void    add_pid(t_pids **pids, pid_t pid);
 
 void    ft_wait(t_executor *executor);
 
-void    init_executor(t_executor *executor, t_envlst **envlst);
+void    init_executor(t_executor *executor, t_envlst **envlst, int *ex_status);
 
 void    print_pids(t_pids *pids, int  flag);//delete
 
@@ -67,11 +67,11 @@ int     hndl_redirect(t_ast *ast, t_context *ctx);
 
 
 
-void    hrdoc_collect(t_ast *node, t_envlst *envlst);
+void    hrdoc_collect(t_ast *node, t_envlst *envlst, int *ex_status);
 
-void    hrdoc_search(t_redirect *redirect, t_envlst *envlst);
+void    hrdoc_search(t_redirect *redirect, t_envlst *envlst, int *ex_status);
 
-void    hrdoc_run(t_redirect *heredoc, t_envlst *envlst);
+void    hrdoc_run(t_redirect *heredoc, t_envlst *envlst, int *ex_status);
 
 bool    uhrdoc_env_exist(char *line);
 

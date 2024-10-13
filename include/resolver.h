@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:53 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/12 15:53:52 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/13 11:54:47 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ typedef struct s_resolver {
     t_token **tokens;
     uint32_t size;
     t_envlst *envlst;
+    int      *ex_status;
     t_token *current;
     t_token *next;
 } t_resolver;
 
 // initialize resolver.
-t_resolver  *init_resolver(t_lexer *lexer, t_envlst *envlst);
+t_resolver  *init_resolver(t_lexer *lexer, t_envlst *envlst, int *ex_status);
 
 // advances to the next token.
 void    rslv_advance(t_resolver *resolver);

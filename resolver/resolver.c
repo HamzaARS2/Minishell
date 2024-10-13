@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   resolver.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:51 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/08 10:25:47 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/13 12:00:40 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/resolver.h"
 
-t_resolver  *init_resolver(t_lexer *lexer, t_envlst *envlst)
+t_resolver  *init_resolver(t_lexer *lexer, t_envlst *envlst, int *ex_status)
 {
     t_resolver *resolver;
 
@@ -22,6 +22,7 @@ t_resolver  *init_resolver(t_lexer *lexer, t_envlst *envlst)
     resolver->tokens = &(lexer->tokens);
     resolver->size = lexer->size;
     resolver->envlst = envlst;
+    resolver->ex_status = ex_status;
     resolver->current = *(resolver->tokens);
     if (resolver->current)
         resolver->next = resolver->current->next;

@@ -57,8 +57,8 @@ void    ft_wait(t_executor *executor)
     while (current)
     {
         // printf("status in wait:%d\n",  (executor->status));
-        waitpid(current->pid, &(executor->status), 0);
-        executor->status = WEXITSTATUS(executor->status);
+        waitpid(current->pid, executor->ex_status, 0);
+        *executor->ex_status = WEXITSTATUS(*executor->ex_status);
         current = current->next;
     }
     //FREE THE PIDS LIST

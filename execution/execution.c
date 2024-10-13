@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/12 08:02:32 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/13 12:09:49 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/execution.h"
 
 
-void    init_executor(t_executor *executor, t_envlst **envlst)
+void    init_executor(t_executor *executor, t_envlst **envlst, int *ex_status)
 {
     t_context ctx;
 
     ctx = (t_context) {{STDIN_FILENO, STDOUT_FILENO}, -1};
     executor->ctx = ctx;
-    executor->status = 0;
+    executor->ex_status = ex_status;
     executor->pids = NULL;
     executor->paths = get_paths(*envlst);
     executor->envlst = envlst;
@@ -72,7 +72,7 @@ void    exec_tree(t_ast *ast, t_executor *executor)
         fd = hndl_redirect(ast, &executor->ctx); //HANDLE REDIRECTIONS
         if (fd == -1)
         {
-            executor->status = 1;
+            // executor->ex_status = 1;
             return ;
         }
         exec_cmd(ast, executor);
@@ -102,5 +102,5 @@ void   exec(t_ast *ast, t_executor *executor)
     
     // print_dpointer(executor->paths);
 
-    printf("STATUS: %d\n", executor->status);
+    // printf("STATUS: %d\n", executor->status);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 10:03:49 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/11 08:42:25 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/13 11:45:13 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/handler.h"
 
-t_handler *init_handler(t_lexer *lexer)
+t_handler *init_handler(t_lexer *lexer, int *ex_status)
 {
     t_handler *handler;
 
@@ -21,6 +21,7 @@ t_handler *init_handler(t_lexer *lexer)
         return (NULL);
     handler->lexer = lexer;
     handler->error = NO_ERROR;
+    handler->ex_status = ex_status;
     return (handler);
 }
 
@@ -34,6 +35,7 @@ void    hdl_print_error(t_handler *handler)
 void    hdl_post_error(t_handler *handler, t_error error)
 {
     handler->error = error;
+    *handler->ex_status = 258;
     hdl_print_error(handler);
 }
 

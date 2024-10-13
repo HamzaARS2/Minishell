@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:49:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/12 11:30:21 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/13 12:27:17 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,21 @@ void init_mshell(t_mshell *mshell, char **env)
     mshell->handler = NULL;
     mshell->resolver = NULL;
     mshell->parser = NULL;
+    mshell->ex_status = 0;
 }
 
 bool    mshell_parse(t_mshell *mshell, char *line)
 {
     mshell->lexer = init_lexer(line, true);
     lxr_generate_tokens(mshell->lexer);
-    mshell->handler = init_handler(mshell->lexer);
+    mshell->handler = init_handler(mshell->lexer, &mshell->ex_status);
     if (!hdl_run_quotes_check(mshell->handler))
         return (false);
     if (!hdl_run_pipe_check(mshell->handler))
         return (false);
     if (!hdl_run_redirects_check(mshell->handler))
         return (false);
-    mshell->resolver = init_resolver(mshell->lexer, mshell->envlst);
+    mshell->resolver = init_resolver(mshell->lexer, mshell->envlst, &mshell->ex_status);
     rslv_expand(mshell->resolver, true);
     rslv_optimize(mshell->resolver);
     mshell->parser = init_parser(mshell->lexer->tokens);
@@ -44,10 +45,10 @@ bool    mshell_parse(t_mshell *mshell, char *line)
 
 void mshell_execute(t_mshell *mshell)
 {
-    init_executor(&mshell->executor, &mshell->envlst);
+    init_executor(&mshell->executor, &mshell->envlst, &mshell->ex_status);
     // TODO: execute the whole AST.
     // TODO: execute the whole AST.
-    hrdoc_collect(mshell->ast, mshell->envlst);
+    hrdoc_collect(mshell->ast, mshell->envlst, &mshell->ex_status);
     exec(mshell->ast, &(mshell->executor));
     //TODO: FREE THE PATHS;
     
