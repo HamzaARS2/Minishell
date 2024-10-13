@@ -24,6 +24,10 @@ bool    exec_builtin(t_executor *executor, t_ast *node, t_builtins_type type)
         return (mshell_env(*executor->envlst));
     else if (type == EXIT)
         return(mshell_exit(node->args));
+    else if (type == PWD)
+        return(mshell_pwd(node->args));
+    else if (type == ECHO)
+        return(mshell_echo(node->args));
     return (false);
 }
 
