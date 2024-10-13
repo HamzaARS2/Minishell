@@ -57,6 +57,8 @@ int    hndl_redirect(t_ast *ast, t_context *ctx)
     while (redirect)
     {
         fd = check_redirect(ctx, redirect);
+        if (fd == -1)
+            break;
         redirect = redirect->next;
     }
     return (fd);

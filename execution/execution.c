@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/13 12:09:49 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/13 16:46:31 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void    exec_tree(t_ast *ast, t_executor *executor)
         fd = hndl_redirect(ast, &executor->ctx); //HANDLE REDIRECTIONS
         if (fd == -1)
         {
-            // executor->ex_status = 1;
+            *executor->ex_status = 1;
             return ;
         }
         exec_cmd(ast, executor);
@@ -86,13 +86,20 @@ void    exec_tree(t_ast *ast, t_executor *executor)
 void   exec(t_ast *ast, t_executor *executor)
 {
     t_builtins_type type;
-
+    int             fd;
     type = NONE;
     if (ast->type == AST_COMMAND)
         type = builtin_check(ast->args[0]);
 
     if (type != NONE)
+    {
+        fd = hndl_redirect(ast, &executor->ctx);
+        if (fd == -1)
+            return ;
         exec_builtin(executor, ast, type);
+        if (fd > 0)
+            close(fd);
+    }
     else
         exec_tree(ast, executor);
 
