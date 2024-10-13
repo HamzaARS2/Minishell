@@ -33,7 +33,7 @@ bool    urslv_should_expand(t_resolver *resolver, bool hd_skip)
         return (false);
     if (hd_skip && current->type == HERE_DOC)
         urslv_skip_heredoc_limiter(resolver);
-    return (current->type == VARIABLE && current->state != IN_SQUOTES);
+    return ((current->type == VARIABLE || current->type == STATUS) && current->state != IN_SQUOTES);
 }
 
 void    urslv_expand_variable(t_resolver *resolver)
@@ -41,6 +41,8 @@ void    urslv_expand_variable(t_resolver *resolver)
     char        *variable;
     t_envlst    *current;
     
+    if (resolver->current->type == STATUS)
+        return (urslv_expand_exstatus(resolver));
     current = resolver->envlst;
     variable = resolver->current->value + 1;
     while (current)

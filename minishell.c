@@ -1,6 +1,8 @@
 #include "include/minishell.h"
 
 
+int g_xstatus;
+
 // Function to convert AST type to string (for printing purposes)
 const char *get_ast_type_string(t_ast_type type) {
     switch (type) {

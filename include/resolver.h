@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resolver.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:53 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/12 13:51:12 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/12 15:53:52 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_envlst {
     char            *key;
     char            *value;
     struct s_envlst *next;
+    struct s_envlst *prev;
 } t_envlst;
 
 typedef struct s_resolver {
@@ -51,7 +52,7 @@ void    urslv_remove_spaces(t_resolver *resolver);
 bool    is_special_token(t_token *token);
 void    urslv_skip_heredoc_limiter(t_resolver *resolver);
 void    urslv_handle_expanding(t_resolver *resolver, char *value);
-
+void    urslv_expand_exstatus(t_resolver *resolver);
 
 
 

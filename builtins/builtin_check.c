@@ -13,5 +13,7 @@ t_builtins_type    builtin_check(char *cmd)
         return (ENV);
     else if (!ft_strncmp(cmd, "exit", length))
         return (EXIT);
+    else if (!ft_strncmp(cmd, "unset", length))
+        return (UNSET);
     return (NONE);
 }
