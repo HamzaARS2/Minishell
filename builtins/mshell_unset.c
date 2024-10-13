@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 15:25:23 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/12 16:10:47 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/13 10:50:14 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,28 @@ void    free_env_rm(t_envlst *env_rm)
     free(env_rm->key);
     free(env_rm->value);
     free(env_rm);
+}
+
+static bool    validate_arg(char *arg)
+{
+    int i;
+
+    i = 0;
+    if (ft_isdigit(arg[0]) || !arg[0])
+    {
+        display_error("minishell: unset: `", arg, "': not a valid identifier\n");
+        return (false);
+    }
+    while (arg[i])
+    {
+        if (!ft_isalnum(arg[i]) && arg[i] != '_')
+        {
+            display_error("minishell: unset: `", arg, "': not a valid identifier\n");
+            return (false);
+        }
+        i++;
+    }
+    return (true);
 }
 
 t_envlst *find_env(t_envlst **envlst, char *key)
@@ -57,6 +79,8 @@ bool    mshell_unset(t_envlst **envlst, t_ast *node)
     i = 0;
     while (node->args[++i])
     {
+        if (!validate_arg(node->args[i]))
+            continue;
         env_rm = find_env(envlst, node->args[i]);
         if (!env_rm)
             continue;
