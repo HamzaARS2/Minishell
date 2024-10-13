@@ -19,12 +19,12 @@ bool    validate_arg(char *arg)
     int i;
 
     i = 0;
-    if (arg[0] == '=' || ft_isdigit(arg[0]))
+    if (!arg[0] || arg[0] == '=' || ft_isdigit(arg[0]))
     {
         display_error("minishell: export: `", arg, "': not a valid identifier\n");
         return (false);
     }
-    while (arg[i] != '=')
+    while (arg[i] && arg[i] != '=')
     {
         if (!ft_isalnum(arg[i]) && arg[i] != '_')
         {
@@ -47,6 +47,8 @@ t_envlst    *env_is_exist(t_envlst *envlst, char *new_env)
     {
         keylen = ft_strlen(current->key);
         newlen = find_equal(new_env);
+        if (newlen == -1)
+            newlen = ft_strlen(new_env);
         if (keylen == newlen && !ft_strncmp(current->key, new_env, newlen))
             return (current);
         current = current->next;
@@ -60,6 +62,8 @@ bool    env_update(t_envlst *env, char *new_env)
 
     if (!env)
         return (false);
+    if (find_equal(new_env) == -1)
+        return (true);
     update_value = ft_strchr(new_env, '=');
     if (!update_value)
         return (false);
@@ -83,8 +87,6 @@ bool    mshell_export(t_envlst **envlst, t_ast *node)
             continue;
         if (env_update(env_is_exist(*envlst, node->args[i]), node->args[i]))
             continue;
-        if (find_equal(node->args[i]) < 0)
-            continue;
         new_env = create_envlst(node->args[i]);
         if (!new_env)
             return (false);
@@ -92,6 +94,3 @@ bool    mshell_export(t_envlst **envlst, t_ast *node)
     }
     return (true);
 }
-
-// 1 - export ""
-// 2 - ft_strcncmp incorrect.
