@@ -16,7 +16,7 @@ void    last_node(t_pids **current)
     while ((*current)->next)
         *current = (*current)->next;
 }
-void print_pids(t_pids *pids, int flag)
+void print_pids(t_pids *pids, int flag) //test_tools
 {
     t_pids *current = pids;
 

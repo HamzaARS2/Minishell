@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/14 11:18:19 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:56:34 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,9 @@ void   exec(t_ast *ast, t_executor *executor)
         exec_tree(ast, executor);
 
     // print_pids(executor->pids, 2);    //TESTING : printing the pids list;
+    
     ft_wait(executor);
+    
     // system("leaks -q minishell"); //**LEAKS TEST**//
     
     // print_dpointer(executor->paths);
