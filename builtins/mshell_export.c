@@ -77,14 +77,19 @@ bool    mshell_export(t_envlst **envlst, t_ast *node)
 {
     t_envlst    *new_env;
     int         i;
+    bool        error;
 
+    error = false;
     i = 0;
     if (!node->args[1])
         print_env(*envlst, false);
     while (node->args[++i])
     {
         if (!validate_arg(node->args[i]))
+        {
+            error = true;
             continue;
+        }
         if (env_update(env_is_exist(*envlst, node->args[i]), node->args[i]))
             continue;
         new_env = create_envlst(node->args[i]);
@@ -92,5 +97,5 @@ bool    mshell_export(t_envlst **envlst, t_ast *node)
             return (false);
         add_envlst(envlst, new_env);
     }
-    return (true);
+    return (!error);
 }

@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 10:03:49 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/13 11:45:13 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/14 09:39:31 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void    hdl_print_error(t_handler *handler)
 {
     if (handler->error == NO_ERROR)
         return ;
-    printf("minishell: SYNTAX_ERROR\n");
+    ft_putstr_fd("minishell: syntax error\n", 2);
 }
 
 void    hdl_post_error(t_handler *handler, t_error error)

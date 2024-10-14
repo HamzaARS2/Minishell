@@ -187,5 +187,4 @@ int main(int ac, char **av, char **env) {
 
     init_mshell(&mshell, env);
     display_prompt(&mshell);
-
 }

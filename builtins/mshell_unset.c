@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 15:25:23 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/13 10:50:14 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:21:14 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,21 @@ bool    mshell_unset(t_envlst **envlst, t_ast *node)
 {
     t_envlst *env_rm;
     int i;
+    bool    error;
 
+    error = false;
     i = 0;
     while (node->args[++i])
     {
         if (!validate_arg(node->args[i]))
+        {
+            error = true;
             continue;
+        }
         env_rm = find_env(envlst, node->args[i]);
         if (!env_rm)
             continue;
         remove_env(envlst, env_rm);
     }
-    return (true);
+    return (!error);
 }

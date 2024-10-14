@@ -43,9 +43,7 @@ void    add_pid(t_pids **pids, pid_t pid)
         current->next = new_node;
     }
     else 
-        *pids = new_node;
-    // print_pids(*pids,  1);
-        
+        *pids = new_node;        
 }
 
 void    ft_wait(t_executor *executor)
@@ -56,12 +54,15 @@ void    ft_wait(t_executor *executor)
     current = executor->pids;
     while (current)
     {
-        // printf("status in wait:%d\n",  (executor->status));
-        waitpid(current->pid, executor->ex_status, 0);
-        *executor->ex_status = WEXITSTATUS(*executor->ex_status);
+        if (current->pid < 0)
+            *executor->ex_status = 1;
+        else 
+        {
+            waitpid(current->pid, executor->ex_status, 0);
+            *executor->ex_status = WEXITSTATUS(*executor->ex_status);
+        }
         current = current->next;
     }
-    //FREE THE PIDS LIST
     current = executor->pids;
     while (current)
     {

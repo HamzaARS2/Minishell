@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/13 16:46:31 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/14 11:18:19 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,14 @@ void    exec_tree(t_ast *ast, t_executor *executor)
         fd = hndl_redirect(ast, &executor->ctx); //HANDLE REDIRECTIONS
         if (fd == -1)
         {
-            *executor->ex_status = 1;
+            add_pid(&executor->pids, -1);
             return ;
         }
         exec_cmd(ast, executor);
         if (fd != -2)
             close (fd);
     }
-    if (ast->type == AST_PIPE)
+    else if (ast->type == AST_PIPE)
         exec_pipe(ast, executor);
 
 }
@@ -95,10 +95,14 @@ void   exec(t_ast *ast, t_executor *executor)
     {
         fd = hndl_redirect(ast, &executor->ctx);
         if (fd == -1)
-            return ;
-        exec_builtin(executor, ast, type);
-        if (fd > 0)
-            close(fd);
+            add_pid(&executor->pids, -1);
+        else
+        {
+            if (!exec_builtin(executor, ast, type))
+                add_pid(&executor->pids, -1);
+            if (fd > 0)
+                close(fd);
+        }
     }
     else
         exec_tree(ast, executor);
