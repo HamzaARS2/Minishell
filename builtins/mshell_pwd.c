@@ -7,7 +7,7 @@ bool    mshell_pwd(char **args)
     path = getcwd(NULL, 0);
     if (!path)
     {
-        perror("getwcd:");
+        perror("minishell : pwd");
         return (false); /* OR UPDATE THE EXIT_STATUS HERE */
     }
     ft_putstr_fd(path, 1);
