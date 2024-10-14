@@ -24,7 +24,7 @@ bool    validate_arg(char *arg)
         display_error("minishell: export: `", arg, "': not a valid identifier\n");
         return (false);
     }
-    while (arg[i] && arg[i] != '=')
+    while (arg[i] != '=')
     {
         if (!ft_isalnum(arg[i]) && arg[i] != '_')
         {

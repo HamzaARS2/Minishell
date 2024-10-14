@@ -21,7 +21,8 @@ int	is_directory(char *path)
 {
 	struct stat	p_stat;
 
-	stat(path, &p_stat);
+	if (stat(path, &p_stat) != 0)
+		// perror("stat:");
 	if (S_ISDIR(p_stat.st_mode))
 		return (1);
 	return (0);

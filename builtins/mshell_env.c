@@ -1,6 +1,18 @@
-#include "../include/builtins.h" 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mshell_env.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/14 12:19:39 by ajbari            #+#    #+#             */
+/*   Updated: 2024/10/14 20:38:58 by ajbari           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-bool    mshell_env(t_envlst *envlst)
+#include "../include/builtins.h"
+
+bool	mshell_env(t_envlst *envlst)
 {
     print_env(envlst, true);
     return (true);

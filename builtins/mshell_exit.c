@@ -1,21 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mshell_exit.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/14 12:41:48 by ajbari            #+#    #+#             */
+/*   Updated: 2024/10/14 12:43:30 by ajbari           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/builtins.h"
 
-int i = 0;
-void    atoi_perror(char *str)
+void	exit_def(int e_status)
 {
-    printf("exit\n");
-    ft_putstr_fd("minishell: exit: ", 2);
-    ft_putstr_fd(str, 2);
-    ft_putstr_fd(": numeric argument required\n", 2);
-    exit (255); //bash exist with 255 in this arg's case
+	printf("exit\n");
+	exit(e_status); //*EXIT WITH EXIT_STATUS exit_status;
 }
 
-void    size_check(unsigned long number, int sign, char *str)
+void	atoi_perror(char *str)
 {
-    if (number > 9223372036854775808ULL && sign == -1)
-        atoi_perror(str);
-    if (number > 9223372036854775807 && sign == 1)
-        atoi_perror(str);
+	printf("exit\n");
+	ft_putstr_fd("minishell: exit: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": numeric argument required\n", 2);
+	exit(255); //bash exist with 255 in this arg's case
+}
+
+void	size_check(unsigned long number, int sign, char *str)
+{
+	if (number > 9223372036854775808ULL && sign == -1)
+		atoi_perror(str);
+	if (number > 9223372036854775807 && sign == 1)
+		atoi_perror(str);
 }
 
 int	ft_atoi(char *str)
@@ -37,43 +54,39 @@ int	ft_atoi(char *str)
 	}
 	while (str && (str[i] >= 32 && str[i] <= 126))
 	{
-        if ( str[i] >= '0' && str[i] <= '9')
-		    number = number * 10 + str[i++] - '0';
-        else
-            atoi_perror(str);
-        size_check(number, sign, str);
+		if (str[i] >= '0' && str[i] <= '9')
+			number = number * 10 + str[i++] - '0';
+		else
+			atoi_perror(str);
+		size_check(number, sign, str);
 	}
 	return (number *= sign);
 }
 
-bool    mshell_exit(char **arg)
+bool	mshell_exit(char **arg)
 {
-    int     i;
-    char    *trim_arg;
-    int     E_status;
+	int		i;
+	char	*trim_arg;
+	int		e_status;
 
-    i = 0;
-    while (arg[i])
-        i++;
-    if (i == 1)
-    {
-        printf("exit\n");
-        exit(24); //*EXIT WITH EXIT_STATUS
-    }
-    else if (i >= 2)
-    {
-        if (!arg[1][0])
-            atoi_perror(arg[1]);
-        else if (i == 2)
-            E_status = ft_atoi(ft_strtrim(arg[1], " "));
-        else if (i > 2)
-        {
-            ft_atoi(ft_strtrim(arg[1], " "));
-            ft_putstr_fd("bash: exit: too many arguments\n", 2);
-            //(*TODO) UPDATE THE EXIST_STATUS TO 1
-            return (false);
-        }
-    }
-    printf("exit\n");
-    exit(E_status);
+	i = 0;
+	while (arg[i])
+		i++;
+	if (i == 1)
+		exit_def(24); //*) give it the exit_status;
+	else if (i >= 2)
+	{
+		if (!arg[1][0])
+			atoi_perror(arg[1]);
+		else if (i == 2)
+			e_status = ft_atoi(ft_strtrim(arg[1], " "));
+		else if (i > 2)
+		{
+			ft_atoi(ft_strtrim(arg[1], " "));
+			ft_putstr_fd("bash: exit: too many arguments\n", 2);//(*TODO) UPDATE THE EXIST_STATUS TO 1
+			return (false);
+		}
+	}
+	printf("exit\n");
+	exit(e_status);
 }

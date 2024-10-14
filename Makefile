@@ -1,5 +1,5 @@
 CC := cc
-#CFLAGS := -Wall -Wextra -Werror
+# CFLAGS := -Wall -Wextra -Werror
 
 UTILS = lexer/lexer_extract.c lexer/lexer_extract_extra.c lexer/token_utils.c utils/ft_strlen.c utils/substr.c utils/ft_isalnum.c \
 utils/is_shell_special.c utils/strcombine.c utils/ft_strncmp.c utils/ft_strdup.c resolver/resolver_utils.c \
@@ -8,7 +8,7 @@ utils/ft_split.c utils/ft_strchr.c utils/ft_putstr_fd.c utils/ft_strcmp.c utils/
 utils/ft_itoa.c
 
 BUILTINS = builtins/builtin_check.c builtins/cd.c builtins/mshell_export.c builtins/mshell_env.c builtins/mshell_exit.c \
-builtins/builtins_utils.c builtins/mshell_unset.c
+builtins/builtins_utils.c builtins/mshell_unset.c builtins/mshell_pwd.c builtins/mshell_echo.c
 
 MAIN_FILES = minishell.c lexer/lexer.c lexer/token.c resolver/resolver.c handler/handler.c handler/checker.c \
 parser/parser.c parser/procedures.c parser/procedures_extra.c parser/ast.c envlst.c envlst_utils.c shell_control.c \

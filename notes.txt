@@ -4,3 +4,6 @@ TODO;
     // (1) *heredoc should expand '$USER' : ()
     // (2) heredoc close when entering '\0'
     // (3) redirection not getting listed when the come before command.
+    // (4) when redirection fail shouldn't continue to other redirections
+    
+    // (1) is dirctory with perror
