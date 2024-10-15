@@ -30,7 +30,11 @@ void    run_command(t_ast *node, t_executor *executor)
     }
     else
     {
-        if (!exec_builtin(executor, node, type))   
+        if (!exec_builtin(executor, node, type))
+        {
             add_pid(&executor->pids, -1);
+            exit(EXIT_FAILURE);
+        }
+        exit(EXIT_SUCCESS);
     }
 }
