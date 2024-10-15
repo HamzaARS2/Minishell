@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/15 10:38:43 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:39:38 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void   exec(t_ast *ast, t_executor *executor)
         {
             if (!exec_builtin(executor, ast, type))
                 add_pid(&executor->pids, -1);
+            else
+                *executor->ex_status = 0;
             if (fd > 0)
                 close(fd);
         }
