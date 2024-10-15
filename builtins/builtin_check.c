@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_check.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:30:45 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/14 20:38:15 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/15 13:21:43 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,22 @@ t_builtins_type	builtin_check(char *cmd)
 {
 	uint32_t	length;
 
+	if (!cmd)
+		return (NONE);
 	length = ft_strlen(cmd);
-	if (!ft_strncmp(cmd, "cd", length) && ft_strlen(cmd) == 2)
+	if (!ft_strcmp(cmd, "cd"))
 		return (CD);
-	else if (!ft_strncmp(cmd, "export", length) && ft_strlen(cmd) == 6)
+	else if (!ft_strcmp(cmd, "export"))
 		return (EXPORT);
-	else if (!ft_strncmp(cmd, "env", length) && ft_strlen(cmd) == 3)
+	else if (!ft_strcmp(cmd, "env"))
 		return (ENV);
-	else if (!ft_strncmp(cmd, "exit", length) && ft_strlen(cmd) == 4)
+	else if (!ft_strcmp(cmd, "exit"))
 		return (EXIT);
-	else if (!ft_strncmp(cmd, "pwd", length) && ft_strlen(cmd) == 3)
+	else if (!ft_strcmp(cmd, "pwd"))
 		return (PWD);
-	else if (!ft_strncmp(cmd, "echo", length) && ft_strlen(cmd) == 4)
+	else if (!ft_strcmp(cmd, "echo"))
 		return (ECHO);
-    else if (!ft_strncmp(cmd, "unset", length))
+    else if (!ft_strcmp(cmd, "unset"))
         return (UNSET);
 	return (NONE);
 }
