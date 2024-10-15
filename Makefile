@@ -7,7 +7,7 @@ resolver/resolver_utils_extra.c handler/handler_utils.c parser/parser_utils.c pa
 utils/ft_split.c utils/ft_strchr.c utils/ft_putstr_fd.c utils/ft_strcmp.c utils/ft_strtrim.c utils/ft_isdigit.c \
 utils/ft_itoa.c
 
-BUILTINS = builtins/builtin_check.c builtins/cd.c builtins/mshell_export.c builtins/mshell_env.c builtins/mshell_exit.c \
+BUILTINS = builtins/builtin_check.c builtins/mshell_cd.c builtins/mshell_export.c builtins/mshell_env.c builtins/mshell_exit.c \
 builtins/builtins_utils.c builtins/mshell_unset.c builtins/mshell_pwd.c builtins/mshell_echo.c \
 builtins/exec_builtin.c
 

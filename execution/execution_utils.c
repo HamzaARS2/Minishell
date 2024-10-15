@@ -24,17 +24,16 @@ void    run_command(t_ast *node, t_executor *executor)
     type = builtin_check(node->args[0]);
     if (type == NONE)
     {
+        dup_fds(executor->ctx);
         path = cmd_expand(node->args[0], executor->paths);
         execve(path, node->args, get_env(*executor->envlst));
-        exit(23);
+        exit(EXIT_FAILURE);
     }
     else
     {
-        if (!exec_builtin(executor, node, type))
-        {
-            add_pid(&executor->pids, -1);
-            exit(EXIT_FAILURE);
-        }
-        exit(EXIT_SUCCESS);
+        if (exec_builtin(executor, node, type))
+            exit(EXIT_SUCCESS);
+        add_pid(&executor->pids, -1);
+        exit(EXIT_FAILURE);
     }
 }

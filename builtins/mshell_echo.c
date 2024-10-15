@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell_echo.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 13:27:39 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/14 11:28:09 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/15 16:33:57 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ int	dp_size(char **args)
 	return (len);
 }
 
-void	put_str(char *arg, int *space)
+void	put_str(char *arg, int fd, int *space)
 {
 	if (*space != -1)
-		ft_putstr_fd(" ", 1);
-	ft_putstr_fd(arg, 1);
+		ft_putstr_fd(" ", fd);
+	ft_putstr_fd(arg, fd);
 	*space = 1;
 }
 
-bool	mshell_echo(char **args)
+bool	mshell_echo(t_executor executor, char **args)
 {
 	int	i;
 	int	flag;
@@ -76,10 +76,10 @@ bool	mshell_echo(char **args)
 		}
 		else
 		{
-			put_str(args[i], &space);
+			put_str(args[i], executor.ctx.fd[1], &space);
 			i++;
 			if ((!flag || flag == -1) && i == args_end)
-				ft_putstr_fd("\n", 1);
+				ft_putstr_fd("\n", executor.ctx.fd[1]);
 		}
 	}
 	return (true);

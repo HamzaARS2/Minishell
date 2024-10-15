@@ -21,8 +21,7 @@ int	is_directory(char *path)
 {
 	struct stat	p_stat;
 
-	if (stat(path, &p_stat) != 0)
-		// perror("stat:");
+	stat(path, &p_stat);
 	if (S_ISDIR(p_stat.st_mode))
 		return (1);
 	return (0);
@@ -80,9 +79,7 @@ char	*check_cmd(char **paths, char *cmd)
 	while (paths && (paths)[i])
 	{
 		cmd_path = expnd_cmd_path(paths[i], cmd);
-        // printf("cmd_path :%s\n", cmd_path);                                                  //DELETE;
 		status = check_access(cmd_path);
-        // printf("ACCESS_status :%d\n", status);                                               // DELETE
 		if (!status)
 			return (cmd_path);
 		else if (status == 1)

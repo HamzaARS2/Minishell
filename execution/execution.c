@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/15 13:19:11 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:46:29 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void    exec_cmd(t_ast *node, t_executor *executor)
         add_pid(&(executor->pids), pid);
         return ;
     }
-    dup_fds(executor->ctx);
+    
     run_command(node, executor);
 }
 void    exec_pipe(t_ast *ast, t_executor *executor)
@@ -113,9 +113,13 @@ void   exec(t_ast *ast, t_executor *executor)
     
     ft_wait(executor);
     
-    // system("leaks -q minishell"); //**LEAKS TEST**//
+    // printf("STATUS: %d\n", *executor->ex_status);
     
+
+
+
+    
+    // system("leaks -q minishell"); //**LEAKS TEST**//
     // print_dpointer(executor->paths);
 
-    // printf("STATUS: %d\n", executor->status);
 }

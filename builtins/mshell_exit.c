@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:41:48 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/14 12:43:30 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/15 16:44:52 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_atoi(char *str)
 	return (number *= sign);
 }
 
-bool	mshell_exit(char **arg)
+bool	mshell_exit(t_executor *executor, char **arg)
 {
 	int		i;
 	char	*trim_arg;
@@ -73,7 +73,7 @@ bool	mshell_exit(char **arg)
 	while (arg[i])
 		i++;
 	if (i == 1)
-		exit_def(24); //*) give it the exit_status;
+		exit_def(*executor->ex_status); //*) give it the exit_status;
 	else if (i >= 2)
 	{
 		if (!arg[1][0])
