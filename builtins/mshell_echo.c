@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 13:27:39 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/15 16:33:57 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:37:53 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,15 @@ bool	mshell_echo(t_executor executor, char **args)
 	flag = -1;
 	i = 1;
 	space = -1;
+	if (!args[1])
+		ft_putstr_fd("\n", executor.ctx.fd[STDOUT_FILENO]);
 	while (args[i])
 	{
 		if (flag != 0 && is_flag(args[i], &flag))
-		{
-			flag = is_flag(args[i], &flag);
-			i++;
-		}
+			flag = is_flag(args[i++], &flag);
 		else
 		{
-			put_str(args[i], executor.ctx.fd[1], &space);
-			i++;
+			put_str(args[i++], executor.ctx.fd[1], &space);
 			if ((!flag || flag == -1) && i == args_end)
 				ft_putstr_fd("\n", executor.ctx.fd[1]);
 		}
