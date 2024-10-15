@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/13 12:30:35 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/15 10:37:56 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <fcntl.h>
-#include "builtins.h"
 
 typedef struct s_vinfo {
     char *variable;
@@ -92,6 +91,5 @@ void    run_command(t_ast *node, t_executor *executor);
 
 // utils
 void    dup_fds(t_context ctx);
-bool    exec_builtin(t_executor *executor, t_ast *node, t_builtins_type type);
 
 #endif

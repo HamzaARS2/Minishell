@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 12:32:45 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/13 16:19:10 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/15 10:30:35 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,43 @@ char    **get_env(t_envlst *envlst)
     return (env);
 }
 
-void    print_env(t_envlst *envlst, bool flag)
+void    display_env_line(t_envlst *env, int fd, bool flag)
+{
+    if (flag)
+    {
+        if (!env->value)
+            return ;
+        ft_putstr_fd(env->key, fd);    
+        ft_putstr_fd(env->value, fd);
+        ft_putstr_fd("\n", fd);
+    }
+    else
+    {
+        if (env->value)
+        {
+            ft_putstr_fd("declare -x ", fd);
+            ft_putstr_fd(env->key, fd);
+            ft_putstr_fd("=\"", fd);
+            ft_putstr_fd(env->value + 1, fd);
+            ft_putstr_fd("\"\n", fd);
+        }
+        else
+        {
+            ft_putstr_fd("declare -x ", fd);
+            ft_putstr_fd(env->key, fd);
+            ft_putstr_fd("\n", fd);
+        }
+    }
+}
+
+void    print_env(t_envlst *envlst, int outfd, bool flag)
 {
     t_envlst *current;
 
     current = envlst;
     while (current)
     {
-        if (flag)
-        {
-            if (current->value)
-                printf("%s%s\n", current->key, current->value);
-        }
-        else
-        {
-            if (current->value)
-                printf("declare -x %s=\"%s\"\n", current->key, current->value + 1);
-            else
-                printf("declare -x %s\n", current->key);
-        }
+        display_env_line(current, outfd, flag);
         current = current->next;
     }
 }

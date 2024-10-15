@@ -1,4 +1,5 @@
 #include "../include/execution.h"
+#include "../include/builtins.h"
 
 void    dup_fds(t_context ctx)
 {
@@ -14,24 +15,6 @@ void    dup_fds(t_context ctx)
         close(ctx.close_fd);
 }
 
-bool    exec_builtin(t_executor *executor, t_ast *node, t_builtins_type type)
-{
-    if (type == CD)
-        return (cd(node->args, *executor->envlst));
-    else if (type == EXPORT)
-        return (mshell_export(executor->envlst, node));
-    else if (type == ENV)
-        return (mshell_env(*executor->envlst));
-    else if (type == EXIT)
-        return(mshell_exit(node->args));
-    else if (type == UNSET)
-        return(mshell_unset(executor->envlst, node));
-    else if (type == PWD)
-        return(mshell_pwd(node->args));
-    else if (type == ECHO)
-        return(mshell_echo(node->args));
-    return (false);
-}
 
 void    run_command(t_ast *node, t_executor *executor)
 {
