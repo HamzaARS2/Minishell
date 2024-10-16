@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/16 14:29:45 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/16 16:24:45 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ typedef struct s_executor {
 
 void    exec(t_ast *ast, t_executor *executor);
 
-void    exec_tree(t_ast *ast, t_executor *executor);
+bool    exec_tree(t_ast *ast, t_executor *executor);
 
-void    exec_cmd(t_ast *node, t_executor *executor);
+bool    exec_cmd(t_ast *node, t_executor *executor);
 
 void    add_pid(t_pids **pids, pid_t pid);
 

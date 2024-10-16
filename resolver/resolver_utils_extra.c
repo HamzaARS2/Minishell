@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resolver_utils_extra.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:21:27 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/16 14:30:01 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/16 16:24:38 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,30 @@ void    urslv_insert_token(t_resolver *resolver, t_token *token)
     resolver->next = token;
 }
 
+
+char    **urslv_get_env_value(t_resolver *resolver, char *value)
+{
+    char **env;
+    
+    env = NULL;
+    if (!value[0] || is_only_spaces(value))
+    {
+        env = malloc(2 * sizeof(char *));
+        env[0] = ft_strdup(value);
+        env[1] = NULL;
+    }
+    else
+        env = ft_split(value, 32);
+    return (env);
+}
+
 void    urslv_handle_expanding(t_resolver *resolver, char *value)
 {
     uint32_t    i;
     char        **env;
 
     i = 0;
-    if (resolver->current->state == DEFAULT)
-        env = ft_split(value, 32);
-    else
-        env = ft_split(value, 0);
+    env = urslv_get_env_value(resolver, value);
     if (!env)
         return ;
     while (env[i])
@@ -77,7 +91,11 @@ void    urslv_handle_expanding(t_resolver *resolver, char *value)
         if (i == 0)
         {
             free(resolver->current->value);
-            resolver->current->value = env[i++];
+            if (!env[i][0] || is_only_spaces(env[i]))
+                resolver->current->value = NULL;
+            else
+                resolver->current->value = env[i];
+            i++;
             continue;    
         }
         urslv_insert_token(resolver, tkn_create_token(env[i], SPLIT_VAR));

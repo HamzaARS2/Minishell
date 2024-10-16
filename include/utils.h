@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:26:45 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/12 11:55:22 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/16 09:34:23 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ int	            ft_isdigit(int c);
 void	        ft_putstr_fd(char *s, int fd);
 char            *ft_strtrim(char *s1, char *set);
 char	        *ft_itoa(int n);
-
+bool            is_only_spaces(char *str);
 #endif
 

@@ -54,13 +54,13 @@ t_token *lxr_tokenize(t_lexer *lexer)
             return (token);
         if (ulxr_extract_pipe(lexer, &token))
             return (token);
-        if (ulxr_extract_status(lexer, &token))
-            return (token);
         if (ulxr_extract_inred(lexer, &token))
             return (token);
         if (ulxr_extract_outred(lexer, &token))
             return (token);
         if (ulxr_extract_dquotes(lexer, &token))
+            return (token);
+        if (ulxr_extract_status(lexer, &token))
             return (token);
         if (ulxr_extract_variable(lexer, &token))
             return (token);

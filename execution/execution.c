@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/16 14:30:29 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/16 16:25:52 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,19 @@ void    exec_cmd(t_ast *node, t_executor *executor)
     signal(SIGQUIT, &child_sig_handler);
     signal(SIGINT, &child_sig_handler);
     pid = fork();
+    if (pid == -1)
+    {
+        add_pid(&(executor->pids), -1);
+        perror("minishell: fork: Resource temporarily unavailable");
+        return (false);
+    } 
     if (pid != 0)
     {
         add_pid(&(executor->pids), pid);
-        return ;
+        return (true);
     }
     run_command(node, executor);
+    return (true);
 }
 void    exec_pipe(t_ast *ast, t_executor *executor)
 {
@@ -65,13 +72,19 @@ void    exec_pipe(t_ast *ast, t_executor *executor)
 
     l_ctx = executor->ctx;
     r_ctx = executor->ctx;
-    pipe(p);
+    if (pipe(p) == -1)
+    {
+        *executor->ex_status = EXIT_FAILURE;
+        perror("minishell: pipe error:");
+        return ;
+    }
     l_ctx.fd[STDOUT_FILENO] = p[STDOUT_FILENO];
     if (r_ctx.close_fd != -1)
         close (r_ctx.close_fd);
     l_ctx.close_fd = p[STDIN_FILENO];
     executor->ctx = l_ctx;
-    exec_tree(ast->left, executor); 
+    if (!exec_tree(ast->left, executor))
+        return ;
     r_ctx.fd[STDIN_FILENO] = p[STDIN_FILENO];
     r_ctx.close_fd = p[STDOUT_FILENO];
     executor->ctx = r_ctx;
@@ -81,7 +94,7 @@ void    exec_pipe(t_ast *ast, t_executor *executor)
 }
 
 
-void    exec_tree(t_ast *ast, t_executor *executor)
+bool    exec_tree(t_ast *ast, t_executor *executor)
 {
     int fd;
     if (ast->type == AST_COMMAND)
@@ -90,15 +103,16 @@ void    exec_tree(t_ast *ast, t_executor *executor)
         if (fd == -1)
         {
             add_pid(&executor->pids, -1);
-            return ;
+            return (false);
         }
-        exec_cmd(ast, executor);
+        if (!exec_cmd(ast, executor))
+            return (false);
         if (fd != -2)
             close (fd);
     }
     else if (ast->type == AST_PIPE)
         exec_pipe(ast, executor);
-
+    return (true);
 }
 void   exec(t_ast *ast, t_executor *executor)
 {
@@ -125,7 +139,6 @@ void   exec(t_ast *ast, t_executor *executor)
     }
     else
         exec_tree(ast, executor);
-
     // print_pids(executor->pids, 2);    //TESTING : printing the pids list;
     
     ft_wait(executor);
