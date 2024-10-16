@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/16 16:26:51 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:25:02 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ bool    exec_cmd(t_ast *node, t_executor *executor)
         add_pid(&(executor->pids), pid);
         return (true);
     }
+    if (executor->ctx.close_fd != -1)
+        close(executor->ctx.close_fd);
     run_command(node, executor);
     return (true);
 }

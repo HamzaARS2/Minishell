@@ -11,7 +11,6 @@ void    dup_fds(t_context ctx)
         dup2(ctx.fd[STDOUT_FILENO], STDOUT_FILENO);
         close(ctx.fd[STDOUT_FILENO]);
     }
-    
 }
 
 

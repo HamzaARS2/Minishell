@@ -21,8 +21,10 @@ int    open_redirect(char *path, int flag)
 
 int    update_ctx(int *ctx_fd, int fd)
 {
-    if (*ctx_fd != STDOUT_FILENO && *ctx_fd != STDIN_FILENO )
+    if (*ctx_fd != STDOUT_FILENO && *ctx_fd != STDIN_FILENO && *ctx_fd != fd)
+    {
         close(*ctx_fd);
+    }
 
     *ctx_fd = fd;
     return (fd);

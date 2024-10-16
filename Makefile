@@ -27,7 +27,7 @@ RL_INCLUDE = -I/Users/helarras/.brew/opt/readline/include
 
 NAME := minishell
 
-ADS := -fsanitize=address -g
+# ADS := -fsanitize=address -g
 
 all: $(NAME) clean
 
