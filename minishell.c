@@ -1,4 +1,5 @@
 #include "include/minishell.h"
+#include <signal.h>
 
 
 int g_xstatus;
@@ -160,13 +161,39 @@ void    on_new_line(t_mshell *mshell, char *line)
     // print_ast(mshell->ast, 10);
     mshell_execute(mshell);
 }
+
+int g_signal;
+
+void sig_handler(int sig)
+{
+    if (sig == SIGINT)
+    {
+        g_signal = 1;
+        write(1, "\n", 1);
+        rl_on_new_line();
+        rl_replace_line("", 0);
+        rl_redisplay();
+     }
+    else if (sig == SIGQUIT)
+    {
+        ft_putstr_fd("Quit: 3\n", 2);
+        g_signal = 131;
+    }
+}
 void    display_prompt(t_mshell *mshell)
 {
     char    *line;
-
+    
     while (true)
     {
+        signal(SIGINT, sig_handler);
+        signal(SIGQUIT, SIG_IGN);
         line = readline("minishell > ");
+        if (g_signal)
+        {
+        	mshell->ex_status = g_signal;
+            g_signal = 0;
+        }
         if (line)
         {
             add_history(line);
@@ -181,10 +208,13 @@ void    on_destroy() {
     system("leaks -q minishell");
 }
 
+
 int main(int ac, char **av, char **env) {
     t_mshell mshell;
     // atexit(on_destroy);
-
+    
+    
     init_mshell(&mshell, env);
     display_prompt(&mshell);
+    return (mshell.ex_status);
 }

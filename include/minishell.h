@@ -1,6 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdint.h>
@@ -31,6 +32,7 @@ bool    mshell_parse(t_mshell *mshell, char *line);
 void    mshell_execute(t_mshell *mshell);
 
 
+void    display_prompt(t_mshell *mshell);
 
 
 

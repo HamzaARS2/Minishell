@@ -19,6 +19,12 @@ $(UTILS) $(BUILTINS)
 
 MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
+RL_PATH = -L/Users/ajbari/.brew/opt/readline/lib
+RL_INCLUDE = -I/Users/ajbari/.brew/opt/readline/include
+# Get the Readline installation path
+
+# Set Readline flags
+
 NAME := minishell
 
 # ADS := -fsanitize=address -g
@@ -26,8 +32,10 @@ NAME := minishell
 all: $(NAME) clean
 
 $(NAME): $(MAIN_OBJS)
-	$(CC) $(MAIN_OBJS) -lreadline -o $(NAME) $(ADS)
+	$(CC) $(MAIN_OBJS) $(RL_PATH) -lreadline -o $(NAME) $(ADS)
 
+%.o: %.c
+	$(CC) $(CFLAGS) $(RL_INCLUDE) -c $< -o $@
 clean:
 	rm -rf $(MAIN_OBJS)
 

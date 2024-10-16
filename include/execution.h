@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/15 10:37:56 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:29:45 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 #define EXECUTION_H
 
+#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "../include/ast.h"
@@ -91,5 +92,9 @@ void    run_command(t_ast *node, t_executor *executor);
 
 // utils
 void    dup_fds(t_context ctx);
+
+
+void    sig_handler(int sig);
+
 
 #endif
