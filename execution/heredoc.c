@@ -18,11 +18,29 @@ char    *hrdoc_expand(t_envlst *envlst, char *line, int *ex_status)
     return (newline);
 }
 
+pid_t    hrdoc_prepare()
+{
+    pid_t pid;
+
+    signal(SIGINT, SIG_IGN);
+    pid = fork();
+    if (pid != 0)
+    {
+        wait(NULL);
+        return (pid);
+    }
+    signal(SIGINT, uhrdoc_sig_handler);
+    return (0);
+}
+
+
 void    hrdoc_run(t_redirect *heredoc, t_envlst *envlst, int *ex_status)
 {
     int     p[2];
     char    *line;
 
+    if (hrdoc_prepare() != 0)
+        return ;
     pipe(p);
     while (true)
     {

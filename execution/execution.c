@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/16 16:25:52 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:26:51 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void child_sig_handler(int sig)
     }
 }
 
-void    exec_cmd(t_ast *node, t_executor *executor)
+bool    exec_cmd(t_ast *node, t_executor *executor)
 {
     pid_t   pid;
     char    *path;

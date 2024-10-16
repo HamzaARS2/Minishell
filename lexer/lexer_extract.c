@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 19:27:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/16 16:02:31 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:29:50 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool    ulxr_extract_space(t_lexer *lexer, t_token **token)
 {
     unsigned int    start;
 
-    if (lexer->c != 32)
+    if (lexer->c != 32 && (lexer->c < 9 || lexer->c > 13))
         return (false);
     start = lexer->i;
     lxr_advance(lexer);

@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/16 16:24:45 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:55:03 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ uint32_t    uhrdoc_get_size(t_token *tokens);
 char    *uhrdoc_join_tokens(t_token *tokens, uint32_t size);
 
 void    uhrdoc_clear(t_lexer *lexer, t_resolver *resolver, char *line);
-
+void    uhrdoc_sig_handler(int sig);
 
 char    **get_paths(t_envlst *envlst);
 

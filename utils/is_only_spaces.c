@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_shell_special.c                                 :+:      :+:    :+:   */
+/*   is_only_spaces.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 10:28:31 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/16 17:26:49 by helarras         ###   ########.fr       */
+/*   Created: 2024/10/16 16:27:18 by helarras          #+#    #+#             */
+/*   Updated: 2024/10/16 16:28:14 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
+#include "../include/utils.h"
 
-bool    is_shell_special(char c)
+
+bool    is_only_spaces(char *str)
 {
-    if ((c >= 9 && c <= 13) || c == 32 || c == '$' || c == '|' || c == '<' || c == '>' || c == '"'
-        || c == '"' || c == '\'' || c == '\'')
-        return (true);
-    return (false);
+    int i;
+
+    i = 0;
+    while (str && str[i])
+        if (str[i++] != 32)
+            return (false);
+    return (true);
 }

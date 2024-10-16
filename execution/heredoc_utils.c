@@ -73,3 +73,10 @@ char    *uhrdoc_join_tokens(t_token *tokens, uint32_t size)
     newline[i] = 0;
     return (newline);
 }
+
+void    uhrdoc_sig_handler(int sig)
+{
+    (void)sig;
+    write(1, "\n", 1);
+    exit(1);
+}

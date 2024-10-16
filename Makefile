@@ -19,8 +19,8 @@ $(UTILS) $(BUILTINS)
 
 MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
-RL_PATH = -L/Users/ajbari/.brew/opt/readline/lib
-RL_INCLUDE = -I/Users/ajbari/.brew/opt/readline/include
+RL_PATH = -L/Users/helarras/.brew/opt/readline/lib
+RL_INCLUDE = -I/Users/helarras/.brew/opt/readline/include
 # Get the Readline installation path
 
 # Set Readline flags
