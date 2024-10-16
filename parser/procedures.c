@@ -12,33 +12,33 @@
 
 #include "../include/parser.h"
 
-t_ast   *prsr_parse_cmd(t_parser *parser)
+t_ast	*prsr_parse_cmd(t_parser *parser)
 {
-    t_ast   *node;
-    
-    node = ast_create_node(NULL, AST_COMMAND);
-    node->args = uprsr_build_cmd(parser);
-    if (!node->args)
-    {
-        free(node);
-        return (NULL);
-    }
-    return (node);
+	t_ast	*node;
+
+	node = ast_create_node(NULL, AST_COMMAND);
+	node->args = uprsr_build_cmd(parser);
+	if (!node->args)
+	{
+		free(node);
+		return (NULL);
+	}
+	return (node);
 }
 
-t_ast   *prsr_parse_pipe(t_parser *parser)
+t_ast	*prsr_parse_pipe(t_parser *parser)
 {
-    t_ast *left;
-    t_ast *pipe;
+	t_ast	*left;
+	t_ast	*pipe;
 
-    left = prsr_parse_redirect(parser);
-    if (parser->current && parser->current->type == PIPE)
-    {
-        pipe = ast_create_node(NULL, AST_PIPE);
-        pipe->left = left;
-        prsr_advance(parser);
-        pipe->right = prsr_parse_pipe(parser);
-        return (pipe);  
-    }
-    return (left);
+	left = prsr_parse_redirect(parser);
+	if (parser->current && parser->current->type == PIPE)
+	{
+		pipe = ast_create_node(NULL, AST_PIPE);
+		pipe->left = left;
+		prsr_advance(parser);
+		pipe->right = prsr_parse_pipe(parser);
+		return (pipe);
+	}
+	return (left);
 }

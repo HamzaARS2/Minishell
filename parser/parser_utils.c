@@ -12,73 +12,75 @@
 
 #include "../include/parser.h"
 
-bool    uprsr_should_advance(t_token *token)
+bool	uprsr_should_advance(t_token *token)
 {
-    return ((token->type == WORD || token->type == VARIABLE || token->type == STATUS
-            || token->type == SPLIT_VAR || token->state != DEFAULT));
+	return ((token->type == WORD || token->type == VARIABLE
+			|| token->type == STATUS || token->type == SPLIT_VAR
+			|| token->state != DEFAULT));
 }
 
-t_token *uprsr_next_arg(t_token *token)
+t_token	*uprsr_next_arg(t_token *token)
 {
-    t_token *current;
+	t_token	*current;
 
-    current = token;
-    while (current)
-    {
-        if (uprsr_should_advance(current))
-            return (current);
-        else if (current->type >= 33 && current->type <= 36)
-        {
-            current = current->next;
-            if (current)
-                current = current->next;
-        } else
-            break ;
-    }
-    return (NULL);
+	current = token;
+	while (current)
+	{
+		if (uprsr_should_advance(current))
+			return (current);
+		else if (current->type >= 33 && current->type <= 36)
+		{
+			current = current->next;
+			if (current)
+				current = current->next;
+		}
+		else
+			break ;
+	}
+	return (NULL);
 }
 
-uint32_t    uprsr_count_args(t_token *token)
+uint32_t	uprsr_count_args(t_token *token)
 {
-    t_token *current;
-    uint32_t count;
+	t_token		*current;
+	uint32_t	count;
 
-    count = 0;
-    current = token;
-    while (current)
-    {
-        current = uprsr_next_arg(current);
-        if (!current)
-            break ;
-        if (current->value)
-            count++;
-        current = current->next;
-    }
-    return (count);
+	count = 0;
+	current = token;
+	while (current)
+	{
+		current = uprsr_next_arg(current);
+		if (!current)
+			break ;
+		if (current->value)
+			count++;
+		current = current->next;
+	}
+	return (count);
 }
 
-char    **uprsr_build_cmd(t_parser *parser)
+char	**uprsr_build_cmd(t_parser *parser)
 {
-    uint32_t count;
-    char    **cmd;
-    t_token *current;
-    uint32_t i;
+	uint32_t	count;
+	char		**cmd;
+	t_token		*current;
+	uint32_t	i;
 
-    i = 0;
-    current = parser->current;
-    count = uprsr_count_args(parser->current);
-    cmd = malloc ((count + 1) * sizeof(char *));
-    if (!cmd)
-        return (NULL);
-    while (current && i < count)
-    {
-        current = uprsr_next_arg(current);
-        if (!current)
-            break ;
-        if (current->value)
-            cmd[i++] = current->value;
-        current = current->next;
-    }
-    cmd[i] = NULL;
-    return (cmd);
+	i = 0;
+	current = parser->current;
+	count = uprsr_count_args(parser->current);
+	cmd = malloc((count + 1) * sizeof(char *));
+	if (!cmd)
+		return (NULL);
+	while (current && i < count)
+	{
+		current = uprsr_next_arg(current);
+		if (!current)
+			break ;
+		if (current->value)
+			cmd[i++] = current->value;
+		current = current->next;
+	}
+	cmd[i] = NULL;
+	return (cmd);
 }

@@ -12,33 +12,33 @@
 
 #include "../include/parser.h"
 
-void    prsr_parse_file(t_parser *parser, t_ast *ast, t_ast_type type)
+void	prsr_parse_file(t_parser *parser, t_ast *ast, t_ast_type type)
 {
-    t_redirect *redirect;
+	t_redirect	*redirect;
 
-    prsr_advance(parser);
-    redirect = ast_create_redirect(parser->current->value, type);
-    if (!redirect)
-        return ;
-    ast_add_redirect(&ast->redirect, redirect);
+	prsr_advance(parser);
+	redirect = ast_create_redirect(parser->current->value, type);
+	if (!redirect)
+		return ;
+	ast_add_redirect(&ast->redirect, redirect);
 }
 
-t_ast   *prsr_parse_redirect(t_parser *parser)
+t_ast	*prsr_parse_redirect(t_parser *parser)
 {
-    t_ast *left;
-    
-    left = prsr_parse_cmd(parser);
-    while (parser->current)
-    {
-        if (uprsr_should_advance(parser->current))
-            prsr_advance(parser);
-        else if (parser->current->type >= 33 && parser->current->type <= 36)
-        {
-            prsr_parse_file(parser, left, get_ast_type(parser->current));
-            prsr_advance(parser);
-        }
-        else
-            break ;
-    } 
-    return (left);
+	t_ast	*left;
+
+	left = prsr_parse_cmd(parser);
+	while (parser->current)
+	{
+		if (uprsr_should_advance(parser->current))
+			prsr_advance(parser);
+		else if (parser->current->type >= 33 && parser->current->type <= 36)
+		{
+			prsr_parse_file(parser, left, get_ast_type(parser->current));
+			prsr_advance(parser);
+		}
+		else
+			break ;
+	}
+	return (left);
 }
