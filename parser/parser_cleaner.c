@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 20:07:29 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/16 22:06:46 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:34:01 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void    prsr_ast_clean(t_ast *node)
     {
         prsr_ast_clean(node->left);
         prsr_ast_clean(node->right);
+        free(node);
     }
     else if (node->type == AST_COMMAND)
         prsr_clean_node(node);
@@ -47,5 +48,4 @@ void    prsr_ast_clean(t_ast *node)
 void    prsr_clean(t_parser *parser)
 {
     prsr_ast_clean(parser->ast);
-    free(parser->ast);
 }
