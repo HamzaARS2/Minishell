@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:21:27 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/16 16:24:38 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:49:54 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char    **urslv_get_env_value(t_resolver *resolver, char *value)
     char **env;
     
     env = NULL;
-    if (!value[0] || is_only_spaces(value))
+    if (value || !value[0] || is_only_spaces(value))
     {
         env = malloc(2 * sizeof(char *));
         env[0] = ft_strdup(value);

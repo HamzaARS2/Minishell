@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:34:55 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/16 15:35:30 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:52:48 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,12 @@ void    urslv_expand_variable(t_resolver *resolver)
     {
         if (!ft_strcmp(current->key, variable))
         {
-            urslv_handle_expanding(resolver, current->value + 1);
+            if (current->value)
+                urslv_handle_expanding(resolver, current->value + 1);
+            {
+                free(resolver->current->value);
+                resolver->current->value = NULL;
+            }
             return ;
         }
         current = current->next;

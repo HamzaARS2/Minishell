@@ -10,7 +10,10 @@ int    open_redirect(char *path, int flag)
         ft_putstr_fd("minishell: ", 2);
         ft_putstr_fd(path, 2);
         ft_putstr_fd(": ", 2);
-        perror ("");
+        if (path)
+            perror("");
+        else
+            ft_putstr_fd("ambiguous redirect\n", 2);
         return (-1);
     }
     return (fd);
