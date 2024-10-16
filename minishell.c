@@ -160,6 +160,7 @@ void    on_new_line(t_mshell *mshell, char *line)
     // print_tokens(mshell->lexer->tokens);
     // print_ast(mshell->ast, 10);
     mshell_execute(mshell);
+    mshell_clean(mshell);
 }
 
 int g_signal;

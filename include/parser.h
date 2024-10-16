@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 11:45:18 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/07 09:40:10 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 20:19:02 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,8 @@ t_ast   *prsr_parse_redirect(t_parser *parser);
 uint32_t    uprsr_count_args(t_token *token);
 char        **uprsr_build_cmd(t_parser *parser);
 bool        uprsr_should_advance(t_token *token);
+
+// cleaner
+
+void    prsr_clean(t_parser *parser);
 #endif

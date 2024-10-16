@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:53 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/13 11:54:47 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 19:48:31 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void    urslv_skip_heredoc_limiter(t_resolver *resolver);
 void    urslv_handle_expanding(t_resolver *resolver, char *value);
 void    urslv_expand_exstatus(t_resolver *resolver);
 
+
+// cleaner
+void    rslv_clean(t_resolver *resolver);
 
 
 #endif

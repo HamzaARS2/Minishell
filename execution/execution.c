@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/16 19:25:02 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:01:20 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ bool    exec_cmd(t_ast *node, t_executor *executor)
         add_pid(&(executor->pids), pid);
         return (true);
     }
-    if (executor->ctx.close_fd != -1)
-        close(executor->ctx.close_fd);
     run_command(node, executor);
     return (true);
 }
@@ -81,8 +79,8 @@ void    exec_pipe(t_ast *ast, t_executor *executor)
         return ;
     }
     l_ctx.fd[STDOUT_FILENO] = p[STDOUT_FILENO];
-    if (r_ctx.close_fd != -1)
-        close (r_ctx.close_fd);
+    // if (r_ctx.close_fd != -1)
+    //     close (r_ctx.close_fd);
     l_ctx.close_fd = p[STDIN_FILENO];
     executor->ctx = l_ctx;
     if (!exec_tree(ast->left, executor))

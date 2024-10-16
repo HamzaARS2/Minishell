@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:49:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/15 12:43:24 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 21:03:42 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool    mshell_parse(t_mshell *mshell, char *line)
     rslv_expand(mshell->resolver, true);
     rslv_optimize(mshell->resolver);
     mshell->parser = init_parser(mshell->lexer->tokens);
-    mshell->ast = prsr_parse(mshell->parser);
+    mshell->parser->ast = prsr_parse(mshell->parser);
     return (true);
 }
 
@@ -48,16 +48,29 @@ void mshell_execute(t_mshell *mshell)
     init_executor(&mshell->executor, &mshell->envlst, &mshell->ex_status);
     // TODO: execute the whole AST.
     // TODO: execute the whole AST.
-    hrdoc_collect(mshell->ast, mshell->envlst, &mshell->ex_status);
-    exec(mshell->ast, &(mshell->executor));
+    hrdoc_collect(mshell->parser->ast, mshell->envlst, &mshell->ex_status);
+    exec(mshell->parser->ast, &(mshell->executor));
     //TODO: FREE THE PATHS;
     
 
     //* HAMZA'S PREVIOUS PROTOTYPE
     /*     t_executor executor;
 
-        init_executor(&executor, mshell->ast, NULL);
+        init_executor(&executor, mshell->parser->ast, NULL);
         execute_ast(&executor); */
 }
 
+void    mshell_clean(t_mshell *mshell)
+{
+    // lexer cleaner
+    free(mshell->lexer->content);
+    // resolver cleaner
+    rslv_clean(mshell->resolver);
+    prsr_clean(mshell->parser);
+    // ast cleaner
+    free(mshell->lexer);
+    free(mshell->handler);
+    free(mshell->resolver);
+    free(mshell->parser);
+}
 // FREE PIDS();

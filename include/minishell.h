@@ -31,6 +31,7 @@ bool    mshell_parse(t_mshell *mshell, char *line);
 
 void    mshell_execute(t_mshell *mshell);
 
+void    mshell_clean(t_mshell *mshell);
 
 void    display_prompt(t_mshell *mshell);
 
