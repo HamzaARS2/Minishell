@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/16 16:55:03 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:15:55 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void    exec(t_ast *ast, t_executor *executor);
 bool    exec_tree(t_ast *ast, t_executor *executor);
 
 bool    exec_cmd(t_ast *node, t_executor *executor);
+
+void    exec_clean(t_executor *executor);
 
 void    add_pid(t_pids **pids, pid_t pid);
 

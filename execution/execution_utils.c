@@ -37,3 +37,13 @@ void    run_command(t_ast *node, t_executor *executor)
         exit(EXIT_FAILURE);
     }
 }
+
+void    exec_clean(t_executor *executor)
+{
+    int i;
+
+    i = 0;
+    while (executor->paths[i])
+        free(executor->paths[i++]);
+    free(executor->paths);
+}

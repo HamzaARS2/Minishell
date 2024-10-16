@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:49:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/16 21:03:42 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:21:05 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void    mshell_clean(t_mshell *mshell)
     // resolver cleaner
     rslv_clean(mshell->resolver);
     prsr_clean(mshell->parser);
+    exec_clean(&mshell->executor);
     // ast cleaner
     free(mshell->lexer);
     free(mshell->handler);
