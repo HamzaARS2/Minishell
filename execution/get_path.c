@@ -22,6 +22,9 @@ void print_envlst(t_envlst *envlst)
 
 //***** ^TOOLS ******************************************
 //*******************************************************
+
+
+
 char    *is_path(t_envlst *env)
 {
     if (ft_strcmp(env->key, "PATH"))
@@ -43,7 +46,6 @@ char    *get_path(t_envlst *envlst)
             return (path);
         current = current->next;
     }
-    perror("$PATH not found");//
     return (NULL);
 }
 

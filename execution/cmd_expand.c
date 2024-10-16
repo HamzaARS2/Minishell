@@ -8,12 +8,22 @@
 
 #include "../include/execution.h"
 #include <sys/stat.h>
-
+#include <errno.h>
 void	err_write(char *minishell, char *cmd, char *err, int status)
 {
-	ft_putstr_fd(minishell, 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putstr_fd(err, 2);
+	if (errno == ENOTDIR)
+	{
+
+
+		ft_putstr_fd("minishell: ", 2);
+		perror(cmd);
+	}
+	else
+	{
+		ft_putstr_fd(minishell, 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(err, 2);
+	}
 	exit(status);
 }
 
@@ -48,19 +58,27 @@ int	check_access(char *path)
 	}
 }
 
-char	*expnd_cmd_path(char *path, char *cmd)
+char	*expand_cmd_path(char *path, char *cmd)
 {
 	char	*cmd_slash;
 	char	*rtrn_path;
+	int		status;
 
-	if (is_directory(cmd) && ft_strchr(cmd, '/'))
+	if (!cmd[0])
+		return (NULL);
+	if ((ft_strchr(cmd, '/') && is_directory(cmd)) || is_directory(cmd))
 		err_write("minishell: ", cmd, ": is a directory\n", 126);
 	if (ft_strchr(cmd, '/'))
 	{
-		if (check_access(cmd) == 2)
-			err_write("minishell: ", cmd, ": No such file or directory\n", 127);
+		status = check_access(cmd);
+		if (status == 2)
+				err_write("minishell: ", cmd, ": No such file or directory\n", 127);
+		else if (status == 1)
+			err_write("minishell: ", cmd, ": Permission denied\n", 126);
 		return (cmd);
 	}
+	if (!path)
+		return (NULL);
 	cmd_slash = strcombine(path, "/", false); // (|) *FREE CMD_SLASH
 		////****// *FREE() (1) FREE_PATH  (2) FREE_CMD(AST->ARG)
 	rtrn_path = strcombine(cmd_slash, cmd, false);
@@ -76,21 +94,23 @@ char	*check_cmd(char **paths, char *cmd)
 
 	i = 0;
 	status = 0;
+	cmd_path = NULL;
+	if (!paths)
+		cmd_path = expand_cmd_path(NULL, cmd);
 	while (paths && (paths)[i])
 	{
-		cmd_path = expnd_cmd_path(paths[i], cmd);
+		cmd_path = expand_cmd_path(paths[i++], cmd);
 		status = check_access(cmd_path);
 		if (!status)
 			return (cmd_path);
 		else if (status == 1)
 			err_write("minishell: ", cmd_path, ": Permission denied\n", 126);
-		i++;
 	}
-	if (status == 0)
+	if (status == 0 && !ft_strchr(cmd, '/'))
 		err_write("minishell: ", cmd, ": No such file or directory\n", 127);
 	if (status == 2)
 		err_write("minishell: ", cmd, ": command not found\n", 127);
-	return (NULL);
+	return (cmd_path);
 }
 
 char	*cmd_expand(char *cmd, char **paths)
