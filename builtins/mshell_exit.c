@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:41:48 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/15 16:44:52 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/16 22:41:35 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	exit_def(int e_status)
 {
 	printf("exit\n");
-	exit(e_status); //*EXIT WITH EXIT_STATUS exit_status;
+	exit(e_status);
 }
 
 void	atoi_perror(char *str)
@@ -24,7 +24,7 @@ void	atoi_perror(char *str)
 	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
-	exit(255); //bash exist with 255 in this arg's case
+	exit(255);
 }
 
 void	size_check(unsigned long number, int sign, char *str)
@@ -73,7 +73,7 @@ bool	mshell_exit(t_executor *executor, char **arg)
 	while (arg[i])
 		i++;
 	if (i == 1)
-		exit_def(*executor->ex_status); //*) give it the exit_status;
+		exit_def(*executor->ex_status);
 	else if (i >= 2)
 	{
 		if (!arg[1][0])
@@ -83,7 +83,7 @@ bool	mshell_exit(t_executor *executor, char **arg)
 		else if (i > 2)
 		{
 			ft_atoi(ft_strtrim(arg[1], " "));
-			ft_putstr_fd("bash: exit: too many arguments\n", 2);//(*TODO) UPDATE THE EXIST_STATUS TO 1
+			ft_putstr_fd("bash: exit: too many arguments\n", 2);
 			return (false);
 		}
 	}

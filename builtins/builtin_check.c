@@ -31,7 +31,7 @@ t_builtins_type	builtin_check(char *cmd)
 		return (PWD);
 	else if (!ft_strcmp(cmd, "echo"))
 		return (ECHO);
-    else if (!ft_strcmp(cmd, "unset"))
-        return (UNSET);
+	else if (!ft_strcmp(cmd, "unset"))
+		return (UNSET);
 	return (NONE);
 }

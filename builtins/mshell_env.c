@@ -14,11 +14,11 @@
 
 bool	mshell_env(t_executor *executor)
 {
-    t_envlst *envlst;
-    int     outfd;
+	t_envlst	*envlst;
+	int			outfd;
 
-    envlst = *executor->envlst;
-    outfd = executor->ctx.fd[STDOUT_FILENO];
-    print_env(envlst, outfd, true);
-    return (true);
+	envlst = *executor->envlst;
+	outfd = executor->ctx.fd[STDOUT_FILENO];
+	print_env(envlst, outfd, true);
+	return (true);
 }

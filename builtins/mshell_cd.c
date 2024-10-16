@@ -36,7 +36,7 @@ char	*get_home_path(t_envlst *envlst)
 
 void	change_pwd_env(t_envlst *envlst, char *key, char *pwd)
 {
-	t_envlst *current;
+	t_envlst	*current;
 
 	current = envlst;
 	while (current)
@@ -56,7 +56,7 @@ bool	mshell_cd(char **args, t_envlst *envlst)
 {
 	char	*path;
 	char	*old_path;
-	
+
 	if (!args[1])
 		path = get_home_path(envlst);
 	else
