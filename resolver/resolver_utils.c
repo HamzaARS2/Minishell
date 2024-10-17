@@ -57,7 +57,8 @@ void	urslv_expand_variable(t_resolver *resolver)
 		{
 			if (current->value)
 				urslv_handle_expanding(resolver, current->value + 1);
-			else {
+			else
+			{
 				free(resolver->current->value);
 				resolver->current->value = NULL;
 			}

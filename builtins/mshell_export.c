@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 22:39:55 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/17 14:13:13 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/17 20:08:52 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,3 @@ bool	mshell_export(t_executor *executor, t_ast *node)
 	}
 	return (!error);
 }
-

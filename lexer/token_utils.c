@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 17:35:46 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/07 09:39:11 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:10:40 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,19 @@ void	free_token(t_token *token)
 {
 	free(token->value);
 	free(token);
+}
+
+void	free_token_list(t_token *token)
+{
+	t_token	*current;
+	t_token	*temp;
+
+	current = token;
+	while (current)
+	{
+		free(current->value);
+		temp = current;
+		current = current->next;
+		free(temp);
+	}
 }

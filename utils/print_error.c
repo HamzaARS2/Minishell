@@ -1,17 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleaner.c                                          :+:      :+:    :+:   */
+/*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/16 19:35:33 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/17 08:46:38 by ajbari           ###   ########.fr       */
+/*   Created: 2024/10/17 18:53:14 by helarras          #+#    #+#             */
+/*   Updated: 2024/10/17 20:14:25 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../include/utils.h"
 
-void    free_mshell(t_mshell *mshell)
+int	print_error(int *ex_status, int st, char *err)
 {
+	*ex_status = st;
+	ft_putstr_fd(err, 2);
+	return (-1);
 }

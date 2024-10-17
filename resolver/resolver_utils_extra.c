@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:21:27 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/17 16:37:15 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:05:04 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,7 @@ void	urslv_handle_expanding(t_resolver *resolver, char *value)
 	{
 		if (i == 0)
 		{
-			free(resolver->current->value);
-			if (!env[i][0] || is_only_spaces(env[i]))
-				resolver->current->value = NULL;
-			else
-				resolver->current->value = env[i];
+			save_expand(resolver, env[i]);
 			i++;
 			continue ;
 		}

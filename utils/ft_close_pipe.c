@@ -6,14 +6,14 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 12:01:14 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/17 12:01:51 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:14:21 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/execution.h"
 
-void    ft_close_pipe(int p[2])
+void	ft_close_pipe(int p[2])
 {
-    close(p[0]);
-    close(p[1]);
+	close(p[0]);
+	close(p[1]);
 }

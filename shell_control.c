@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:49:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/17 17:41:24 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:54:33 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,3 @@ void	mshell_clean(t_mshell *mshell)
 	free(mshell->resolver);
 	free(mshell->parser);
 }
-// FREE PIDS();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 08:04:26 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/17 08:04:27 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/17 19:40:00 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,5 @@ void				add_last_token(t_token *token_list, t_token *token_node);
 t_token				*get_last_token(t_token *token_list);
 bool				is_special_token(t_token *token);
 void				free_token(t_token *token);
-
+void				free_token_list(t_token *token);
 #endif

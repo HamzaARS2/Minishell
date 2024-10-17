@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 09:59:26 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/17 09:53:55 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/17 20:13:47 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 typedef struct s_handler	t_handler;
 typedef enum e_hdl_state	t_hdl_state;
-
 
 typedef t_hdl_state			(*t_validation)(t_token *);
 

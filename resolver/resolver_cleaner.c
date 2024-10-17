@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resolver_cleaner.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 19:44:53 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/17 13:42:48 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/17 20:06:04 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,16 @@ void	rslv_clean(t_resolver *resolver)
 		free(temp);
 		temp = 0;
 	}
+}
+
+void	save_expand(t_resolver *resolver, char *env)
+{
+	free(resolver->current->value);
+	if (!env[0] || is_only_spaces(env))
+	{
+		free(env);
+		resolver->current->value = NULL;
+	}
+	else
+		resolver->current->value = env;
 }
