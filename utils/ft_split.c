@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 12:00:26 by helarras          #+#    #+#             */
-/*   Updated: 2023/12/31 15:22:35 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 07:55:01 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/utils.h"
 
-static int	count_words(char  *str, char delimeter)
+static int	count_words(char *str, char delimeter)
 {
 	int	i;
 	int	count;
@@ -38,8 +38,7 @@ static void	freewords(char **words, int i)
 	free(words);
 }
 
-static char	**strcut(char **words, char *str, char delimeter,
-		int wcount)
+static char	**strcut(char **words, char *str, char delimeter, int wcount)
 {
 	int	i;
 	int	ccount;
@@ -70,7 +69,7 @@ static char	**strcut(char **words, char *str, char delimeter,
 
 char	**ft_split(char *str, char c)
 {
-	int	wcount;
+	int		wcount;
 	char	**words;
 
 	if (!str)

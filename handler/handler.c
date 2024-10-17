@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 10:03:49 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/14 09:39:31 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 08:03:37 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	hdl_post_error(t_handler *handler, t_error error)
 	hdl_print_error(handler);
 }
 
-bool	hdl_search_forward(t_token *token, validation validate_token)
+bool	hdl_search_forward(t_token *token, t_validation validate_token)
 {
 	t_token		*current;
 	t_hdl_state	state;
@@ -57,7 +57,7 @@ bool	hdl_search_forward(t_token *token, validation validate_token)
 	return (false);
 }
 
-bool	hdl_search_back(t_token *token, validation validate_token)
+bool	hdl_search_back(t_token *token, t_validation validate_token)
 {
 	t_token		*current;
 	t_hdl_state	state;

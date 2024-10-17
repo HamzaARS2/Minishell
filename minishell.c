@@ -210,9 +210,12 @@ void    on_destroy() {
 }
 
 
-int main(int ac, char **av, char **env) {
+int main(int ac, char **av, char **env)
+{
     t_mshell mshell;
-    atexit(on_destroy);
+    (void)ac;
+    (void)av;
+    // atexit(on_destroy);
     
     
     init_mshell(&mshell, env);

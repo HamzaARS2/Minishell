@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   cmd_expand_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 09:44:35 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/17 07:53:49 by ajbari           ###   ########.fr       */
+/*   Created: 2024/10/17 08:20:50 by ajbari            #+#    #+#             */
+/*   Updated: 2024/10/17 08:26:26 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/utils.h"
+#include "../include/execution.h"
+#include <errno.h>
 
-void	ft_putstr_fd(char *s, int fd)
+void	err_write(char *minishell, char *cmd, char *err, int status)
 {
-	size_t	i;
-
-	if (!s)
-		return ;
-	i = 0;
-	while (s[i])
-		write(fd, s + (i++), 1);
+	if (errno == ENOTDIR)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(cmd);
+	}
+	else
+	{
+		ft_putstr_fd(minishell, 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(err, 2);
+	}
+	exit(status);
 }

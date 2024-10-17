@@ -1,5 +1,5 @@
 CC := cc
-# CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror
 
 UTILS = lexer/lexer_extract.c lexer/lexer_extract_extra.c lexer/token_utils.c utils/ft_strlen.c utils/substr.c utils/ft_isalnum.c \
 utils/is_shell_special.c utils/strcombine.c utils/ft_strncmp.c utils/ft_strdup.c resolver/resolver_utils.c \
@@ -14,13 +14,13 @@ builtins/exec_builtin.c
 MAIN_FILES = minishell.c lexer/lexer.c lexer/token.c resolver/resolver.c resolver/resolver_cleaner.c handler/handler.c handler/checker.c \
 parser/parser.c parser/procedures.c parser/procedures_extra.c parser/ast.c parser/parser_cleaner.c envlst.c envlst_utils.c shell_control.c \
 execution/execution.c execution/wait.c execution/redirection.c execution/heredoc.c execution/heredoc_utils.c \
-execution/get_path.c execution/cmd_expand.c execution/execution_utils.c  \
+execution/get_path.c execution/cmd_expand.c execution/cmd_expand_utils.c execution/execution_utils.c  \
 $(UTILS) $(BUILTINS)
 
 MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
-RL_PATH = -L/Users/helarras/.brew/opt/readline/lib
-RL_INCLUDE = -I/Users/helarras/.brew/opt/readline/include
+RL_PATH = -L/Users/ajbari/.brew/opt/readline/lib
+RL_INCLUDE = -I/Users/ajbari/.brew/opt/readline/include
 # Get the Readline installation path
 
 # Set Readline flags

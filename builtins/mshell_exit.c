@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 12:41:48 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/16 22:41:35 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 08:52:17 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ int	ft_atoi(char *str)
 bool	mshell_exit(t_executor *executor, char **arg)
 {
 	int		i;
-	char	*trim_arg;
 	int		e_status;
 
 	i = 0;
+	e_status = 0;
 	while (arg[i])
 		i++;
 	if (i == 1)

@@ -12,68 +12,68 @@
 
 #include "include/minishell.h"
 
-t_envlst *get_last_envlst(t_envlst *envlst_list)
+t_envlst	*get_last_envlst(t_envlst *envlst_list)
 {
-    while (envlst_list && envlst_list->next)
-        envlst_list = envlst_list->next;
-    return (envlst_list);
+	while (envlst_list && envlst_list->next)
+		envlst_list = envlst_list->next;
+	return (envlst_list);
 }
 
-void    add_last_envlst(t_envlst *envlst, t_envlst *envlst_node)
+void	add_last_envlst(t_envlst *envlst, t_envlst *envlst_node)
 {
-    t_envlst *current_last;
+	t_envlst	*current_last;
 
-    current_last = get_last_envlst(envlst);
-    if (!current_last)
-        return ;
-    current_last->next = envlst_node;
-    envlst_node->prev = current_last;
+	current_last = get_last_envlst(envlst);
+	if (!current_last)
+		return ;
+	current_last->next = envlst_node;
+	envlst_node->prev = current_last;
 }
 
-t_envlst *create_envlst(char *content)
+t_envlst	*create_envlst(char *content)
 {
-    char        *value;
-    int         keysize;
-    t_envlst    *envlst;
-    
-    envlst = malloc(sizeof(t_envlst));
-    if (!envlst)
-        return (NULL);
-    value = ft_strchr(content, '=');
-    envlst->next = NULL;
-    envlst->prev = NULL;
-    if (!value)
-    {
-        envlst->key = ft_strdup(content);
-        envlst->value = NULL;
-        return (envlst);
-    }
-    keysize = value - content;
-    envlst->key = substr(content, 0, keysize);
-    envlst->value = ft_strdup(value);
-    return (envlst);
+	char		*value;
+	int			keysize;
+	t_envlst	*envlst;
+
+	envlst = malloc(sizeof(t_envlst));
+	if (!envlst)
+		return (NULL);
+	value = ft_strchr(content, '=');
+	envlst->next = NULL;
+	envlst->prev = NULL;
+	if (!value)
+	{
+		envlst->key = ft_strdup(content);
+		envlst->value = NULL;
+		return (envlst);
+	}
+	keysize = value - content;
+	envlst->key = substr(content, 0, keysize);
+	envlst->value = ft_strdup(value);
+	return (envlst);
 }
 
-void    add_envlst(t_envlst **envlst_list, t_envlst *envlst)
+void	add_envlst(t_envlst **envlst_list, t_envlst *envlst)
 {
-    if (!(*envlst_list))
-        *envlst_list = envlst;
-    else
-        add_last_envlst(*envlst_list, envlst);
+	if (!(*envlst_list))
+		*envlst_list = envlst;
+	else
+		add_last_envlst(*envlst_list, envlst);
 }
 
-t_envlst    *init_envlst(char **env)
+t_envlst	*init_envlst(char **env)
 {
-    t_envlst *head;
+	t_envlst	*head;
 
-    if (!env || !*env)
-        return (NULL);
-    head = create_envlst((*env));
-    env++;
-    while (*env)
-    {
-        add_envlst(&head, create_envlst(*env));
-        env++;
-    }
-    return (head);
+	if (!env || !*env)
+		return (NULL);
+	head = create_envlst((*env));
+	env++;
+	while (*env)
+	{
+		add_envlst(&head, create_envlst(*env));
+		env++;
+	}
+	return (head);
 }

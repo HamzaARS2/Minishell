@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 char	*ft_strchr(const char *s, int c)
 {
 	int		i;
@@ -22,10 +20,10 @@ char	*ft_strchr(const char *s, int c)
 	while (s && s[i])
 	{
 		if (s[i] == uc)
-			return ((char *) &s[i]);
+			return ((char *)&s[i]);
 		i++;
 	}
 	if (uc == '\0')
-		return ((char *) &s[i]);
+		return ((char *)&s[i]);
 	return (0);
 }

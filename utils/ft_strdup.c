@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 11:54:55 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/08 08:34:01 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/17 07:55:38 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strdup(char *s1)
 
 	i = 0;
 	if (!s1)
-		return NULL;
+		return (NULL);
 	s1_bytes = ft_strlen(s1) + 1;
 	dest = malloc(s1_bytes * sizeof(char));
 	if (!dest)

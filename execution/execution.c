@@ -3,153 +3,129 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/16 22:01:20 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 08:48:01 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/execution.h"
 #include "../include/builtins.h"
+#include "../include/execution.h"
 
-extern int g_signal;
+extern int	g_signal;
 
-void    init_executor(t_executor *executor, t_envlst **envlst, int *ex_status)
+void	child_sig_handler(int sig)
 {
-    t_context ctx;
-
-    ctx = (t_context) {{STDIN_FILENO, STDOUT_FILENO}, -1};
-    executor->ctx = ctx;
-    executor->ex_status = ex_status;
-    executor->pids = NULL;
-    executor->paths = get_paths(*envlst);
-    executor->envlst = envlst;
-
+	if (sig == SIGQUIT)
+	{
+		ft_putstr_fd("Quit: 3\n", 2);
+		g_signal = 131;
+	}
+	else if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		g_signal = 130;
+	}
 }
 
-void child_sig_handler(int sig)
+bool	exec_cmd(t_ast *node, t_executor *executor)
 {
-    if (sig == SIGQUIT)
-    {
-        ft_putstr_fd("Quit: 3\n", 2);
-        g_signal = 131;
-    }
-    else if (sig == SIGINT)
-    {
-        write(1, "\n", 1);
-        g_signal = 130;
-    }
+	pid_t	pid;
+
+	signal(SIGQUIT, &child_sig_handler);
+	signal(SIGINT, &child_sig_handler);
+	pid = fork();
+	if (pid == -1)
+	{
+		add_pid(&(executor->pids), -1);
+		perror("minishell: fork: Resource temporarily unavailable");
+		return (false);
+	}
+	if (pid != 0)
+	{
+		add_pid(&(executor->pids), pid);
+		return (true);
+	}
+	run_command(node, executor);
+	return (true);
 }
 
-bool    exec_cmd(t_ast *node, t_executor *executor)
+void	exec_pipe(t_ast *ast, t_executor *executor)
 {
-    pid_t   pid;
-    char    *path;
+	t_context	l_ctx;
+	t_context	r_ctx;
+	int			p[2];
 
-    signal(SIGQUIT, &child_sig_handler);
-    signal(SIGINT, &child_sig_handler);
-    pid = fork();
-    if (pid == -1)
-    {
-        add_pid(&(executor->pids), -1);
-        perror("minishell: fork: Resource temporarily unavailable");
-        return (false);
-    } 
-    if (pid != 0)
-    {
-        add_pid(&(executor->pids), pid);
-        return (true);
-    }
-    run_command(node, executor);
-    return (true);
-}
-void    exec_pipe(t_ast *ast, t_executor *executor)
-{
-    t_context l_ctx;
-    t_context r_ctx;
-    int p[2];
-
-    l_ctx = executor->ctx;
-    r_ctx = executor->ctx;
-    if (pipe(p) == -1)
-    {
-        *executor->ex_status = EXIT_FAILURE;
-        perror("minishell: pipe error:");
-        return ;
-    }
-    l_ctx.fd[STDOUT_FILENO] = p[STDOUT_FILENO];
-    // if (r_ctx.close_fd != -1)
-    //     close (r_ctx.close_fd);
-    l_ctx.close_fd = p[STDIN_FILENO];
-    executor->ctx = l_ctx;
-    if (!exec_tree(ast->left, executor))
-        return ;
-    r_ctx.fd[STDIN_FILENO] = p[STDIN_FILENO];
-    r_ctx.close_fd = p[STDOUT_FILENO];
-    executor->ctx = r_ctx;
-    exec_tree(ast->right, executor);
-    close(p[STDIN_FILENO]);
-    close(p[STDOUT_FILENO]);
+	l_ctx = executor->ctx;
+	r_ctx = executor->ctx;
+	if (pipe(p) == -1)
+	{
+		*executor->ex_status = EXIT_FAILURE;
+		perror("minishell: pipe error:");
+		return ;
+	}
+	l_ctx.fd[STDOUT_FILENO] = p[STDOUT_FILENO];
+	// if (r_ctx.close_fd != -1)
+	//     close (r_ctx.close_fd);
+	l_ctx.close_fd = p[STDIN_FILENO];
+	executor->ctx = l_ctx;
+	if (!exec_tree(ast->left, executor))
+		return ;
+	r_ctx.fd[STDIN_FILENO] = p[STDIN_FILENO];
+	r_ctx.close_fd = p[STDOUT_FILENO];
+	executor->ctx = r_ctx;
+	exec_tree(ast->right, executor);
+	close(p[STDIN_FILENO]);
+	close(p[STDOUT_FILENO]);
 }
 
-
-bool    exec_tree(t_ast *ast, t_executor *executor)
+bool	exec_tree(t_ast *ast, t_executor *executor)
 {
-    int fd;
-    if (ast->type == AST_COMMAND)
-    {
-        fd = hndl_redirect(ast, &executor->ctx); //HANDLE REDIRECTIONS
-        if (fd == -1)
-        {
-            add_pid(&executor->pids, -1);
-            return (false);
-        }
-        if (!exec_cmd(ast, executor))
-            return (false);
-        if (fd != -2)
-            close (fd);
-    }
-    else if (ast->type == AST_PIPE)
-        exec_pipe(ast, executor);
-    return (true);
+	int	fd;
+
+	if (ast->type == AST_COMMAND)
+	{
+		fd = hndl_redirect(ast, &executor->ctx);
+		if (fd == -1)
+		{
+			add_pid(&executor->pids, -1);
+			return (false);
+		}
+		if (!exec_cmd(ast, executor))
+			return (false);
+		if (fd != -2)
+			close(fd);
+	}
+	else if (ast->type == AST_PIPE)
+		exec_pipe(ast, executor);
+	return (true);
 }
-void   exec(t_ast *ast, t_executor *executor)
+
+void	exec(t_ast *ast, t_executor *executor)
 {
-    t_builtins_type type;
-    int             fd;
-    type = NONE;
-    if (ast->type == AST_COMMAND)
-        type = builtin_check(ast->args[0]);
+	t_builtins_type type;
+	int fd;
 
-    if (type != NONE)
-    {
-        fd = hndl_redirect(ast, &executor->ctx);
-        if (fd == -1)
-            add_pid(&executor->pids, -1);
-        else
-        {
-            if (!exec_builtin(executor, ast, type))
-                add_pid(&executor->pids, -1);
-            else
-                *executor->ex_status = 0;
-            if (fd > 0)
-                close(fd);
-        }
-    }
-    else
-        exec_tree(ast, executor);
-    // print_pids(executor->pids, 2);    //TESTING : printing the pids list;
-    
-    ft_wait(executor);
-    
-    // printf("STATUS: %d\n", *executor->ex_status);
-    
-
-
-
-    
-    // system("leaks -q minishell"); //**LEAKS TEST**//
-    // print_dpointer(executor->paths);
-
+	type = NONE;
+	if (ast->type == AST_COMMAND)
+		type = builtin_check(ast->args[0]);
+	if (type != NONE)
+	{
+		fd = hndl_redirect(ast, &executor->ctx);
+		if (fd == -1)
+			add_pid(&executor->pids, -1);
+		else
+		{
+			if (!exec_builtin(executor, ast, type))
+				add_pid(&executor->pids, -1);
+			else
+				*executor->ex_status = 0;
+			if (fd > 0)
+				close(fd);
+		}
+	}
+	else
+		exec_tree(ast, executor);
+	ft_wait(executor);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resolver_utils_extra.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:21:27 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/16 17:49:54 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 08:51:04 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	urslv_insert_token(t_resolver *resolver, t_token *token)
 	resolver->next = token;
 }
 
-char	**urslv_get_env_value(t_resolver *resolver, char *value)
+char	**urslv_get_env_value(char *value)
 {
 	char	**env;
 
@@ -78,7 +78,7 @@ void	urslv_handle_expanding(t_resolver *resolver, char *value)
 	char		**env;
 
 	i = 0;
-	env = urslv_get_env_value(resolver, value);
+	env = urslv_get_env_value(value);
 	if (!env)
 		return ;
 	while (env[i])

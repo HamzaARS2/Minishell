@@ -1,81 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_path.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/17 08:33:20 by ajbari            #+#    #+#             */
+/*   Updated: 2024/10/17 08:35:05 by ajbari           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/execution.h"
 
-
-void print_dpointer(char **dirs)
+char	*is_path(t_envlst *env)
 {
-    while (*dirs)
-    {
-        printf("dp :%s\n", *dirs);
-        dirs++;
-    }
-}
-void print_envlst(t_envlst *envlst)
-{
-    t_envlst *current  = envlst;
-    int i  = 0;
-    while (current)
-    {
-        printf("envlst%d: %s\n", i++, current->value);
-        current = current->next;
-    }
+	if (ft_strcmp(env->key, "PATH"))
+		return (NULL);
+	return (env->value + 1);
 }
 
-//***** ^TOOLS ******************************************
-//*******************************************************
-
-
-
-char    *is_path(t_envlst *env)
+char	*get_path(t_envlst *envlst)
 {
-    if (ft_strcmp(env->key, "PATH"))
-        return (NULL);
-    return (env->value + 1);
+	t_envlst	*current;
+	char		*path;
+
+	current = envlst;
+	while (current)
+	{
+		path = is_path(current);
+		if (path)
+			return (path);
+		current = current->next;
+	}
+	return (NULL);
 }
 
-
-char    *get_path(t_envlst *envlst)
+char	**get_paths(t_envlst *envlst)
 {
-    t_envlst    *current;
-    char *path;
+	char	*path;
+	char	**dirs;
 
-    current = envlst;
-    while (current)
-    {
-        path = is_path(current);
-        if (path)
-            return (path);
-        current = current->next;
-    }
-    return (NULL);
-}
-
-
-char    **get_paths(t_envlst *envlst)
-{
-    char    *path;
-    char    **dirs;
-
-    // print_envlst(envlst);
-
-
-    path = get_path(envlst);
-    if (!path)
-        return(NULL);
-
-    // printf("path:%s\n", path);
-    
-    //split with ":";
-    dirs = ft_split(path, ':');
-    if (dirs == NULL) {
-        fprintf(stderr, "Error: Failed to split path.\n");
-        return NULL;
-    }
-    return (dirs);
-    // print_dpointer(dirs); //TEST
-    //check cmd access
-
-
-    //replace the tree args;
-    // rplace_tree_args(dirs, ast);
-
+	path = get_path(envlst);
+	if (!path)
+		return (NULL);
+	dirs = ft_split(path, ':');
+	if (dirs == NULL)
+	{
+		fprintf(stderr, "Error: Failed to split path.\n");
+		return (NULL);
+	}
+	return (dirs);
 }

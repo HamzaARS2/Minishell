@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 15:08:05 by helarras          #+#    #+#             */
-/*   Updated: 2024/08/25 12:00:59 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 07:55:50 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-unsigned int    ft_strlen(char *str)
+unsigned int	ft_strlen(char *str)
 {
-    unsigned int i;
-    
-    i = 0;
-    while (str && str[i])
-        i++;
-    return (i);
+	unsigned int	i;
+
+	i = 0;
+	while (str && str[i])
+		i++;
+	return (i);
 }

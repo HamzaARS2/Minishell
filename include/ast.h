@@ -13,47 +13,49 @@
 #ifndef AST_H
 # define AST_H
 
-#include "token.h"
+# include "token.h"
 
-typedef enum e_ast_type {
-    AST_COMMAND = 1,
-    AST_PIPE,
-    AST_IN_RED,
-    AST_OUT_RED,
-    AST_APPEND,
-    AST_HEREDOC,
-    AST_INQ_HEREDOC
-} t_ast_type;
+typedef enum e_ast_type
+{
+	AST_COMMAND = 1,
+	AST_PIPE,
+	AST_IN_RED,
+	AST_OUT_RED,
+	AST_APPEND,
+	AST_HEREDOC,
+	AST_INQ_HEREDOC
+}						t_ast_type;
 
-typedef struct s_redirect {
-    char *content;
-    t_ast_type type;
-    int heredoc_fd;
-    struct s_redirect *next;
-} t_redirect;
+typedef struct s_redirect
+{
+	char				*content;
+	t_ast_type			type;
+	int					heredoc_fd;
+	struct s_redirect	*next;
+}						t_redirect;
 
-typedef struct s_ast {
-    char    **args;
-    t_ast_type type;
-    t_redirect *redirect;
-    struct s_ast *left;
-    struct s_ast *right;
-} t_ast;
+typedef struct s_ast
+{
+	char				**args;
+	t_ast_type			type;
+	t_redirect			*redirect;
+	struct s_ast		*left;
+	struct s_ast		*right;
+}						t_ast;
 
 // creates AST node.
-t_ast   *ast_create_node(char **args, t_ast_type type);
+t_ast					*ast_create_node(char **args, t_ast_type type);
 
 // creates AST command redirection.
-t_redirect *ast_create_redirect(char *content, t_ast_type type);
+t_redirect				*ast_create_redirect(char *content, t_ast_type type);
 
-void    ast_add_redirect(t_redirect **redirect_list, t_redirect *redirect);
+void					ast_add_redirect(t_redirect **redirect_list,
+							t_redirect *redirect);
 
 // utils.
-t_redirect  *get_last_redirect(t_redirect *redirect_list);
-void        add_last_redirect(t_redirect *redirect_list, t_redirect *redirect_node);
-t_ast_type  get_ast_type(t_token *token);
-
-
-
+t_redirect				*get_last_redirect(t_redirect *redirect_list);
+void					add_last_redirect(t_redirect *redirect_list,
+							t_redirect *redirect_node);
+t_ast_type				get_ast_type(t_token *token);
 
 #endif

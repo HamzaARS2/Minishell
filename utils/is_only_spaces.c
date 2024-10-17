@@ -12,14 +12,13 @@
 
 #include "../include/utils.h"
 
-
-bool    is_only_spaces(char *str)
+bool	is_only_spaces(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (str && str[i])
-        if (str[i++] != 32)
-            return (false);
-    return (true);
+	i = 0;
+	while (str && str[i])
+		if (str[i++] != 32)
+			return (false);
+	return (true);
 }

@@ -1,31 +1,18 @@
-// TODO: search adapter
-
-// (1) *fix the structure with the strcombine thing : (√)
-// (2) *Using relative paths.                       : (√)
-// (3) *xecuting directories.                       : (√)
-// (4) *check LEAKS(),                              : ()
-// Checking commands without a path or when PATH is empty.
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_expand.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/17 08:14:33 by ajbari            #+#    #+#             */
+/*   Updated: 2024/10/17 08:26:42 by ajbari           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/execution.h"
-#include <sys/stat.h>
 #include <errno.h>
-void	err_write(char *minishell, char *cmd, char *err, int status)
-{
-	if (errno == ENOTDIR)
-	{
-
-
-		ft_putstr_fd("minishell: ", 2);
-		perror(cmd);
-	}
-	else
-	{
-		ft_putstr_fd(minishell, 2);
-		ft_putstr_fd(cmd, 2);
-		ft_putstr_fd(err, 2);
-	}
-	exit(status);
-}
+#include <sys/stat.h>
 
 int	is_directory(char *path)
 {
@@ -36,6 +23,7 @@ int	is_directory(char *path)
 		return (1);
 	return (0);
 }
+
 int	check_access(char *path)
 {
 	int	status;
@@ -72,15 +60,14 @@ char	*expand_cmd_path(char *path, char *cmd)
 	{
 		status = check_access(cmd);
 		if (status == 2)
-				err_write("minishell: ", cmd, ": No such file or directory\n", 127);
+			err_write("minishell: ", cmd, ": No such file or directory\n", 127);
 		else if (status == 1)
 			err_write("minishell: ", cmd, ": Permission denied\n", 126);
 		return (cmd);
 	}
 	if (!path)
 		return (NULL);
-	cmd_slash = strcombine(path, "/", false); // (|) *FREE CMD_SLASH
-		////****// *FREE() (1) FREE_PATH  (2) FREE_CMD(AST->ARG)
+	cmd_slash = strcombine(path, "/", false);
 	rtrn_path = strcombine(cmd_slash, cmd, false);
 	free(cmd_slash);
 	return (rtrn_path);
@@ -115,11 +102,11 @@ char	*check_cmd(char **paths, char *cmd)
 
 char	*cmd_expand(char *cmd, char **paths)
 {
-	char *check_return ;
+	char	*check_return ;
+
 	check_return = 0;
 	if (!cmd)
 		exit(0);
 	check_return = check_cmd(paths, cmd);
-	// system("leaks -q minishell"); //**LEAKS TEST**//=
-	return (check_return); //add "/"  //add CMD
+	return (check_return);
 }

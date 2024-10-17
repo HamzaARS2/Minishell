@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   is_shell_special.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 10:28:31 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/16 17:26:49 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 07:56:53 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 
-bool    is_shell_special(char c)
+bool	is_shell_special(char c)
 {
-    if ((c >= 9 && c <= 13) || c == 32 || c == '$' || c == '|' || c == '<' || c == '>' || c == '"'
-        || c == '"' || c == '\'' || c == '\'')
-        return (true);
-    return (false);
+	if ((c >= 9 && c <= 13) || c == 32 || c == '$' || c == '|' || c == '<'
+		|| c == '>' || c == '"' || c == '"' || c == '\'' || c == '\'')
+		return (true);
+	return (false);
 }
