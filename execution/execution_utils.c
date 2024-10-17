@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 08:33:12 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/17 08:33:13 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/17 12:13:41 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	exec_clean(t_executor *executor)
 	int	i;
 
 	i = 0;
-	while (executor->paths[i])
+	while (executor->paths && executor->paths[i])
 		free(executor->paths[i++]);
 	free(executor->paths);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 22:39:55 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/16 22:42:13 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:13:13 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ bool	env_update(t_envlst *env, char *new_env)
 	if (!update_value)
 		return (false);
 	update_value = ft_strdup(update_value);
-	free(new_env);
+	free(env->value);
 	env->value = update_value;
 	return (true);
 }
@@ -112,3 +112,4 @@ bool	mshell_export(t_executor *executor, t_ast *node)
 	}
 	return (!error);
 }
+

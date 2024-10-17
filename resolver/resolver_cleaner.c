@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resolver_cleaner.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 19:44:53 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/16 22:45:11 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:42:48 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	rslv_clean(t_resolver *resolver)
 	while (current)
 	{
 		free(current->value);
+		current->value = NULL;
 		temp = current;
 		current = current->next;
 		free(temp);

@@ -6,7 +6,7 @@
 /*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 18:56:59 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/17 08:48:01 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/17 12:09:26 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	exec_cmd(t_ast *node, t_executor *executor)
 	pid_t	pid;
 
 	signal(SIGQUIT, &child_sig_handler);
-	signal(SIGINT, &child_sig_handler);
+	// signal(SIGINT, &child_sig_handler);
 	pid = fork();
 	if (pid == -1)
 	{
