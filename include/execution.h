@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 19:03:53 by ajbari            #+#    #+#             */
-/*   Updated: 2024/10/17 08:22:23 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/17 17:20:39 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,16 @@ void				init_executor(t_executor *executor, t_envlst **envlst,
 
 void				print_pids(t_pids *pids, int flag); //delete
 
-int					hndl_redirect(t_ast *ast, t_context *ctx);
+t_context   hndl_redirect(t_ast *ast, t_context *ctx);
 
-void				hrdoc_collect(t_ast *node, t_envlst *envlst,
+
+bool				hrdoc_collect(t_ast *node, t_envlst *envlst,
 						int *ex_status);
 
 void				hrdoc_search(t_redirect *redirect, t_envlst *envlst,
 						int *ex_status);
 
-void				hrdoc_run(t_redirect *heredoc, t_envlst *envlst,
-						int *ex_status);
+int     hrdoc_run(t_redirect *heredoc, t_envlst *envlst, int *ex_status);
 
 bool				uhrdoc_env_exist(char *line);
 

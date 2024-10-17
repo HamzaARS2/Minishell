@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 15:34:55 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/16 17:52:48 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:09:32 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	urslv_expand_variable(t_resolver *resolver)
 		{
 			if (current->value)
 				urslv_handle_expanding(resolver, current->value + 1);
-			{
+			else {
 				free(resolver->current->value);
 				resolver->current->value = NULL;
 			}

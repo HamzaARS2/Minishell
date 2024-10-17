@@ -187,7 +187,7 @@ void    display_prompt(t_mshell *mshell)
     
     while (true)
     {
-        // signal(SIGINT, sig_handler);
+        signal(SIGINT, sig_handler);
         signal(SIGQUIT, SIG_IGN);
         line = readline("minishell > ");
         if (g_signal)

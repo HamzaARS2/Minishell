@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   shell_control.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 15:49:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/17 16:23:08 by ajbari           ###   ########.fr       */
+/*   Updated: 2024/10/17 17:41:24 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/execution.h"
 #include "include/minishell.h"
+
+extern int g_signal;
 
 void	init_mshell(t_mshell *mshell, char **env)
 {
@@ -46,9 +48,28 @@ bool	mshell_parse(t_mshell *mshell, char *line)
 
 void	mshell_execute(t_mshell *mshell)
 {
-	init_executor(&mshell->executor, &mshell->envlst, &mshell->ex_status);
-	hrdoc_collect(mshell->parser->ast, mshell->envlst, &mshell->ex_status);
-	exec(mshell->parser->ast, &(mshell->executor));
+    init_executor(&mshell->executor, &mshell->envlst, &mshell->ex_status);
+    // TODO: execute the whole AST.
+    // TODO: execute the whole AST.
+    if (!hrdoc_collect(mshell->parser->ast, mshell->envlst, &mshell->ex_status))
+	{
+		mshell->ex_status = 1;
+		return ;
+	}
+    if (mshell->ex_status == -2)
+    {
+        mshell_clean(mshell);
+        exit(2);
+    }
+    exec(mshell->parser->ast, &(mshell->executor));
+    //TODO: FREE THE PATHS;
+    ft_wait(&mshell->executor);
+
+    //* HAMZA'S PREVIOUS PROTOTYPE
+    /*     t_executor executor;
+
+        init_executor(&executor, mshell->parser->ast, NULL);
+        execute_ast(&executor); */
 }
 
 void	mshell_clean(t_mshell *mshell)
