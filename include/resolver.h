@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resolver.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 14:04:53 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/17 20:06:31 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:45:15 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,5 @@ void				urslv_expand_exstatus(t_resolver *resolver);
 // cleaner
 void				rslv_clean(t_resolver *resolver);
 void				save_expand(t_resolver *resolver, char *env);
+void				change_links(t_token *current);
 #endif

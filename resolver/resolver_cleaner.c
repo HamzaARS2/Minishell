@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resolver_cleaner.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 19:44:53 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/17 20:06:04 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 22:04:18 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,11 @@ void	save_expand(t_resolver *resolver, char *env)
 	}
 	else
 		resolver->current->value = env;
+}
+
+void	change_links(t_token *current)
+{
+	current->prev->next = current->next;
+	if (current->next)
+		current->next->prev = current->prev;
 }

@@ -19,17 +19,15 @@ $(UTILS) $(BUILTINS)
 
 MAIN_OBJS = $(MAIN_FILES:.c=.o)
 
-RL_PATH = -L/Users/helarras/.brew/opt/readline/lib
-RL_INCLUDE = -I/Users/helarras/.brew/opt/readline/include
+RL_PATH = -L/Users/ajbari/.brew/opt/readline/lib
+RL_INCLUDE = -I/Users/ajbari/.brew/opt/readline/include
 
 NAME := minishell
 
-# ADS := -fsanitize=address -g
-
-all: $(NAME) clean
+all: $(NAME)
 
 $(NAME): $(MAIN_OBJS)
-	$(CC) $(MAIN_OBJS) $(RL_PATH) -lreadline -o $(NAME) $(ADS)
+	$(CC) $(MAIN_OBJS) $(RL_PATH) -lreadline -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(RL_INCLUDE) -c $< -o $@

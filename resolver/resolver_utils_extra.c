@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   resolver_utils_extra.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ajbari <ajbari@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 16:21:27 by helarras          #+#    #+#             */
-/*   Updated: 2024/10/17 20:05:04 by helarras         ###   ########.fr       */
+/*   Updated: 2024/10/17 22:05:23 by ajbari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	urslv_remove_spaces(t_resolver *resolver)
 {
 	t_token	**head;
 	t_token	*current;
+	t_token	*temp;
 
 	head = resolver->tokens;
 	current = *head;
@@ -32,12 +33,11 @@ void	urslv_remove_spaces(t_resolver *resolver)
 					current->next->prev = NULL;
 			}
 			else
-			{
-				current->prev->next = current->next;
-				if (current->next)
-					current->next->prev = current->prev;
-			}
-			free_token(current);
+				change_links(current);
+			temp = current;
+			current = current->next;
+			free_token(temp);
+			continue ;
 		}
 		current = current->next;
 	}
